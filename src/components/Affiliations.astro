@@ -1,0 +1,56 @@
+---
+import { client, urlFor } from '../lib/sanity'
+
+interface Affiliation {
+  _id: string
+  orgName: string
+  logo: {
+    _type: 'image'
+    asset: { _ref: string; _type: 'reference' }
+  }
+  websiteUrl: string
+  order: number
+}
+
+const affiliations = await client.fetch<Affiliation[]>(
+  `*[_type == "affiliation"] | order(order asc) {
+    _id,
+    orgName,
+    logo,
+    websiteUrl,
+    order
+  }`
+)
+---
+
+{affiliations.length > 0 && (
+  <section class="flex flex-col gap-6">
+    <h2 class="font-display text-[18px] sm:text-[23px] text-white">Also Affiliated With</h2>
+
+    <div class="flex flex-nowrap items-center gap-7 overflow-x-auto pb-1">
+      {affiliations.map((aff) => (
+        <a
+          href={aff.websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={aff.orgName}
+          class="group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded"
+        >
+          {aff.logo?.asset ? (
+            <img
+              src={urlFor(aff.logo).width(312).url()}
+              alt={aff.orgName}
+              class="max-h-[36px] sm:max-h-[52px] max-w-[110px] sm:max-w-[156px] w-auto h-auto object-contain brightness-0 invert transition-[filter] duration-300 group-hover:brightness-100 group-hover:invert-0"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <span class="font-display text-[14px] text-[#c7c7c7]">
+              {aff.orgName}
+            </span>
+          )}
+        </a>
+      ))}
+    </div>
+  </section>
+)}

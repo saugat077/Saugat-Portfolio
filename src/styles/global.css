@@ -1,1 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400;0,600;0,700;1,400&family=Pixelify+Sans:wght@400&display=swap");
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('/fonts/coolvetica.otf') format('opentype');
+  font-display: swap;
+}
+
+@theme {
+  --font-display: 'Coolvetica', sans-serif;
+  --font-body: 'Afacad', sans-serif;
+  --font-pixel: 'Pixelify Sans', monospace;
+}

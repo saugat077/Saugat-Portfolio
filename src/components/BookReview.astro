@@ -1,0 +1,66 @@
+---
+import { client, urlFor } from '../lib/sanity'
+
+interface Book {
+  _id: string
+  title: string
+  author: string
+  coverImage: {
+    _type: 'image'
+    asset: { _ref: string; _type: 'reference' }
+  }
+  slug: { current: string }
+}
+
+const books = await client.fetch<Book[]>(
+  `*[_type == "book" && status == "published"] | order(_createdAt desc) [0...4] {
+    _id,
+    title,
+    author,
+    coverImage,
+    slug
+  }`
+)
+---
+
+{books.length > 0 && (
+  <section class="flex flex-col gap-6">
+    <!-- Section header -->
+    <div class="flex items-center justify-between">
+      <h2 class="font-display text-[18px] sm:text-[23px] text-white">Book Review</h2>
+      <a
+        href="/books"
+        class="font-display text-[13px] text-white hover:text-[#a1a1aa] transition-colors"
+      >
+        View more &gt;
+      </a>
+    </div>
+
+    <!-- Book covers row — 4 fixed-size slots; scrollable on mobile -->
+    <div class="flex gap-[10px] sm:gap-[14px] items-start overflow-x-auto pb-1 -mb-1">
+      {books.map((book) => (
+        <a
+          href={`/books/${book.slug.current}`}
+          class="shrink-0 w-[140px] h-[224px] sm:w-[179px] sm:h-[287px] rounded-lg overflow-hidden block hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+          title={`${book.title} — ${book.author}`}
+        >
+          {book.coverImage?.asset ? (
+            <img
+              src={urlFor(book.coverImage).width(360).height(576).url()}
+              alt={`${book.title} cover`}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div class="w-full h-full bg-[#18181b] border border-[#27272a] rounded-lg flex items-end p-3">
+              <span class="font-body text-[13px] text-[#a1a1aa] line-clamp-3 leading-tight">
+                {book.title}
+              </span>
+            </div>
+          )}
+        </a>
+      ))}
+    </div>
+  </section>
+)}

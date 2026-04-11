@@ -1,0 +1,97 @@
+---
+// Static navbar — no data fetching needed
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a] border-b border-transparent" id="site-header">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="max-w-[760px] mx-auto px-6 xl:px-0 flex items-center justify-between h-[60px] sm:h-[72px]">
+      <a
+        href="/"
+        class="font-display text-[22px] sm:text-[28px] bg-gradient-to-r from-[#0d9aff] to-[#e0efff] bg-clip-text text-transparent leading-normal py-1"
+      >
+        @alwaysaugat
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden sm:flex items-center gap-4 sm:gap-5" aria-label="Primary navigation">
+        <a href="/" class="font-display text-[22px] text-white hover:text-[#a1a1aa] transition-colors">Home</a>
+        <a href="/projects" class="font-display text-[22px] text-white hover:text-[#a1a1aa] transition-colors">Projects</a>
+        <a href="/blogs" class="font-display text-[22px] text-white hover:text-[#a1a1aa] transition-colors">Blogs</a>
+        <a href="/books" class="font-display text-[22px] text-white hover:text-[#a1a1aa] transition-colors">Books</a>
+      </nav>
+
+      <!-- Mobile hamburger button -->
+      <button
+        id="mobile-menu-btn"
+        class="sm:hidden flex flex-col justify-center gap-[5px] w-8 h-8 shrink-0"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span id="bar1" class="block w-5 h-[2px] bg-white rounded-full transition-all duration-300 origin-center"></span>
+        <span id="bar2" class="block w-5 h-[2px] bg-white rounded-full transition-all duration-300"></span>
+        <span id="bar3" class="block w-5 h-[2px] bg-white rounded-full transition-all duration-300 origin-center"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile full-screen menu -->
+<div
+  id="mobile-menu"
+  class="sm:hidden fixed inset-0 bg-[#0a0a0a] z-40 flex flex-col items-center justify-center gap-10 pointer-events-none opacity-0 transition-opacity duration-300"
+  aria-hidden="true"
+>
+  <a href="/" class="font-display text-[36px] text-white hover:text-[#a1a1aa] transition-colors">Home</a>
+  <a href="/projects" class="font-display text-[36px] text-white hover:text-[#a1a1aa] transition-colors">Projects</a>
+  <a href="/blogs" class="font-display text-[36px] text-white hover:text-[#a1a1aa] transition-colors">Blogs</a>
+  <a href="/books" class="font-display text-[36px] text-white hover:text-[#a1a1aa] transition-colors">Books</a>
+</div>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null
+  const menu = document.getElementById('mobile-menu')
+  const bar1 = document.getElementById('bar1')
+  const bar2 = document.getElementById('bar2')
+  const bar3 = document.getElementById('bar3')
+  const header = document.getElementById('site-header')
+
+  let open = false
+
+  function setOpen(value: boolean) {
+    open = value
+    btn?.setAttribute('aria-expanded', String(value))
+    menu?.setAttribute('aria-hidden', String(!value))
+
+    if (value) {
+      // Show menu
+      menu?.classList.remove('pointer-events-none', 'opacity-0')
+      menu?.classList.add('pointer-events-auto', 'opacity-100')
+      // Animate bars → X
+      bar1?.classList.add('translate-y-[7px]', 'rotate-45')
+      bar2?.classList.add('opacity-0', 'scale-x-0')
+      bar3?.classList.add('-translate-y-[7px]', '-rotate-45')
+      header?.classList.add('border-[#18181b]')
+      header?.classList.remove('border-transparent')
+      document.body.style.overflow = 'hidden'
+    } else {
+      // Hide menu
+      menu?.classList.add('pointer-events-none', 'opacity-0')
+      menu?.classList.remove('pointer-events-auto', 'opacity-100')
+      // Animate bars → hamburger
+      bar1?.classList.remove('translate-y-[7px]', 'rotate-45')
+      bar2?.classList.remove('opacity-0', 'scale-x-0')
+      bar3?.classList.remove('-translate-y-[7px]', '-rotate-45')
+      header?.classList.remove('border-[#18181b]')
+      header?.classList.add('border-transparent')
+      document.body.style.overflow = ''
+    }
+  }
+
+  btn?.addEventListener('click', () => setOpen(!open))
+
+  // Close when a link is clicked
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setOpen(false))
+  })
+</script>

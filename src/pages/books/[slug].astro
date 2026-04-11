@@ -1,0 +1,228 @@
+---
+import { client, urlFor } from '../../lib/sanity'
+import '../../styles/global.css'
+
+// ── Types ──────────────────────────────────────────────────────────────────
+
+interface PTSpan {
+  _type: 'span'
+  _key: string
+  text: string
+  marks: string[]
+}
+
+interface PTImageBlock {
+  _type: 'image'
+  _key: string
+  asset: { _ref: string; _type: 'reference' }
+}
+
+interface PTTextBlock {
+  _type: 'block'
+  _key: string
+  style: string
+  children: PTSpan[]
+  listItem?: 'bullet' | 'number'
+  level?: number
+}
+
+type BodyBlock = PTTextBlock | PTImageBlock
+
+interface Book {
+  title: string
+  author: string
+  coverImage: {
+    _type: 'image'
+    asset: { _ref: string; _type: 'reference' }
+  }
+  body: BodyBlock[]
+}
+
+// ── Fetch ──────────────────────────────────────────────────────────────────
+
+const { slug } = Astro.params
+
+const book = await client.fetch<Book | null>(
+  `*[_type == "book" && slug.current == $slug][0] {
+    title,
+    author,
+    coverImage,
+    body
+  }`,
+  { slug }
+)
+
+if (!book) {
+  return Astro.redirect('/404')
+}
+
+// ── Portable Text → HTML ───────────────────────────────────────────────────
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
+function ptToHtml(blocks: BodyBlock[]): string {
+  const parts: string[] = []
+  let currentList: 'bullet' | 'number' | null = null
+
+  for (const block of blocks) {
+    // ── Image block ──
+    if (block._type === 'image') {
+      if (currentList) {
+        parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
+        currentList = null
+      }
+      const imgBlock = block as PTImageBlock
+      const src = urlFor(imgBlock).width(760).url()
+      parts.push(
+        `<img src="${src}" alt="" class="w-full rounded-lg my-6" loading="lazy" decoding="async" />`
+      )
+      continue
+    }
+
+    // ── Text block ──
+    const b = block as PTTextBlock
+    if (!b.children?.length) continue
+
+    const inlineHtml = b.children
+      .map((span) => {
+        let t = escapeHtml(span.text)
+        if (span.marks.includes('strong')) t = `<strong class="font-semibold text-white">${t}</strong>`
+        if (span.marks.includes('em')) t = `<em class="italic">${t}</em>`
+        if (span.marks.includes('code')) t = `<code class="bg-[#18181b] text-[#a1a1aa] px-1 rounded text-sm">${t}</code>`
+        return t
+      })
+      .join('')
+
+    // ── List items ──
+    if (b.listItem) {
+      const listType = b.listItem
+      if (currentList !== listType) {
+        if (currentList) parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
+        parts.push(
+          listType === 'bullet'
+            ? '<ul class="list-disc list-inside font-body text-[16px] text-[#a1a1aa] leading-relaxed space-y-2 my-4 ml-4">'
+            : '<ol class="list-decimal list-inside font-body text-[16px] text-[#a1a1aa] leading-relaxed space-y-2 my-4 ml-4">'
+        )
+        currentList = listType
+      }
+      if (inlineHtml.trim()) parts.push(`<li>${inlineHtml}</li>`)
+      continue
+    }
+
+    // Close any open list
+    if (currentList) {
+      parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
+      currentList = null
+    }
+
+    if (!inlineHtml.trim()) continue
+
+    // ── Block styles ──
+    switch (b.style) {
+      case 'h1':
+        parts.push(`<h1 class="font-display text-3xl text-white mt-10 mb-4 leading-tight">${inlineHtml}</h1>`)
+        break
+      case 'h2':
+        parts.push(`<h2 class="font-display text-2xl text-white mt-8 mb-3 leading-tight">${inlineHtml}</h2>`)
+        break
+      case 'h3':
+        parts.push(`<h3 class="font-display text-xl text-white mt-6 mb-2 leading-tight">${inlineHtml}</h3>`)
+        break
+      case 'blockquote':
+        parts.push(
+          `<blockquote class="border-l-2 border-[#3f3f46] pl-4 my-4 font-body text-[16px] text-[#a1a1aa] italic leading-relaxed">${inlineHtml}</blockquote>`
+        )
+        break
+      default:
+        parts.push(
+          `<p class="font-body text-[16px] text-[#d4d4d8] leading-relaxed mb-4">${inlineHtml}</p>`
+        )
+    }
+  }
+
+  if (currentList) parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
+  return parts.join('\n')
+}
+
+const bodyHtml = book.body ? ptToHtml(book.body) : ''
+const coverUrl = book.coverImage?.asset
+  ? urlFor(book.coverImage).width(300).height(450).url()
+  : null
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{book.title} — Saugat K.C.</title>
+    <meta name="description" content={`${book.title} by ${book.author} — reviewed by Saugat K.C.`} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+  </head>
+
+  <body class="bg-[#0a0a0a] min-h-screen text-white antialiased">
+    <!-- Sticky navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a] border-b border-[#18181b]">
+      <div class="max-w-[760px] mx-auto px-6 xl:px-0 flex items-center gap-4 h-[72px]">
+        <a
+          href="/"
+          class="font-display text-[20px] bg-gradient-to-r from-[#0d9aff] to-[#e0efff] bg-clip-text text-transparent leading-normal py-1"
+        >
+          @alwaysaugat
+        </a>
+        <span class="text-[#3f3f46]">/</span>
+        <a href="/books" class="font-body text-[15px] text-[#a1a1aa] hover:text-white transition-colors">
+          Books
+        </a>
+        <span class="text-[#3f3f46]">/</span>
+        <span class="font-body text-[15px] text-white truncate">{book.title}</span>
+      </div>
+    </header>
+
+    <main class="max-w-[760px] mx-auto px-6 xl:px-0 pt-[96px] pb-24">
+      <!-- Book header: cover + metadata -->
+      <div class="flex gap-8 mb-12">
+        {coverUrl && (
+          <div class="shrink-0 w-[120px] h-[180px] rounded-lg overflow-hidden">
+            <img
+              src={coverUrl}
+              alt={`${book.title} cover`}
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+        )}
+        <div class="flex flex-col justify-end gap-2">
+          <h1 class="font-display text-[36px] text-white leading-tight">{book.title}</h1>
+          <p class="font-body text-[16px] text-[#a1a1aa]">by {book.author}</p>
+          <a
+            href="/books"
+            class="mt-2 inline-flex items-center gap-1.5 font-body text-[13px] text-[#71717a] hover:text-white transition-colors"
+          >
+            <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M10 12L6 8l4-4"/>
+            </svg>
+            Back to books
+          </a>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <hr class="border-[#27272a] mb-10" />
+
+      <!-- Body content -->
+      {bodyHtml ? (
+        <div set:html={bodyHtml} />
+      ) : (
+        <p class="font-body text-[16px] text-[#71717a] italic">No review written yet.</p>
+      )}
+    </main>
+  </body>
+</html>

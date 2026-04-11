@@ -1,0 +1,77 @@
+---
+// Hero banner only — bio and social links live in About.astro
+const name = "Saugat K.C."
+const role = "Associate QA Engineer"
+const location = "Kathmandu, Nepal 🇳🇵"
+---
+
+<div class="relative h-[200px] sm:h-[348px] w-full">
+  <!-- Blue card background: mask fades bottom edge into page bg — no hard line -->
+  <div
+    class="absolute inset-x-0 top-0 h-[170px] sm:h-[294px] bg-[#052f73] rounded-[13px]"
+    style="-webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 92%); mask-image: linear-gradient(to bottom, black 45%, transparent 92%);"
+  ></div>
+
+  <!-- Nepal clock badge (top-right) -->
+  <div class="absolute top-[8px] right-[8px] sm:top-[9px] sm:right-[9px] bg-[#0f1317] rounded-[6px] px-2 py-[3px] sm:px-3 sm:py-[5px] z-[2]">
+    <span
+      id="npt-clock"
+      class="font-pixel text-[11px] sm:text-[18px] text-white whitespace-nowrap tabular-nums"
+      aria-label="Current time in Nepal"
+    >
+      --:-- -- NPT
+    </span>
+  </div>
+
+  <!-- Profile: photo + name/role/location -->
+  <div class="absolute bottom-0 left-0 flex items-end gap-2 sm:gap-5 z-[2]">
+    <!-- Circular photo -->
+    <div class="shrink-0 w-[110px] h-[110px] sm:w-[237px] sm:h-[237px] rounded-full border-2 border-[#27272a] bg-[#18181b] overflow-hidden">
+      <img
+        src="/images/profile.png"
+        alt="Saugat K.C."
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+    <!-- Text info -->
+    <div class="flex flex-col gap-0 pb-1 sm:pb-2">
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <span class="font-display text-[22px] sm:text-[43px] text-white leading-tight whitespace-nowrap">
+          {name}
+        </span>
+        <!-- Verified checkmark -->
+        <svg class="w-[16px] h-[16px] sm:w-[25px] sm:h-[25px] text-blue-400 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+        </svg>
+        <!-- Sound / audio icon -->
+        <svg class="w-[13px] h-[11px] sm:w-[17px] sm:h-[15px] text-[#a1a1aa] shrink-0" viewBox="0 0 13 11" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+          <path d="M7.5 0.5v10L3.5 7H1a.5.5 0 01-.5-.5v-3A.5.5 0 011 3h2.5L7.5.5z" fill="currentColor" stroke="none"/>
+          <path d="M9.5 2.5a4 4 0 010 6M11 1a6.5 6.5 0 010 9"/>
+        </svg>
+      </div>
+      <span class="font-display text-[13px] sm:text-[21px] text-[#a1a1aa] leading-tight">{role}</span>
+      <span class="font-display text-[13px] sm:text-[21px] text-[#a1a1aa] leading-tight">{location}</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function getNepalTime(): string {
+    const now = new Date()
+    const utcMs = now.getTime() + now.getTimezoneOffset() * 60_000
+    const nepalMs = utcMs + (5 * 3600 + 45 * 60) * 1000
+    const d = new Date(nepalMs)
+    const h = d.getHours()
+    const m = d.getMinutes()
+    const h12 = h % 12 || 12
+    const ampm = h < 12 ? 'AM' : 'PM'
+    return `${h12}:${String(m).padStart(2, '0')} ${ampm} NPT`
+  }
+
+  const clockEl = document.getElementById('npt-clock')
+  if (clockEl) {
+    clockEl.textContent = getNepalTime()
+    setInterval(() => { clockEl.textContent = getNepalTime() }, 1000)
+  }
+</script>
