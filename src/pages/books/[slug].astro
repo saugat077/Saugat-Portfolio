@@ -2,6 +2,15 @@
 import { client, urlFor } from '../../lib/sanity'
 import '../../styles/global.css'
 
+export async function getStaticPaths() {
+  const books = await client.fetch(
+    `*[_type == "book" && status == "published"]{ "slug": slug.current }`
+  )
+  return books.map((book: { slug: string }) => ({
+    params: { slug: book.slug },
+  }))
+}
+
 // ── Types ──────────────────────────────────────────────────────────────────
 
 interface PTSpan {
