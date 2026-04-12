@@ -10,7 +10,7 @@ const settings = await client.fetch(`*[_type == "siteSettings"][0] {
 }`)
 
 const name = settings?.name ?? "Saugat K.C."
-const role = settings?.title ?? "AI Powered QA Engineer"
+const role = settings?.title ?? "Associate QA Engineer"
 const location = settings?.location ?? "Kathmandu, Nepal 🇳🇵"
 const bannerUrl = settings?.heroBanner ? urlFor(settings.heroBanner).width(760).url() : null
 ---
