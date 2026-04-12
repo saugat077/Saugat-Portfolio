@@ -1,9 +1,8 @@
 ---
-// Bio and social links section
-// TODO: Create a `profile` Sanity type, then fetch bio text dynamically:
-//   const { bio } = await client.fetch(`*[_type == "profile"][0]{ bio }`)
-const bio =
-  "Be not afraid of greatness. Some are born great, some achieve greatness, and others have greatness thrust upon them. This above all: to thine own self be true, And it must follow, as the night the day, Thou canst not then be false to any man."
+import { client } from '../lib/sanity'
+
+const settings = await client.fetch(`*[_type == "siteSettings"][0] { bioQuote }`)
+const bio = settings?.bioQuote ?? "Be not afraid of greatness. Some are born great, some achieve greatness, and others have greatness thrust upon them."
 
 const githubUrl = "https://github.com/saugat077"
 const linkedinUrl = "https://www.linkedin.com/in/saugat-kc"

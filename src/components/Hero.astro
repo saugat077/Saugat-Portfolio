@@ -1,16 +1,37 @@
 ---
-// Hero banner only — bio and social links live in About.astro
-const name = "Saugat K.C."
-const role = "Associate QA Engineer"
-const location = "Kathmandu, Nepal 🇳🇵"
+import { client, urlFor } from '../lib/sanity'
+
+const settings = await client.fetch(`*[_type == "siteSettings"][0] {
+  heroBanner,
+  name,
+  title,
+  location,
+  bioQuote
+}`)
+
+const name = settings?.name ?? "Saugat K.C."
+const role = settings?.title ?? "AI Powered QA Engineer"
+const location = settings?.location ?? "Kathmandu, Nepal 🇳🇵"
+const bannerUrl = settings?.heroBanner ? urlFor(settings.heroBanner).width(760).url() : null
 ---
 
 <div class="relative h-[200px] sm:h-[348px] w-full">
-  <!-- Blue card background: mask fades bottom edge into page bg — no hard line -->
+  <!-- Banner background: image from Sanity or fallback blue gradient -->
   <div
-    class="absolute inset-x-0 top-0 h-[170px] sm:h-[294px] bg-[#052f73] rounded-[13px]"
+    class="absolute inset-x-0 top-0 h-[170px] sm:h-[294px] rounded-[13px] overflow-hidden"
     style="-webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 92%); mask-image: linear-gradient(to bottom, black 45%, transparent 92%);"
-  ></div>
+  >
+    {bannerUrl ? (
+      <img
+        src={bannerUrl}
+        alt=""
+        class="w-full h-full object-cover"
+        aria-hidden="true"
+      />
+    ) : (
+      <div class="w-full h-full bg-[#052f73]"></div>
+    )}
+  </div>
 
   <!-- Nepal clock badge (top-right) -->
   <div class="absolute top-[8px] right-[8px] sm:top-[9px] sm:right-[9px] bg-[#0f1317] rounded-[6px] px-2 py-[3px] sm:px-3 sm:py-[5px] z-[2]">
