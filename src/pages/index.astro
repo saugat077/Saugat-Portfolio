@@ -24,24 +24,25 @@ import '../styles/global.css'
     <Nav />
 
     <main class="max-w-[1440px] mx-auto">
-      <div class="max-w-[760px] mx-auto px-6 xl:px-0 pt-[68px] sm:pt-[96px] pb-12 flex flex-col gap-10 sm:gap-20">
+      <div class="max-w-[760px] mx-auto px-6 xl:px-0 pt-[68px] sm:pt-[96px] pb-12 flex flex-col gap-16 sm:gap-28">
         <!-- Hero and About are tightly grouped — use inner gap instead of the outer gap-20 -->
         <div class="flex flex-col gap-4 sm:gap-5">
           <Hero />
           <About />
         </div>
-        <BookReview />
         <Experience />
         <Affiliations />
         <Projects />
+        <BookReview />
       </div>
 
       <!-- Decorative name watermark — centered, full word visible -->
       <div
-        class="font-display text-[64px] sm:text-[160px] leading-none text-center text-transparent bg-[linear-gradient(to_bottom,rgba(255,255,255,0.49)_25%,transparent_80%)] bg-clip-text pointer-events-none select-none py-6 sm:py-8"
+        class="font-display text-[64px] sm:text-[160px] leading-none text-center text-white pointer-events-none select-none py-6 sm:py-8"
+        style="-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.49) 25%, rgba(0,0,0,0) 80%); mask-image: linear-gradient(to bottom, rgba(0,0,0,0.49) 25%, rgba(0,0,0,0) 80%);"
         aria-hidden="true"
       >
-        SAUGAT
+        SAUGATKC
       </div>
     </main>
   </body>

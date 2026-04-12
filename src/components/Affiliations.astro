@@ -21,22 +21,6 @@ const affiliations = await client.fetch<Affiliation[]>(
     order
   }`
 )
-
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID
-const dataset = import.meta.env.PUBLIC_SANITY_DATASET
-
-function logoUrl(logo: Affiliation['logo']): string {
-  const ref = logo?.asset?._ref ?? ''
-  // Sanity refs: "image-{fileId}-{dimensions}-{ext}"
-  // SVGs don't go through the image pipeline — use the direct CDN URL instead.
-  if (ref.endsWith('-svg')) {
-    // Strip leading "image-" and replace the trailing "-svg" with ".svg"
-    const withoutPrefix = ref.slice('image-'.length)
-    const assetPath = withoutPrefix.slice(0, -'-svg'.length) + '.svg'
-    return `https://cdn.sanity.io/images/${projectId}/${dataset}/${assetPath}`
-  }
-  return urlFor(logo).width(312).url()
-}
 ---
 
 {affiliations.length > 0 && (
@@ -54,7 +38,7 @@ function logoUrl(logo: Affiliation['logo']): string {
         >
           {aff.logo?.asset ? (
             <img
-              src={logoUrl(aff.logo)}
+              src={urlFor(aff.logo).width(312).url()}
               alt={aff.orgName}
               class="max-h-[36px] sm:max-h-[52px] max-w-[110px] sm:max-w-[156px] w-auto h-auto object-contain brightness-0 invert transition-[filter] duration-300 group-hover:brightness-100 group-hover:invert-0"
               loading="lazy"

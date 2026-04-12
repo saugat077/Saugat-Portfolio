@@ -1,8 +1,59 @@
 ---
 import { client } from '../lib/sanity'
 
+interface PTSpan {
+  _type: 'span'
+  text: string
+  marks?: string[]
+}
+
+interface PTMarkDef {
+  _key: string
+  _type: string
+}
+
+interface PTBlock {
+  _type: string
+  children?: PTSpan[]
+  markDefs?: PTMarkDef[]
+}
+
 const settings = await client.fetch(`*[_type == "siteSettings"][0] { bioQuote }`)
-const bio = settings?.bioQuote ?? "Be not afraid of greatness. Some are born great, some achieve greatness, and others have greatness thrust upon them."
+
+function ptToHtml(blocks: PTBlock[] | null | undefined): string {
+  if (!blocks?.length) return '<p>Be not afraid of greatness.</p>'
+  return blocks.map(block => {
+    if (block._type !== 'block') return ''
+
+    // Sanity custom annotations: the span's marks[] holds the markDef _key (a UUID),
+    // not the annotation type name. Build a lookup set of keys whose _type is "highlight".
+    const highlightKeys = new Set(
+      (block.markDefs ?? [])
+        .filter(def => def._type === 'highlight')
+        .map(def => def._key)
+    )
+
+    const inner = (block.children ?? []).map(span => {
+      // Temporary debug — remove once highlight detection is confirmed working
+      console.log('[ptToHtml] marks:', JSON.stringify(span.marks), '| highlightKeys:', JSON.stringify([...highlightKeys]))
+
+      const text = span.text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+
+      // Match either a plain "highlight" decorator OR an annotation key reference
+      const isHighlighted =
+        span.marks?.includes('highlight') ||
+        span.marks?.some(m => highlightKeys.has(m))
+
+      return isHighlighted
+        ? `<span class="easter-word">${text}</span>`
+        : text
+    }).join('')
+    return `<p>${inner}</p>`
+  }).join('')
+}
 
 const githubUrl = "https://github.com/saugat077"
 const linkedinUrl = "https://www.linkedin.com/in/saugat-kc77/"
@@ -11,10 +62,11 @@ const chessUrl = "https://www.chess.com/member/brainbrainboom"
 ---
 
 <section class="flex flex-col gap-6">
-  <!-- Bio quote -->
-  <p class="font-body text-[16px] sm:text-[21px] text-white leading-relaxed text-left">
-    {bio}
-  </p>
+  <!-- Bio quote (Portable Text — may contain .easter-word spans) -->
+  <div
+    class="font-body text-[16px] sm:text-[21px] text-white leading-relaxed text-left [&>p]:m-0"
+    set:html={ptToHtml(settings?.bioQuote)}
+  />
 
   <!-- Social icon row -->
   <div class="flex items-center gap-3">
@@ -70,3 +122,20 @@ const chessUrl = "https://www.chess.com/member/brainbrainboom"
     </a>
   </div>
 </section>
+
+<style is:global>
+  /* Easter egg — highlighted words look completely normal by default */
+  .easter-word {
+    color: inherit;
+    background: transparent;
+    border-radius: 3px;
+    padding: 0 1px;
+    transition: color 0.4s ease, background-color 0.4s ease;
+  }
+
+  /* Revealed only after 3-second profile hover */
+  body.easter-unlocked .easter-word {
+    color: white;
+    background-color: #4da2f19b;
+  }
+</style>
