@@ -1,0 +1,155 @@
+---
+import Nav from '../../components/Nav.astro'
+import BookCard from '../../components/BookCard.astro'
+import { client } from '../../lib/sanity'
+import '../../styles/global.css'
+
+interface Book {
+  title: string
+  author: string
+  slug: { current: string }
+  coverImage: {
+    _type: 'image'
+    asset: { _ref: string; _type: 'reference' }
+  }
+  tags: string[] | null
+}
+
+const books = await client.fetch<Book[]>(
+  `*[_type == "book" && status == "published"] | order(_createdAt desc) {
+    title,
+    author,
+    slug,
+    coverImage,
+    tags
+  }`
+)
+
+// Unique tags in first-seen order
+const allTags: string[] = []
+for (const book of books) {
+  for (const tag of book.tags ?? []) {
+    if (!allTags.includes(tag)) allTags.push(tag)
+  }
+}
+
+// Pre-calculate count for each tag from the full dataset
+const tagCounts: Record<string, number> = { all: books.length }
+for (const tag of allTags) {
+  tagCounts[tag] = books.filter(b => b.tags?.includes(tag)).length
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Books | Saugat K.C.</title>
+    <meta name="description" content="A summary and thoughts on every book Saugat K.C. finishes." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+  </head>
+
+  <body class="bg-[#0a0a0a] min-h-screen text-white antialiased overflow-x-hidden">
+    <Nav />
+
+    <main class="max-w-[1440px] mx-auto">
+      <div class="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
+
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
+          <a href="/" class="text-[#52525b] hover:text-[#a1a1aa] transition-colors">Home</a>
+          <span class="text-[#3f3f46]">/</span>
+          <span class="text-[#a1a1aa]">Books</span>
+        </nav>
+
+        <hr class="border-[#27272a] mb-6" />
+
+        <!-- Filter row -->
+        {books.length > 0 && (
+          <div class="flex items-center gap-2 flex-wrap mb-8" id="filter-row">
+            <!-- All pill — active by default -->
+            <button
+              data-filter="all"
+              class="filter-pill inline-flex items-center gap-1.5 font-body text-[13px] px-3 py-1 rounded-full border transition-colors cursor-pointer border-[#378ADD] bg-[#378ADD]/10 text-white"
+              aria-pressed="true"
+            >
+              All
+              <span data-count class="tabular-nums text-[#a1a1aa]">{tagCounts.all}</span>
+            </button>
+
+            <!-- Tag pills — inactive by default -->
+            {allTags.map(tag => (
+              <button
+                data-filter={tag}
+                class="filter-pill inline-flex items-center gap-1.5 font-body text-[13px] px-3 py-1 rounded-full border transition-colors cursor-pointer border-[#3f3f46] text-[#71717a] hover:border-[#52525b] hover:text-[#a1a1aa]"
+                aria-pressed="false"
+              >
+                {tag}
+                <span data-count class="tabular-nums text-[#a1a1aa] hidden">{tagCounts[tag]}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        <!-- Grid -->
+        {books.length === 0 ? (
+          <p class="font-body text-[15px] text-[#52525b] italic">No books yet</p>
+        ) : (
+          <div class="flex flex-wrap gap-[10px] sm:gap-[14px]" id="books-grid">
+            {books.map((book) => (
+              <div data-book-card data-tags={book.tags?.join(',') ?? ''}>
+                <BookCard
+                  title={book.title}
+                  author={book.author}
+                  coverImage={book.coverImage}
+                  slug={book.slug.current}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </main>
+
+    <script>
+      const pills = document.querySelectorAll<HTMLButtonElement>('.filter-pill')
+      const cards = document.querySelectorAll<HTMLElement>('[data-book-card]')
+
+      function applyFilter(active: string) {
+        // Show / hide cards
+        cards.forEach(card => {
+          const raw = card.dataset.tags ?? ''
+          const tags = raw ? raw.split(',') : []
+          const show = active === 'all' || tags.includes(active)
+          card.style.display = show ? '' : 'none'
+        })
+
+        // Toggle active styling on pills
+        pills.forEach(pill => {
+          const isActive = pill.dataset.filter === active
+          pill.setAttribute('aria-pressed', String(isActive))
+
+          const countEl = pill.querySelector<HTMLElement>('[data-count]')
+          if (isActive) {
+            pill.classList.add('border-[#378ADD]', 'bg-[#378ADD]/10', 'text-white')
+            pill.classList.remove('border-[#3f3f46]', 'text-[#71717a]', 'hover:border-[#52525b]', 'hover:text-[#a1a1aa]')
+            countEl?.classList.remove('hidden')
+          } else {
+            pill.classList.remove('border-[#378ADD]', 'bg-[#378ADD]/10', 'text-white')
+            pill.classList.add('border-[#3f3f46]', 'text-[#71717a]', 'hover:border-[#52525b]', 'hover:text-[#a1a1aa]')
+            countEl?.classList.add('hidden')
+          }
+        })
+      }
+
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => applyFilter(pill.dataset.filter ?? 'all'))
+      })
+
+      // Initialise
+      applyFilter('all')
+    </script>
+  </body>
+</html>

@@ -1,5 +1,9 @@
 ---
-// Static navbar — no data fetching needed
+const pathname = Astro.url.pathname
+const isHome = pathname === '/'
+const isBooks = pathname === '/books' || pathname.startsWith('/books/')
+const isProjects = pathname === '/projects' || pathname.startsWith('/projects/')
+const isBlogs = pathname === '/blogs' || pathname.startsWith('/blogs/')
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a] border-b border-transparent" id="site-header">
@@ -14,10 +18,22 @@
 
       <!-- Desktop nav -->
       <nav class="hidden sm:flex items-center gap-4 sm:gap-5" aria-label="Primary navigation">
-        <a href="/" class="font-display text-[22px] text-white hover:text-[#a1a1aa] transition-colors">Home</a>
-        <a href="/projects" class="font-display text-[22px] text-white hover:text-[#a1a1aa] transition-colors">Projects</a>
-        <a href="/blogs" class="font-display text-[22px] text-white hover:text-[#a1a1aa] transition-colors">Blogs</a>
-        <a href="/books" class="font-display text-[22px] text-white hover:text-[#a1a1aa] transition-colors">Books</a>
+        <div class="relative">
+          <a href="/" class={`font-display text-[22px] transition-colors ${isHome ? 'text-white' : 'text-white hover:text-[#a1a1aa]'}`}>Home</a>
+          <span class={`absolute -bottom-2 left-1/2 -translate-x-1/2 block w-1 h-1 rounded-full transition-opacity ${isHome ? 'bg-[#378ADD] opacity-100' : 'opacity-0'}`}></span>
+        </div>
+        <div class="relative">
+          <a href="/books" class={`font-display text-[22px] transition-colors ${isBooks ? 'text-white' : 'text-white hover:text-[#a1a1aa]'}`}>Books</a>
+          <span class={`absolute -bottom-2 left-1/2 -translate-x-1/2 block w-1 h-1 rounded-full transition-opacity ${isBooks ? 'bg-[#378ADD] opacity-100' : 'opacity-0'}`}></span>
+        </div>
+        <div class="relative">
+          <a href="/projects" class={`font-display text-[22px] transition-colors ${isProjects ? 'text-white' : 'text-white hover:text-[#a1a1aa]'}`}>Projects</a>
+          <span class={`absolute -bottom-2 left-1/2 -translate-x-1/2 block w-1 h-1 rounded-full transition-opacity ${isProjects ? 'bg-[#378ADD] opacity-100' : 'opacity-0'}`}></span>
+        </div>
+        <div class="relative">
+          <a href="/blogs" class={`font-display text-[22px] transition-colors ${isBlogs ? 'text-white' : 'text-white hover:text-[#a1a1aa]'}`}>Blogs</a>
+          <span class={`absolute -bottom-2 left-1/2 -translate-x-1/2 block w-1 h-1 rounded-full transition-opacity ${isBlogs ? 'bg-[#378ADD] opacity-100' : 'opacity-0'}`}></span>
+        </div>
       </nav>
 
       <!-- Mobile hamburger button -->
@@ -42,10 +58,10 @@
   class="sm:hidden fixed inset-0 bg-[#0a0a0a] z-40 flex flex-col items-center justify-center gap-10 pointer-events-none opacity-0 transition-opacity duration-300"
   aria-hidden="true"
 >
-  <a href="/" class="font-display text-[36px] text-white hover:text-[#a1a1aa] transition-colors">Home</a>
-  <a href="/projects" class="font-display text-[36px] text-white hover:text-[#a1a1aa] transition-colors">Projects</a>
-  <a href="/blogs" class="font-display text-[36px] text-white hover:text-[#a1a1aa] transition-colors">Blogs</a>
-  <a href="/books" class="font-display text-[36px] text-white hover:text-[#a1a1aa] transition-colors">Books</a>
+  <a href="/" class={`font-display text-[36px] transition-colors ${isHome ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'}`}>Home</a>
+  <a href="/projects" class={`font-display text-[36px] transition-colors ${isProjects ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'}`}>Projects</a>
+  <a href="/blogs" class={`font-display text-[36px] transition-colors ${isBlogs ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'}`}>Blogs</a>
+  <a href="/books" class={`font-display text-[36px] transition-colors ${isBooks ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'}`}>Books</a>
 </div>
 
 <script>

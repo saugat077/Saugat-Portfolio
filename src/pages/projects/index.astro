@@ -1,0 +1,81 @@
+---
+import Nav from '../../components/Nav.astro'
+import ProjectCard from '../../components/ProjectCard.astro'
+import { client } from '../../lib/sanity'
+import '../../styles/global.css'
+
+interface Project {
+  _id: string
+  title: string
+  shortDescription: string
+  screenshot: {
+    _type: 'image'
+    asset: { _ref: string; _type: 'reference' }
+  }
+  githubUrl: string | null
+  liveUrl: string | null
+  tags: string[]
+  slug: { current: string }
+}
+
+const projects = await client.fetch<Project[]>(
+  `*[_type == "project" && status == "published"] | order(_createdAt desc) {
+    _id,
+    title,
+    shortDescription,
+    screenshot,
+    githubUrl,
+    liveUrl,
+    tags,
+    slug
+  }`
+)
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects | Saugat K.C.</title>
+    <meta name="description" content="Projects built by Saugat K.C." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+  </head>
+
+  <body class="bg-[#0a0a0a] min-h-screen text-white antialiased overflow-x-hidden">
+    <Nav />
+
+    <main class="max-w-[1440px] mx-auto">
+      <div class="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
+
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
+          <a href="/" class="text-[#52525b] hover:text-[#a1a1aa] transition-colors">Home</a>
+          <span class="text-[#3f3f46]">/</span>
+          <span class="text-[#a1a1aa]">Projects</span>
+        </nav>
+
+        <hr class="border-[#27272a] mb-8" />
+
+        {projects.length === 0 ? (
+          <p class="font-body text-[15px] text-[#52525b] italic">No projects yet</p>
+        ) : (
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-[74px]">
+            {projects.map((project) => (
+              <ProjectCard
+                title={project.title}
+                shortDescription={project.shortDescription}
+                screenshot={project.screenshot}
+                githubUrl={project.githubUrl}
+                liveUrl={project.liveUrl}
+                tags={project.tags}
+                slug={project.slug.current}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </main>
+  </body>
+</html>
