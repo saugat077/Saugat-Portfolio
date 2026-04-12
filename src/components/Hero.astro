@@ -66,16 +66,30 @@ const bannerUrl = settings?.heroBanner ? urlFor(settings.heroBanner).width(760).
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
         </svg>
         <!-- Sound / audio icon -->
-        <svg class="w-[13px] h-[11px] sm:w-[17px] sm:h-[15px] text-[#a1a1aa] shrink-0" viewBox="0 0 13 11" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
-          <path d="M7.5 0.5v10L3.5 7H1a.5.5 0 01-.5-.5v-3A.5.5 0 011 3h2.5L7.5.5z" fill="currentColor" stroke="none"/>
-          <path d="M9.5 2.5a4 4 0 010 6M11 1a6.5 6.5 0 010 9"/>
-        </svg>
+        <button
+          id="name-audio-btn"
+          aria-label="Hear name pronunciation"
+          class="shrink-0 cursor-pointer bg-transparent border-0 p-0 leading-none"
+        >
+          <svg id="name-audio-icon" class="w-[13px] h-[11px] sm:w-[17px] sm:h-[15px] text-[#a1a1aa]" viewBox="0 0 13 11" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+            <path d="M7.5 0.5v10L3.5 7H1a.5.5 0 01-.5-.5v-3A.5.5 0 011 3h2.5L7.5.5z" fill="currentColor" stroke="none"/>
+            <path d="M9.5 2.5a4 4 0 010 6M11 1a6.5 6.5 0 010 9"/>
+          </svg>
+        </button>
+        <audio id="name-audio" src="/audio/name.mp3" preload="none"></audio>
       </div>
       <span class="font-display text-[13px] sm:text-[21px] text-[#a1a1aa] leading-tight">{role}</span>
       <span class="font-display text-[13px] sm:text-[21px] text-[#a1a1aa] leading-tight">{location}</span>
     </div>
   </div>
 </div>
+
+<style>
+  @keyframes name-audio-pulse {
+    0%, 100% { opacity: 1;   transform: scale(1);    }
+    50%       { opacity: 0.5; transform: scale(1.25); }
+  }
+</style>
 
 <script>
   function getNepalTime(): string {
@@ -88,6 +102,20 @@ const bannerUrl = settings?.heroBanner ? urlFor(settings.heroBanner).width(760).
     const h12 = h % 12 || 12
     const ampm = h < 12 ? 'AM' : 'PM'
     return `${h12}:${String(m).padStart(2, '0')} ${ampm} NPT`
+  }
+
+  const btn   = document.getElementById('name-audio-btn') as HTMLButtonElement | null
+  const icon  = document.getElementById('name-audio-icon') as SVGElement | null
+  const audio = document.getElementById('name-audio')      as HTMLAudioElement | null
+
+  if (btn && audio && icon) {
+    btn.addEventListener('click', () => {
+      audio.currentTime = 0
+      audio.play()
+    })
+    audio.addEventListener('play',  () => icon.style.animation = 'name-audio-pulse 0.9s ease-in-out infinite')
+    audio.addEventListener('ended', () => icon.style.animation = '')
+    audio.addEventListener('pause', () => icon.style.animation = '')
   }
 
   const clockEl = document.getElementById('npt-clock')
