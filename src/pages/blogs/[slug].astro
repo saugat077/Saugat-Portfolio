@@ -1,0 +1,45 @@
+---
+import Nav from '../../components/Nav.astro'
+import '../../styles/global.css'
+
+export async function getStaticPaths() {
+  return []
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog | Saugat K.C.</title>
+    <meta name="description" content="Thoughts and writing by Saugat K.C. — coming soon." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+  </head>
+
+  <body class="bg-[#0a0a0a] min-h-screen text-white antialiased overflow-x-hidden">
+    <Nav />
+
+    <main class="max-w-[1440px] mx-auto">
+      <div class="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
+
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
+          <a href="/" class="text-[#52525b] hover:text-[#a1a1aa] transition-colors">Home</a>
+          <span class="text-[#3f3f46]">/</span>
+          <a href="/blogs" class="text-[#52525b] hover:text-[#a1a1aa] transition-colors">Blogs</a>
+        </nav>
+
+        <hr class="border-[#27272a] mb-6" />
+
+        <!-- Coming soon -->
+        <div class="flex flex-col items-center justify-center py-24 gap-3 text-center">
+          <p class="font-display text-[28px] sm:text-[36px] text-[#3f3f46]">Coming Soon</p>
+          <p class="font-body text-[14px] text-[#52525b]">Writing in progress — check back soon.</p>
+        </div>
+
+      </div>
+    </main>
+  </body>
+</html>
