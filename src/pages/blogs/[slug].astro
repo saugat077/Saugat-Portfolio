@@ -1,10 +1,176 @@
 ---
 import Nav from '../../components/Nav.astro'
+import { client, urlFor } from '../../lib/sanity'
 import '../../styles/global.css'
 
 export async function getStaticPaths() {
-  return []
+  const blogs = await client.fetch(
+    `*[_type == "blog" && status == "published"]{ "slug": slug.current }`
+  )
+  return blogs.map((blog: { slug: string }) => ({
+    params: { slug: blog.slug },
+  }))
 }
+
+// ── Types ──────────────────────────────────────────────────────────────────
+
+interface PTSpan {
+  _type: 'span'
+  _key: string
+  text: string
+  marks: string[]
+}
+
+interface PTImageBlock {
+  _type: 'image'
+  _key: string
+  asset: { _ref: string; _type: 'reference' }
+}
+
+interface PTTextBlock {
+  _type: 'block'
+  _key: string
+  style: string
+  children: PTSpan[]
+  listItem?: 'bullet' | 'number'
+  level?: number
+}
+
+type BodyBlock = PTTextBlock | PTImageBlock
+
+interface Blog {
+  title: string
+  coverImage: {
+    _type: 'image'
+    asset: { _ref: string; _type: 'reference' }
+  } | null
+  shortDescription: string | null
+  tags: string[] | null
+  publishedAt: string | null
+  body: BodyBlock[] | null
+}
+
+// ── Fetch ──────────────────────────────────────────────────────────────────
+
+const { slug } = Astro.params
+
+const blog = await client.fetch<Blog | null>(
+  `*[_type == "blog" && slug.current == $slug][0] {
+    title,
+    coverImage,
+    shortDescription,
+    tags,
+    publishedAt,
+    body
+  }`,
+  { slug }
+)
+
+if (!blog) {
+  return Astro.redirect('/404')
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
+function ptToHtml(blocks: BodyBlock[]): string {
+  const parts: string[] = []
+  let currentList: 'bullet' | 'number' | null = null
+
+  for (const block of blocks) {
+    if (block._type === 'image') {
+      if (currentList) {
+        parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
+        currentList = null
+      }
+      const imgBlock = block as PTImageBlock
+      const src = urlFor(imgBlock).width(760).url()
+      parts.push(
+        `<img src="${src}" alt="" class="w-full rounded-lg my-6" loading="lazy" decoding="async" />`
+      )
+      continue
+    }
+
+    const b = block as PTTextBlock
+    if (!b.children?.length) continue
+
+    const inlineHtml = b.children
+      .map((span) => {
+        let t = escapeHtml(span.text)
+        if (span.marks.includes('strong')) t = `<strong class="font-semibold text-white">${t}</strong>`
+        if (span.marks.includes('em')) t = `<em class="italic">${t}</em>`
+        if (span.marks.includes('code')) t = `<code class="bg-[#18181b] text-[#a1a1aa] px-1 rounded text-sm">${t}</code>`
+        return t
+      })
+      .join('')
+
+    if (b.listItem) {
+      const listType = b.listItem
+      if (currentList !== listType) {
+        if (currentList) parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
+        parts.push(
+          listType === 'bullet'
+            ? '<ul class="list-disc list-inside font-body text-[16px] text-[#a1a1aa] leading-relaxed space-y-2 my-4 ml-4">'
+            : '<ol class="list-decimal list-inside font-body text-[16px] text-[#a1a1aa] leading-relaxed space-y-2 my-4 ml-4">'
+        )
+        currentList = listType
+      }
+      if (inlineHtml.trim()) parts.push(`<li>${inlineHtml}</li>`)
+      continue
+    }
+
+    if (currentList) {
+      parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
+      currentList = null
+    }
+
+    if (!inlineHtml.trim()) continue
+
+    switch (b.style) {
+      case 'h1':
+        parts.push(`<h1 class="font-display text-3xl text-white mt-10 mb-4 leading-tight">${inlineHtml}</h1>`)
+        break
+      case 'h2':
+        parts.push(`<h2 class="font-display text-2xl text-white mt-8 mb-3 leading-tight">${inlineHtml}</h2>`)
+        break
+      case 'h3':
+        parts.push(`<h3 class="font-display text-xl text-white mt-6 mb-2 leading-tight">${inlineHtml}</h3>`)
+        break
+      case 'blockquote':
+        parts.push(
+          `<blockquote class="border-l-2 border-[#3f3f46] pl-4 my-4 font-body text-[16px] text-[#a1a1aa] italic leading-relaxed">${inlineHtml}</blockquote>`
+        )
+        break
+      default:
+        parts.push(
+          `<p class="font-body text-[16px] text-[#d4d4d8] leading-relaxed mb-4">${inlineHtml}</p>`
+        )
+    }
+  }
+
+  if (currentList) parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
+  return parts.join('\n')
+}
+
+const bodyHtml = blog.body ? ptToHtml(blog.body) : ''
+const coverUrl = blog.coverImage?.asset
+  ? urlFor(blog.coverImage).width(760).url()
+  : null
 ---
 
 <!DOCTYPE html>
@@ -12,33 +178,83 @@ export async function getStaticPaths() {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Blog | Saugat K.C.</title>
-    <meta name="description" content="Thoughts and writing by Saugat K.C. — coming soon." />
+    <title>{blog.title} | Saugat K.C.</title>
+    <meta name="description" content={blog.shortDescription ?? `${blog.title} — by Saugat K.C.`} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
   </head>
 
-  <body class="bg-[#0a0a0a] min-h-screen text-white antialiased overflow-x-hidden">
+  <body class="bg-[#0a0a0a] min-h-screen text-white antialiased">
     <Nav />
 
-    <main class="max-w-[1440px] mx-auto">
-      <div class="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
+    <main class="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
 
-        <!-- Breadcrumb -->
-        <nav class="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
-          <a href="/" class="text-[#52525b] hover:text-[#a1a1aa] transition-colors">Home</a>
-          <span class="text-[#3f3f46]">/</span>
-          <a href="/blogs" class="text-[#52525b] hover:text-[#a1a1aa] transition-colors">Blogs</a>
-        </nav>
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
+        <a href="/" class="text-[#52525b] hover:text-[#a1a1aa] transition-colors">Home</a>
+        <span class="text-[#3f3f46]">/</span>
+        <a href="/blogs" class="text-[#52525b] hover:text-[#a1a1aa] transition-colors">Blogs</a>
+        <span class="text-[#3f3f46]">/</span>
+        <span class="text-[#a1a1aa] truncate">{blog.title}</span>
+      </nav>
 
-        <hr class="border-[#27272a] mb-6" />
-
-        <!-- Coming soon -->
-        <div class="flex flex-col items-center justify-center py-24 gap-3 text-center">
-          <p class="font-display text-[28px] sm:text-[36px] text-[#3f3f46]">Coming Soon</p>
-          <p class="font-body text-[14px] text-[#52525b]">Writing in progress — check back soon.</p>
+      <!-- Cover image -->
+      {coverUrl && (
+        <div class="w-full rounded-xl overflow-hidden mb-8 bg-[#18181b]">
+          <img
+            src={coverUrl}
+            alt={`${blog.title} cover`}
+            class="w-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
         </div>
+      )}
 
+      <!-- Title -->
+      <h1 class="font-display text-[28px] sm:text-[34px] text-white leading-tight mb-3">
+        {blog.title}
+      </h1>
+
+      <!-- Date and tags row -->
+      <div class="flex flex-wrap items-center gap-3 mb-6">
+        {blog.publishedAt && (
+          <span class="font-body text-[13px] text-[#52525b]">
+            {formatDate(blog.publishedAt)}
+          </span>
+        )}
+        {blog.tags && blog.tags.length > 0 && (
+          <div class="flex flex-wrap gap-1.5">
+            {blog.tags.map((tag) => (
+              <span class="bg-[#18181b] border border-[#27272a] rounded px-2 py-0.5 font-body text-[11px] text-[#71717a] whitespace-nowrap leading-[16px]">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <!-- Divider -->
+      <hr class="border-[#27272a] mb-8" />
+
+      <!-- Body -->
+      {bodyHtml ? (
+        <div set:html={bodyHtml} />
+      ) : (
+        <p class="font-body text-[16px] text-[#71717a] italic">No content yet.</p>
+      )}
+
+      <!-- Back link -->
+      <div class="mt-12">
+        <a
+          href="/blogs"
+          class="inline-flex items-center gap-1.5 font-body text-[13px] text-[#71717a] hover:text-white transition-colors"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 12L6 8l4-4"/>
+          </svg>
+          Back to blogs
+        </a>
       </div>
     </main>
   </body>

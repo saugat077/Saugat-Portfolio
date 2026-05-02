@@ -59,9 +59,9 @@ const isBlogs = pathname === '/blogs' || pathname.startsWith('/blogs/')
   aria-hidden="true"
 >
   <a href="/" class={`font-display text-[36px] transition-colors ${isHome ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'}`}>Home</a>
+  <a href="/books" class={`font-display text-[36px] transition-colors ${isBooks ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'}`}>Books</a>
   <a href="/projects" class={`font-display text-[36px] transition-colors ${isProjects ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'}`}>Projects</a>
   <a href="/blogs" class={`font-display text-[36px] transition-colors ${isBlogs ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'}`}>Blogs</a>
-  <a href="/books" class={`font-display text-[36px] transition-colors ${isBooks ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'}`}>Books</a>
 </div>
 
 <script>

@@ -1,6 +1,38 @@
 ---
 import Nav from '../../components/Nav.astro'
+import { client, urlFor } from '../../lib/sanity'
 import '../../styles/global.css'
+
+interface Blog {
+  title: string
+  slug: { current: string }
+  coverImage: {
+    _type: 'image'
+    asset: { _ref: string; _type: 'reference' }
+  } | null
+  shortDescription: string | null
+  tags: string[] | null
+  publishedAt: string | null
+}
+
+const blogs = await client.fetch<Blog[]>(
+  `*[_type == "blog" && status == "published"] | order(publishedAt desc) {
+    title,
+    slug,
+    coverImage,
+    shortDescription,
+    tags,
+    publishedAt
+  }`
+)
+
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
 ---
 
 <!DOCTYPE html>
@@ -9,7 +41,7 @@ import '../../styles/global.css'
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Blogs | Saugat K.C.</title>
-    <meta name="description" content="Thoughts and writing by Saugat K.C. — coming soon." />
+    <meta name="description" content="Thoughts and writing by Saugat K.C." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
   </head>
@@ -29,11 +61,65 @@ import '../../styles/global.css'
 
         <hr class="border-[#27272a] mb-6" />
 
-        <!-- Coming soon -->
-        <div class="flex flex-col items-center justify-center py-24 gap-3 text-center">
-          <p class="font-display text-[28px] sm:text-[36px] text-[#3f3f46]">Coming Soon</p>
-          <p class="font-body text-[14px] text-[#52525b]">Writing in progress. Check back soon.</p>
-        </div>
+        {blogs.length === 0 ? (
+          <p class="font-body text-[15px] text-[#52525b] text-center py-24">No posts yet</p>
+        ) : (
+          <ul class="divide-y divide-[#27272a]">
+            {blogs.map((blog) => {
+              const coverUrl = blog.coverImage?.asset
+                ? urlFor(blog.coverImage).width(240).height(160).url()
+                : null
+              return (
+                <li class="flex gap-5 py-6">
+                  {coverUrl && (
+                    <a href={`/blogs/${blog.slug.current}`} class="shrink-0" tabindex="-1" aria-hidden="true">
+                      <img
+                        src={coverUrl}
+                        alt=""
+                        width="120"
+                        height="80"
+                        class="w-[120px] h-[80px] rounded-md object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                  )}
+
+                  <div class="flex flex-col gap-1.5 min-w-0">
+                    <a
+                      href={`/blogs/${blog.slug.current}`}
+                      class="font-display text-[17px] text-white leading-snug hover:text-[#d4d4d8] transition-colors"
+                    >
+                      {blog.title}
+                    </a>
+
+                    {blog.publishedAt && (
+                      <p class="font-body text-[12px] text-[#52525b]">
+                        {formatDate(blog.publishedAt)}
+                      </p>
+                    )}
+
+                    {blog.shortDescription && (
+                      <p class="font-body text-[14px] text-[#71717a] leading-relaxed line-clamp-2">
+                        {blog.shortDescription}
+                      </p>
+                    )}
+
+                    {blog.tags && blog.tags.length > 0 && (
+                      <div class="flex flex-wrap gap-1.5 mt-1">
+                        {blog.tags.map((tag) => (
+                          <span class="bg-[#18181b] border border-[#27272a] rounded px-2 py-0.5 font-body text-[11px] text-[#71717a] whitespace-nowrap leading-[16px]">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        )}
 
       </div>
     </main>
