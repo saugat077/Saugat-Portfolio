@@ -1,43 +1,52 @@
-# Astro Starter Kit: Minimal
+# Saugat K.C. — Portfolio (Frontend)
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Next.js 16 (App Router, React 19) portfolio, statically exported and backed by Sanity for content.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Tech Stack
 
-## 🚀 Project Structure
+- **Next.js 16** — App Router, React Server Components, static HTML export (`output: 'export'`).
+- **React 19** + **TypeScript** (strict). Every page and component is `.tsx`.
+- **Tailwind CSS 4** via `@tailwindcss/postcss`.
+- **Sanity** (`@sanity/client`, `@sanity/image-url`) for content, queried at build time.
 
-Inside of your Astro project, you'll see the following folders and files:
+## 📁 Project Structure
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── app/                     # App Router routes
+│   ├── layout.tsx           # Root layout, global <head> metadata
+│   ├── page.tsx             # Home
+│   ├── not-found.tsx        # 404
+│   ├── books/               # /books and /books/[slug]
+│   ├── projects/            # /projects and /projects/[slug]
+│   └── blogs/               # /blogs and /blogs/[slug]
+├── components/              # Reusable UI (Server + 'use client' components)
+└── lib/
+    ├── sanity.ts            # Sanity client + image URL builder
+    └── portableText.ts      # Portable Text → HTML renderer
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Data is fetched in async Server Components. Interactive pieces — `Nav`, `NepalClock`,
+`NameAudio`, `ProfilePhoto`, `BooksFilter` — are client components.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 🔑 Environment
 
-Any static assets, like images, can be placed in the `public/` directory.
+Create `.env` (already present locally, git-ignored):
+
+```sh
+PUBLIC_SANITY_PROJECT_ID=eqojbxmb
+PUBLIC_SANITY_DATASET=production
+SANITY_READ_TOKEN=...
+```
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+| Command           | Action                                            |
+| :---------------- | :------------------------------------------------ |
+| `npm install`     | Install dependencies                              |
+| `npm run dev`     | Start dev server at `localhost:3000`              |
+| `npm run build`   | Build static site to `./out/`                     |
+| `npm run preview` | Serve the built `./out/` locally                  |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+> ⚠️ This workspace lives in OneDrive. If `npm install` fails with `EPERM`/file-lock
+> errors, pause OneDrive sync and reinstall.

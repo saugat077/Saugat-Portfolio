@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400;0,600;0,700;1,400&family=Pixelify+Sans:wght@400&display=swap");
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('/fonts/coolvetica.otf') format('opentype');
+  font-display: swap;
+}
+
+@theme {
+  --font-display: 'Coolvetica', sans-serif;
+  --font-body: 'Afacad', sans-serif;
+  --font-pixel: 'Pixelify Sans', monospace;
+}
+
+/* Name pronunciation icon pulse (Hero / NameAudio) */
+@keyframes name-audio-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%      { opacity: 0.5; transform: scale(1.25); }
+}
+
+/* Easter egg — highlighted bio words look completely normal by default */
+.easter-word {
+  color: inherit;
+  background: transparent;
+  border-radius: 3px;
+  padding: 0 1px;
+  transition: color 0.4s ease, background-color 0.4s ease;
+}
+
+/* Revealed only after the profile-photo hover unlocks it */
+body.easter-unlocked .easter-word {
+  color: white;
+  background-color: #4da2f19b;
+}
