@@ -1,4 +1,5 @@
 import { client, urlFor } from '@/lib/sanity'
+import { safeUrl } from '@/lib/url'
 
 interface Affiliation {
   _id: string
@@ -29,7 +30,7 @@ export default async function Affiliations() {
         {affiliations.map((aff) => (
           <a
             key={aff._id}
-            href={aff.websiteUrl}
+            href={safeUrl(aff.websiteUrl)}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={aff.orgName}

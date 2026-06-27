@@ -6,7 +6,7 @@ export interface PTSpan {
   _type: 'span'
   _key: string
   text: string
-  marks: string[]
+  marks?: string[]
 }
 
 export interface PTImageBlock {
@@ -28,12 +28,13 @@ export type BodyBlock = PTTextBlock | PTImageBlock
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function escapeHtml(str: string): string {
+export function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
 /**
@@ -54,7 +55,7 @@ export function renderPortableText(blocks: BodyBlock[]): string {
       }
       const src = urlFor(block).width(760).url()
       parts.push(
-        `<img src="${src}" alt="" class="w-full rounded-lg my-6" loading="lazy" decoding="async" />`
+        `<img src="${escapeHtml(src)}" alt="" class="w-full rounded-lg my-6" loading="lazy" decoding="async" />`
       )
       continue
     }
@@ -66,9 +67,9 @@ export function renderPortableText(blocks: BodyBlock[]): string {
     const inlineHtml = b.children
       .map((span) => {
         let t = escapeHtml(span.text)
-        if (span.marks.includes('strong')) t = `<strong class="font-semibold text-white">${t}</strong>`
-        if (span.marks.includes('em')) t = `<em class="italic">${t}</em>`
-        if (span.marks.includes('code')) t = `<code class="bg-[#18181b] text-[#a1a1aa] px-1 rounded text-sm">${t}</code>`
+        if (span.marks?.includes('strong')) t = `<strong class="font-semibold text-white">${t}</strong>`
+        if (span.marks?.includes('em')) t = `<em class="italic">${t}</em>`
+        if (span.marks?.includes('code')) t = `<code class="bg-[#18181b] text-[#a1a1aa] px-1 rounded text-sm">${t}</code>`
         return t
       })
       .join('')

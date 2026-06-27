@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Nav from '@/components/Nav'
 import { client, urlFor } from '@/lib/sanity'
 import { renderPortableText, type BodyBlock } from '@/lib/portableText'
+import { safeUrl } from '@/lib/url'
 
 export const dynamicParams = false
 
@@ -61,6 +62,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const bodyHtml = project.body ? renderPortableText(project.body) : ''
   const screenshotUrl = project.screenshot?.asset ? urlFor(project.screenshot).width(760).url() : null
+  const githubUrl = safeUrl(project.githubUrl)
+  const liveUrl = safeUrl(project.liveUrl)
 
   return (
     <>
@@ -103,11 +106,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <p className="font-body text-[14px] text-[#a1a1aa] leading-relaxed">{project.shortDescription}</p>
 
             {/* GitHub + Live buttons */}
-            {(project.githubUrl || project.liveUrl) && (
+            {(githubUrl || liveUrl) && (
               <div className="flex items-center gap-2">
-                {project.githubUrl && (
+                {githubUrl && (
                   <a
-                    href={project.githubUrl}
+                    href={githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 font-body text-[12px] text-[#71717a] border border-[#3f3f46] rounded-full px-3 py-1 hover:border-[#52525b] hover:text-[#a1a1aa] transition-colors"
@@ -118,9 +121,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     GitHub
                   </a>
                 )}
-                {project.liveUrl && (
+                {liveUrl && (
                   <a
-                    href={project.liveUrl}
+                    href={liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 font-body text-[12px] text-[#71717a] border border-[#3f3f46] rounded-full px-3 py-1 hover:border-[#52525b] hover:text-[#a1a1aa] transition-colors"

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { urlFor } from '@/lib/sanity'
+import { safeUrl } from '@/lib/url'
 
 interface ProjectCardProps {
   title: string
@@ -22,6 +23,8 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const screenshotUrl = screenshot?.asset ? urlFor(screenshot).width(760).height(458).url() : null
   const projectHref = `/projects/${slug}`
+  const safeGithubUrl = safeUrl(githubUrl)
+  const safeLiveUrl = safeUrl(liveUrl)
 
   return (
     <div className="flex flex-col gap-[10px]">
@@ -59,9 +62,9 @@ export default function ProjectCard({
       {/* Actions row: GitHub · Live on left, Read more → on right */}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          {githubUrl && (
+          {safeGithubUrl && (
             <a
-              href={githubUrl}
+              href={safeGithubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 font-body text-[11px] text-[#71717a] border border-[#3f3f46] rounded-full px-2.5 py-0.5 hover:border-[#52525b] hover:text-[#a1a1aa] transition-colors"
@@ -72,9 +75,9 @@ export default function ProjectCard({
               GitHub
             </a>
           )}
-          {liveUrl && (
+          {safeLiveUrl && (
             <a
-              href={liveUrl}
+              href={safeLiveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 font-body text-[11px] text-[#71717a] border border-[#3f3f46] rounded-full px-2.5 py-0.5 hover:border-[#52525b] hover:text-[#a1a1aa] transition-colors"

@@ -1,4 +1,5 @@
 import { client } from '@/lib/sanity'
+import { escapeHtml } from '@/lib/portableText'
 
 interface PTSpan {
   _type: 'span'
@@ -35,7 +36,7 @@ function ptToHtml(blocks: PTBlock[] | null | undefined): string {
 
       const inner = (block.children ?? [])
         .map((span) => {
-          const text = span.text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          const text = escapeHtml(span.text)
 
           // Match either a plain "highlight" decorator OR an annotation key reference
           const isHighlighted =
