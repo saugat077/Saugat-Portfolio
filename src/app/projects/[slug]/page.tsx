@@ -69,7 +69,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <>
       <Nav />
 
-      <main className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
+      <main className="max-w-190 mx-auto px-6 xl:px-0 pt-22 sm:pt-28 pb-24">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
           <Link href="/" className="text-[#52525b] hover:text-[#a1a1aa] transition-colors">
@@ -87,7 +87,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="flex flex-col md:flex-row gap-8 mb-8">
           {/* Left: screenshot (60%) */}
           {screenshotUrl && (
-            <div className="md:w-[60%] shrink-0 rounded-[16px] overflow-hidden bg-[#18181b] self-start">
+            <div className="md:w-[60%] shrink-0 rounded-2xl overflow-hidden bg-[#18181b] self-start">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={screenshotUrl}
