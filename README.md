@@ -27,7 +27,7 @@ src/
 ```
 
 Data is fetched in async Server Components. Interactive pieces — `Nav`, `NepalClock`,
-`NameAudio`, `ProfilePhoto`, `BooksFilter` — are client components.
+`ProfilePhoto`, `BooksFilter` — are client components.
 
 ## 🔑 Environment
 

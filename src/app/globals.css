@@ -13,12 +13,6 @@
   --font-pixel: 'Pixelify Sans', monospace;
 }
 
-/* Name pronunciation icon pulse (Hero / NameAudio) */
-@keyframes name-audio-pulse {
-  0%, 100% { opacity: 1;   transform: scale(1);    }
-  50%      { opacity: 0.5; transform: scale(1.25); }
-}
-
 /* Easter egg — highlighted bio words look completely normal by default */
 .easter-word {
   color: inherit;

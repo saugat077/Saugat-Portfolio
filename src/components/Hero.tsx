@@ -1,6 +1,5 @@
 import { client, urlFor } from '@/lib/sanity'
 import NepalClock from './NepalClock'
-import NameAudio from './NameAudio'
 import ProfilePhoto from './ProfilePhoto'
 
 interface SiteSettings {
@@ -72,8 +71,6 @@ export default async function Hero() {
                 clipRule="evenodd"
               />
             </svg>
-            {/* Sound / audio icon */}
-            <NameAudio />
           </div>
           <span className="font-display text-[13px] sm:text-[21px] text-[#a1a1aa] leading-tight">{role}</span>
           <span className="font-display text-[13px] sm:text-[21px] text-[#a1a1aa] leading-tight">{location}</span>
