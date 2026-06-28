@@ -51,28 +51,39 @@ function groupByCompany(careers: Career[]): CompanyGroup[] {
   return groups
 }
 
+// Use the PNG as a mask so the arrow can be tinted with theme colours and
+// recoloured on hover (a plain <img> can't be re-coloured via CSS).
+const arrowMask = {
+  WebkitMaskImage: 'url(/icons/Arrow.png)',
+  maskImage: 'url(/icons/Arrow.png)',
+  WebkitMaskSize: 'contain',
+  maskSize: 'contain',
+  WebkitMaskRepeat: 'no-repeat',
+  maskRepeat: 'no-repeat',
+  WebkitMaskPosition: 'center',
+  maskPosition: 'center',
+} as const
+
 function ArrowIcon() {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src="/icons/Arrow.png"
-      alt=""
+    <span
       aria-hidden="true"
-      className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 object-contain transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+      style={arrowMask}
+      className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 bg-accent transition-all duration-200 group-hover:bg-accent-soft group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
     />
   )
 }
 
 function CompanyHeader({ company, website }: { company: string; website?: string }) {
   const name = (
-    <h3 className="font-display font-bold text-[26px] sm:text-[20px] leading-tight text-accent-soft">
+    <h3 className="font-display font-bold text-[24px] sm:text-[20px] leading-tight text-accent-soft transition-colors duration-200 group-hover:text-white">
       {company}
     </h3>
   )
 
   if (!website) {
     return (
-      <div className="flex items-center justify-between gap-4">
+      <div className="group flex items-center justify-between gap-4">
         {name}
         <ArrowIcon />
       </div>
@@ -128,7 +139,7 @@ export default async function Experience() {
                 return (
                   <div
                     key={role._id}
-                    className="flex flex-col sm:flex-row items-start gap-1 sm:gap-6"
+                    className="flex flex-col sm:flex-row items-start pt-2 gap-2 sm:gap-6"
                   >
                     {/* Date range — fixed column on desktop */}
                     <div className="sm:w-44 shrink-0 sm:pt-0.5">
@@ -139,7 +150,7 @@ export default async function Experience() {
 
                     {/* Role + bullets */}
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-display font-semibold text-[17px] sm:text-[20px] text-white leading-snug mb-2">
+                      <h4 className="font-display font-semibold text-[17px] sm:text-[18px] text-white leading-snug mb-2">
                         {role.role}
                       </h4>
                       {bullets.length > 0 && (
@@ -147,7 +158,7 @@ export default async function Experience() {
                           {bullets.map((bullet, i) => (
                             <li
                               key={i}
-                              className="flex gap-2 t-body text-zinc-500 leading-relaxed"
+                              className="flex gap-2 t-body text-zinc-400 leading-relaxed"
                             >
                               <span className="select-none" aria-hidden="true">
                                 •
