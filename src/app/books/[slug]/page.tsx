@@ -67,22 +67,22 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
       <main className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
-          <Link href="/" className="text-[#52525b] hover:text-[#a1a1aa] transition-colors">
+          <Link href="/" className="text-zinc-600 hover:text-zinc-400 transition-colors">
             Home
           </Link>
-          <span className="text-[#3f3f46]">/</span>
-          <Link href="/books" className="text-[#52525b] hover:text-[#a1a1aa] transition-colors">
+          <span className="text-zinc-700">/</span>
+          <Link href="/books" className="text-zinc-600 hover:text-zinc-400 transition-colors">
             Books
           </Link>
-          <span className="text-[#3f3f46]">/</span>
-          <span className="text-[#a1a1aa] truncate">{book.title}</span>
+          <span className="text-zinc-700">/</span>
+          <span className="text-zinc-400 truncate">{book.title}</span>
         </nav>
 
         {/* Two-column hero */}
         <div className="flex flex-col md:flex-row gap-8 mb-8">
           {/* Left: cover (25%) — portrait ratio */}
           {coverUrl && (
-            <div className="md:w-[25%] shrink-0 self-start rounded-[16px] overflow-hidden bg-[#18181b]">
+            <div className="md:w-[25%] shrink-0 self-start rounded-[16px] overflow-hidden bg-zinc-900">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={coverUrl}
@@ -99,10 +99,10 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
           <div className="flex flex-col gap-4 md:w-[75%]">
             <h1 className="font-display text-[28px] sm:text-[34px] text-white leading-tight">{book.title}</h1>
 
-            <p className="font-body text-[14px] text-[#a1a1aa] leading-relaxed">by {book.author}</p>
+            <p className="font-body text-[14px] text-zinc-400 leading-relaxed">by {book.author}</p>
 
             {book.shortDescription && (
-              <p className="font-body text-[14px] text-[#a1a1aa] leading-relaxed">{book.shortDescription}</p>
+              <p className="font-body text-[14px] text-zinc-400 leading-relaxed">{book.shortDescription}</p>
             )}
 
             {book.tags?.length > 0 && (
@@ -110,7 +110,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
                 {book.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="bg-[#18181b] border border-[#27272a] rounded px-2 py-0.5 font-body text-[11px] text-[#71717a] whitespace-nowrap leading-[16px]"
+                    className="bg-zinc-900 border border-zinc-800 rounded px-2 py-0.5 font-body text-[11px] text-zinc-500 whitespace-nowrap leading-[16px]"
                   >
                     {tag}
                   </span>
@@ -121,20 +121,20 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
         </div>
 
         {/* Divider */}
-        <hr className="border-[#27272a] mb-8" />
+        <hr className="border-zinc-800 mb-8" />
 
         {/* Body */}
         {bodyHtml ? (
           <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
         ) : (
-          <p className="font-body text-[16px] text-[#71717a] italic">No review written yet.</p>
+          <p className="font-body text-[16px] text-zinc-500 italic">No review written yet.</p>
         )}
 
         {/* Back link */}
         <div className="mt-12">
           <Link
             href="/books"
-            className="inline-flex items-center gap-1.5 font-body text-[13px] text-[#71717a] hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 font-body text-[13px] text-zinc-500 hover:text-white transition-colors"
           >
             <svg
               className="w-3.5 h-3.5"

@@ -37,8 +37,8 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
   const pillClass = (isActive: boolean) =>
     `filter-pill inline-flex items-center gap-1.5 font-body text-[13px] px-3 py-1 rounded-full border transition-colors cursor-pointer ${
       isActive
-        ? 'border-[#a855f7] bg-[#a855f7]/10 text-white'
-        : 'border-[#3f3f46] text-[#71717a] hover:border-[#52525b] hover:text-[#a1a1aa]'
+        ? 'border-purple-500 bg-purple-500/10 text-white'
+        : 'border-zinc-700 text-zinc-500 hover:border-zinc-600 hover:text-zinc-400'
     }`
 
   return (
@@ -54,7 +54,7 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
             aria-pressed={active === 'all'}
           >
             All
-            <span className={`tabular-nums text-[#a1a1aa] ${active === 'all' ? '' : 'hidden'}`}>
+            <span className={`tabular-nums text-zinc-400 ${active === 'all' ? '' : 'hidden'}`}>
               {tagCounts.all}
             </span>
           </button>
@@ -71,7 +71,7 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
                 aria-pressed={isActive}
               >
                 {tag}
-                <span className={`tabular-nums text-[#a1a1aa] ${isActive ? '' : 'hidden'}`}>{tagCounts[tag]}</span>
+                <span className={`tabular-nums text-zinc-400 ${isActive ? '' : 'hidden'}`}>{tagCounts[tag]}</span>
               </button>
             )
           })}
@@ -80,7 +80,7 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
 
       {/* Grid */}
       {books.length === 0 ? (
-        <p className="font-body text-[15px] text-[#52525b] italic">No books yet</p>
+        <p className="font-body text-[15px] text-zinc-600 italic">No books yet</p>
       ) : (
         <div className="flex flex-wrap gap-[10px] sm:gap-[14px]" id="books-grid">
           {books.map((book) => {

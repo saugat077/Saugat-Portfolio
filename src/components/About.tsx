@@ -72,7 +72,7 @@ export default async function About() {
         <a
           href={emailUrl}
           aria-label="Send email"
-          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-[#27272a] flex items-center justify-center hover:bg-[#3f3f46] transition-colors shrink-0"
+          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors shrink-0"
         >
           <svg
             className="w-[16px] h-[12px] sm:w-[19px] sm:h-[14px] text-white"
@@ -95,7 +95,7 @@ export default async function About() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn profile"
-          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-[#27272a] flex items-center justify-center hover:bg-[#3f3f46] transition-colors shrink-0"
+          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors shrink-0"
         >
           <span className="font-['Inter',sans-serif] font-extrabold text-[15px] sm:text-[20px] text-white leading-none select-none">
             in
@@ -108,7 +108,7 @@ export default async function About() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chess.com profile"
-          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-[#27272a] flex items-center justify-center hover:bg-[#3f3f46] transition-colors shrink-0"
+          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors shrink-0"
         >
           <svg
             className="w-[15px] h-[15px] sm:w-[18px] sm:h-[18px] text-white"
@@ -128,7 +128,7 @@ export default async function About() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub profile"
-          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-[#27272a] flex items-center justify-center hover:bg-[#3f3f46] transition-colors shrink-0"
+          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors shrink-0"
         >
           <svg
             className="w-[18px] h-[18px] sm:w-[22px] sm:h-[22px] text-white"

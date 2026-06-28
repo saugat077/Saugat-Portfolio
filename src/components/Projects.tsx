@@ -34,7 +34,7 @@ export default async function Projects() {
       {/* Section header */}
       <div className="flex items-center justify-between">
         <h2 className="t-display text-white">Projects</h2>
-        <Link href="/projects" className="t-caption text-white hover:text-[#a1a1aa] transition-colors">
+        <Link href="/projects" className="t-caption text-white hover:text-zinc-400 transition-colors">
           View more &gt;
         </Link>
       </div>

@@ -57,16 +57,16 @@ export default async function Experience() {
           <div key={career._id} className="flex flex-col sm:flex-row items-start w-full gap-1 sm:gap-0">
             {/* Date — full width on mobile, fixed column on desktop */}
             <div className="sm:w-[213px] shrink-0 sm:pt-1">
-              <p className="t-caption text-[#c6c6c6] uppercase tracking-[1.2px] leading-[18px] sm:leading-[24px]">
+              <p className="t-caption text-silver uppercase tracking-[1.2px] leading-[18px] sm:leading-[24px]">
                 {formatDate(career.startDate)}
                 <br />— {career.endDate ? formatDate(career.endDate) : 'PRESENT'}
               </p>
             </div>
 
             {/* Timeline line + content */}
-            <div className="flex-1 border-l border-[#27272a] pl-6 sm:pl-12 relative min-w-0 w-full">
+            <div className="flex-1 border-l border-zinc-800 pl-6 sm:pl-12 relative min-w-0 w-full">
               {/* Company logo dot */}
-              <div className="absolute -left-[15px] sm:-left-[21px] top-0 w-[30px] h-[30px] sm:w-[43px] sm:h-[43px] rounded-full bg-[#06030A] border border-[#27272a] flex items-center justify-center overflow-hidden shrink-0">
+              <div className="absolute -left-[15px] sm:-left-[21px] top-0 w-[30px] h-[30px] sm:w-[43px] sm:h-[43px] rounded-full bg-base border border-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
                 {career.companyLogo?.asset ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -77,7 +77,7 @@ export default async function Experience() {
                     decoding="async"
                   />
                 ) : (
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#27272a]"></div>
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-zinc-800"></div>
                 )}
               </div>
 
@@ -89,7 +89,7 @@ export default async function Experience() {
                   </span>
                   {!career.endDate && (
                     <span
-                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#22c55e] shrink-0"
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-500 shrink-0"
                       aria-label="Currently working here"
                     ></span>
                   )}
@@ -101,7 +101,7 @@ export default async function Experience() {
 
               {/* Description */}
               {career.description && (
-                <p className="t-body text-[#71717a] leading-[22px] sm:leading-[28px] mb-3">
+                <p className="t-body text-zinc-500 leading-[22px] sm:leading-[28px] mb-3">
                   {career.description}
                 </p>
               )}
@@ -112,7 +112,7 @@ export default async function Experience() {
                   {career.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="bg-[#18181b] border border-[#27272a] rounded px-2 py-1 sm:px-[9px] sm:py-[5px] t-caption text-[#a1a1aa] whitespace-nowrap leading-[16px] sm:leading-[18px]"
+                      className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 sm:px-[9px] sm:py-[5px] t-caption text-zinc-400 whitespace-nowrap leading-[16px] sm:leading-[18px]"
                     >
                       {tag}
                     </span>

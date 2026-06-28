@@ -16,8 +16,8 @@ type SectionProps = {
   noTopPad?: boolean
 }
 
-const BRIGHT = 'rgba(176,138,224,0.45)'
-const dotV = 'repeating-linear-gradient(to bottom, #000 0 2px, transparent 2px 5px)'
+const BRIGHT = 'var(--color-rail-bright)'
+const dotV = 'repeating-linear-gradient(to bottom, black 0 2px, transparent 2px 5px)'
 
 export default function Section({
   children,

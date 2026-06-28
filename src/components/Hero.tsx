@@ -10,8 +10,8 @@ interface SiteSettings {
 }
 
 const maskStyle = {
-  WebkitMaskImage: 'linear-gradient(to bottom, black 45%, transparent 92%)',
-  maskImage: 'linear-gradient(to bottom, black 45%, transparent 92%)',
+  WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 80%)',
+  maskImage: 'linear-gradient(to bottom, black 50%, transparent 80%)',
 } as const
 
 export default async function Hero() {
@@ -23,30 +23,28 @@ export default async function Hero() {
     bioQuote
   }`)
 
-  const name = settings?.name ?? 'Saugat K.C.'
+  const name = settings?.name ?? 'Saugat KC'
   const role = settings?.title ?? 'Associate QA Engineer'
   const location = settings?.location ?? 'Kathmandu, Nepal 🇳🇵'
   const bannerUrl = settings?.heroBanner ? urlFor(settings.heroBanner).width(760).url() : null
 
   return (
     <div className="relative h-[200px] sm:h-[348px] w-full">
-      {/* Banner background: image from Sanity or fallback blue gradient.
-          -inset-x-6 cancels the section's px-6 so the banner edges land on the
-          rails (the "+" line); square top so it sits flush under the nav. */}
+      {/* Banner background: image from Sanity */}
       <div
-        className="absolute -inset-x-[13.5px] top-0 h-[170px] sm:h-[294px] rounded-b-[13px] overflow-hidden"
+        className="absolute -inset-x-[13.5px] top-0 h-[170px] sm:h-[294px]"
         style={maskStyle}
       >
         {bannerUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={bannerUrl} alt="" className="w-full h-full object-cover" aria-hidden="true" />
+          <img src={bannerUrl} alt="Background Image" className="w-full h-full object-cover" aria-hidden="true" />
         ) : (
-          <div className="w-full h-full bg-[#4c1d95]"></div>
+          <div className="w-full h-full bg-violet-900"></div>
         )}
       </div>
 
       {/* Nepal clock badge (top-right) */}
-      <div className="absolute top-[8px] right-[8px] sm:top-[9px] sm:right-[9px] bg-[#0f1317] rounded-[6px] px-2 py-[3px] sm:px-3 sm:py-[5px] z-[2]">
+      <div className="absolute top-[8px] right-[8px] sm:top-[9px] sm:right-[9px] bg-panel rounded-[6px] px-2 py-[3px] sm:px-3 sm:py-[5px] z-[2]">
         <NepalClock />
       </div>
 
@@ -57,7 +55,7 @@ export default async function Hero() {
         {/* Text info */}
         <div className="flex flex-col gap-0 pb-1 sm:pb-2">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="font-display font-bold text-[22px] sm:text-[40.5px] text-white leading-tight whitespace-nowrap">
+            <span className="t-display font-bold text-[22px] sm:text-[36px] text-white leading-tight whitespace-nowrap">
               {name}
             </span>
             {/* Verified checkmark */}
@@ -74,8 +72,8 @@ export default async function Hero() {
               />
             </svg>
           </div>
-          <span className="font-semibold text-[20px] sm:text-[22.5px] text-[#e7d2f9] leading-tight">{role}</span>
-          <span className="t-body text-[#a1a1aa] leading-tight">{location}</span>
+          <span className="text-[18px] sm:text-[22.5px] pt-[2px] pb-[2px] text-accent-soft leading-tight">{role}</span>
+          <span className="t-body text-zinc-400 leading-tight">{location}</span>
         </div>
       </div>
     </div>

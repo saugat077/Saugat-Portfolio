@@ -44,14 +44,14 @@ export default async function BooksPage() {
         <div className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
-            <Link href="/" className="text-[#52525b] hover:text-[#a1a1aa] transition-colors">
+            <Link href="/" className="text-zinc-600 hover:text-zinc-400 transition-colors">
               Home
             </Link>
-            <span className="text-[#3f3f46]">/</span>
-            <span className="text-[#a1a1aa]">Books</span>
+            <span className="text-zinc-700">/</span>
+            <span className="text-zinc-400">Books</span>
           </nav>
 
-          <hr className="border-[#27272a] mb-6" />
+          <hr className="border-zinc-800 mb-6" />
 
           <BooksFilter books={books} />
         </div>

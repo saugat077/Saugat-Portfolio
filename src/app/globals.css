@@ -7,6 +7,22 @@
   --font-caption: 'Inter', sans-serif;
   --font-bitcount: 'Bitcount Single', monospace;
   --font-footer: 'Manrope', sans-serif;
+
+  /* Brand palette — single source of truth for colour.
+     Greys reuse Tailwind's built-in `zinc` scale; only the custom
+     colours below need to be declared here. */
+  --color-accent: #7430c6;       /* main accent */
+  --color-accent-soft: #e7d2f9;  /* secondary accent */
+  --color-accent-pill: #6c379e;  /* nav active pill */
+  --color-base: #06030a;         /* page background / near-black */
+  --color-panel: #0f1317;        /* small dark chips (e.g. hero badge) */
+  --color-ink: #0a0b0b;          /* darkest border ring */
+  --color-silver: #c7c7c7;       /* light neutral text */
+
+  /* Decorative lavender used by the section rails + dividers, pre-mixed
+     with alpha so the fade reads correctly over the dark page. */
+  --color-rail-bright: rgb(176 138 224 / 0.45);
+  --color-rail-soft: rgb(176 138 224 / 0.3);
 }
 
 /* Typographic scale — three roles */
@@ -20,7 +36,7 @@
   .t-body {
     font-family: var(--font-body);
     font-weight: 400;
-    font-size: 15px;
+    font-size: 14px;
   }
   .t-caption {
     font-family: var(--font-caption);
@@ -92,5 +108,5 @@
 /* Revealed only after the profile-photo hover unlocks it */
 body.easter-unlocked .easter-word {
   color: white;
-  background-color: #a855f79b;
+  background-color: color-mix(in srgb, var(--color-purple-500) 61%, transparent);
 }

@@ -32,13 +32,13 @@ export default function Nav() {
     <>
       <header
         id="site-header"
-        className="fixed top-0 left-0 right-0 z-50 bg-[#06030A]/50 backdrop-blur-xl backdrop-saturate-150"
+        className="fixed top-0 left-0 right-0 z-50 bg-base/50 backdrop-blur-xl backdrop-saturate-150"
       >
         <div className="max-w-[1440px] mx-auto px-[13.5px]">
           <div className="max-w-[960px] mx-auto px-[13.5px] flex items-center justify-between h-[54px] sm:h-[60px]">
             <Link
               href="/"
-              className="t-display font-extrabold tracking-tighter bg-gradient-to-r from-[#a855f7] to-[#e7d2f9] bg-clip-text text-transparent leading-normal py-1"
+              className="t-display font-extrabold tracking-tighter bg-gradient-to-r from-accent to-accent-soft bg-clip-text text-transparent leading-normal py-1"
             >
               @alwaysaugat
             </Link>
@@ -50,14 +50,14 @@ export default function Nav() {
                   <Link
                     href={link.href}
                     className={`t-body font-bold transition-colors ${
-                      link.active ? 'text-white' : 'text-white hover:text-[#a1a1aa]'
+                      link.active ? 'text-white' : 'text-white hover:text-zinc-400'
                     }`}
                   >
                     {link.label}
                   </Link>
                   <span
                     className={`absolute -bottom-2 left-1/2 -translate-x-1/2 block w-1 h-1 rounded-full transition-opacity ${
-                      link.active ? 'bg-[#a855f7] opacity-100' : 'opacity-0'
+                      link.active ? 'bg-accent-pill opacity-100' : 'opacity-0'
                     }`}
                   ></span>
                 </div>
@@ -107,7 +107,7 @@ export default function Nav() {
       {/* Mobile full-screen menu */}
       <div
         id="mobile-menu"
-        className={`sm:hidden fixed inset-0 bg-[#06030A]/80 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-10 transition-opacity duration-300 ${
+        className={`sm:hidden fixed inset-0 bg-base/80 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-10 transition-opacity duration-300 ${
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         aria-hidden={!open}
@@ -118,7 +118,7 @@ export default function Nav() {
             href={link.href}
             onClick={() => setOpen(false)}
             className={`font-display text-[36px] transition-colors ${
-              link.active ? 'text-[#a855f7]' : 'text-white hover:text-[#a1a1aa]'
+              link.active ? 'text-purple-500' : 'text-white hover:text-zinc-400'
             }`}
           >
             {link.label}

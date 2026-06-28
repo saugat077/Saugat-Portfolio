@@ -49,7 +49,7 @@ export default function ProfilePhoto() {
       onMouseLeave={handleMouseLeave}
       className="relative shrink-0 w-[110px] h-[110px] sm:w-[237px] sm:h-[237px] cursor-pointer"
     >
-      <div className="w-full h-full rounded-full border-2 border-[#0a0b0b] bg-[#18181b] overflow-hidden">
+      <div className="w-full h-full rounded-full border-2 border-ink bg-zinc-900 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/profile.png" alt="Saugat K.C." className="w-full h-full object-cover" />
       </div>
@@ -67,7 +67,7 @@ export default function ProfilePhoto() {
           cy="50"
           r="50"
           fill="none"
-          stroke="#22c55e"
+          stroke="var(--color-green-500)"
           strokeWidth="1.5"
           strokeLinecap="round"
           style={{ strokeDasharray: 314.16, strokeDashoffset: 314.16 }}

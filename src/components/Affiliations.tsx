@@ -46,7 +46,7 @@ export default async function Affiliations() {
                 decoding="async"
               />
             ) : (
-              <span className="t-display text-[#c7c7c7]">{aff.orgName}</span>
+              <span className="t-display text-silver">{aff.orgName}</span>
             )}
           </a>
         ))}

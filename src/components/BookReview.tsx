@@ -28,7 +28,7 @@ export default async function BookReview() {
       {/* Section header */}
       <div className="flex items-center justify-between">
         <h2 className="t-display text-white">Book Review</h2>
-        <Link href="/books" className="t-caption text-white hover:text-[#a1a1aa] transition-colors">
+        <Link href="/books" className="t-caption text-white hover:text-zinc-400 transition-colors">
           View more &gt;
         </Link>
       </div>

@@ -69,7 +69,7 @@ export function renderPortableText(blocks: BodyBlock[]): string {
         let t = escapeHtml(span.text)
         if (span.marks?.includes('strong')) t = `<strong class="font-semibold text-white">${t}</strong>`
         if (span.marks?.includes('em')) t = `<em class="italic">${t}</em>`
-        if (span.marks?.includes('code')) t = `<code class="bg-[#18181b] text-[#a1a1aa] px-1 rounded text-sm">${t}</code>`
+        if (span.marks?.includes('code')) t = `<code class="bg-zinc-900 text-zinc-400 px-1 rounded text-sm">${t}</code>`
         return t
       })
       .join('')
@@ -81,8 +81,8 @@ export function renderPortableText(blocks: BodyBlock[]): string {
         if (currentList) parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
         parts.push(
           listType === 'bullet'
-            ? '<ul class="list-disc list-inside font-body text-[16px] text-[#a1a1aa] leading-relaxed space-y-2 my-4 ml-4">'
-            : '<ol class="list-decimal list-inside font-body text-[16px] text-[#a1a1aa] leading-relaxed space-y-2 my-4 ml-4">'
+            ? '<ul class="list-disc list-inside font-body text-[16px] text-zinc-400 leading-relaxed space-y-2 my-4 ml-4">'
+            : '<ol class="list-decimal list-inside font-body text-[16px] text-zinc-400 leading-relaxed space-y-2 my-4 ml-4">'
         )
         currentList = listType
       }
@@ -111,12 +111,12 @@ export function renderPortableText(blocks: BodyBlock[]): string {
         break
       case 'blockquote':
         parts.push(
-          `<blockquote class="border-l-2 border-[#3f3f46] pl-4 my-4 font-body text-[16px] text-[#a1a1aa] italic leading-relaxed">${inlineHtml}</blockquote>`
+          `<blockquote class="border-l-2 border-zinc-700 pl-4 my-4 font-body text-[16px] text-zinc-400 italic leading-relaxed">${inlineHtml}</blockquote>`
         )
         break
       default:
         parts.push(
-          `<p class="font-body text-[16px] text-[#d4d4d8] leading-relaxed mb-4">${inlineHtml}</p>`
+          `<p class="font-body text-[16px] text-zinc-300 leading-relaxed mb-4">${inlineHtml}</p>`
         )
     }
   }

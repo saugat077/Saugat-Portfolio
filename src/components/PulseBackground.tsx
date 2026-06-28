@@ -4,7 +4,7 @@
 // Component and is compatible with static export.
 //
 // Dark bluish / navy shades — each ring a slightly different dark blue so the
-// pulse reads as subtle expanding rings against the #06030A page bg.
+// pulse reads as subtle expanding rings against the base page bg.
 
 const RING_SHADES = [
   'rgba(28, 12, 48, 0.55)',

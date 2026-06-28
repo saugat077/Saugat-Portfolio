@@ -75,20 +75,20 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
       <main className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
-          <Link href="/" className="text-[#52525b] hover:text-[#a1a1aa] transition-colors">
+          <Link href="/" className="text-zinc-600 hover:text-zinc-400 transition-colors">
             Home
           </Link>
-          <span className="text-[#3f3f46]">/</span>
-          <Link href="/blogs" className="text-[#52525b] hover:text-[#a1a1aa] transition-colors">
+          <span className="text-zinc-700">/</span>
+          <Link href="/blogs" className="text-zinc-600 hover:text-zinc-400 transition-colors">
             Blogs
           </Link>
-          <span className="text-[#3f3f46]">/</span>
-          <span className="text-[#a1a1aa] truncate">{blog.title}</span>
+          <span className="text-zinc-700">/</span>
+          <span className="text-zinc-400 truncate">{blog.title}</span>
         </nav>
 
         {/* Cover image */}
         {coverUrl && (
-          <div className="w-full rounded-xl overflow-hidden mb-8 bg-[#18181b]">
+          <div className="w-full rounded-xl overflow-hidden mb-8 bg-zinc-900">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={coverUrl}
@@ -106,14 +106,14 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
         {/* Date and tags row */}
         <div className="flex flex-wrap items-center gap-3 mb-6">
           {blog.publishedAt && (
-            <span className="font-body text-[13px] text-[#52525b]">{formatDate(blog.publishedAt)}</span>
+            <span className="font-body text-[13px] text-zinc-600">{formatDate(blog.publishedAt)}</span>
           )}
           {blog.tags && blog.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
               {blog.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="bg-[#18181b] border border-[#27272a] rounded px-2 py-0.5 font-body text-[11px] text-[#71717a] whitespace-nowrap leading-[16px]"
+                  className="bg-zinc-900 border border-zinc-800 rounded px-2 py-0.5 font-body text-[11px] text-zinc-500 whitespace-nowrap leading-[16px]"
                 >
                   {tag}
                 </span>
@@ -123,20 +123,20 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
         </div>
 
         {/* Divider */}
-        <hr className="border-[#27272a] mb-8" />
+        <hr className="border-zinc-800 mb-8" />
 
         {/* Body */}
         {bodyHtml ? (
           <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
         ) : (
-          <p className="font-body text-[16px] text-[#71717a] italic">No content yet.</p>
+          <p className="font-body text-[16px] text-zinc-500 italic">No content yet.</p>
         )}
 
         {/* Back link */}
         <div className="mt-12">
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-1.5 font-body text-[13px] text-[#71717a] hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 font-body text-[13px] text-zinc-500 hover:text-white transition-colors"
           >
             <svg
               className="w-3.5 h-3.5"
