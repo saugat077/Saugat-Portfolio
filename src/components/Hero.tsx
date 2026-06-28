@@ -34,14 +34,14 @@ export default async function Hero() {
           -inset-x-6 cancels the section's px-6 so the banner edges land on the
           rails (the "+" line); square top so it sits flush under the nav. */}
       <div
-        className="absolute -inset-x-6 top-0 h-[170px] sm:h-[294px] rounded-b-[13px] overflow-hidden"
+        className="absolute -inset-x-[13.5px] top-0 h-[170px] sm:h-[294px] rounded-b-[13px] overflow-hidden"
         style={maskStyle}
       >
         {bannerUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={bannerUrl} alt="" className="w-full h-full object-cover" aria-hidden="true" />
         ) : (
-          <div className="w-full h-full bg-[#052f73]"></div>
+          <div className="w-full h-full bg-[#4c1d95]"></div>
         )}
       </div>
 
@@ -57,7 +57,7 @@ export default async function Hero() {
         {/* Text info */}
         <div className="flex flex-col gap-0 pb-1 sm:pb-2">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="font-display text-[22px] sm:text-[43px] text-white leading-tight whitespace-nowrap">
+            <span className="font-display font-bold text-[22px] sm:text-[40.5px] text-white leading-tight whitespace-nowrap">
               {name}
             </span>
             {/* Verified checkmark */}
@@ -74,8 +74,8 @@ export default async function Hero() {
               />
             </svg>
           </div>
-          <span className="font-display text-[13px] sm:text-[21px] text-[#a1a1aa] leading-tight">{role}</span>
-          <span className="font-display text-[13px] sm:text-[21px] text-[#a1a1aa] leading-tight">{location}</span>
+          <span className="font-semibold text-[20px] sm:text-[22.5px] text-[#e7d2f9] leading-tight">{role}</span>
+          <span className="t-body text-[#a1a1aa] leading-tight">{location}</span>
         </div>
       </div>
     </div>

@@ -11,20 +11,20 @@ const dotV = 'repeating-linear-gradient(to bottom, #000 0 2px, transparent 2px 5
 // Bright at each rail, fading to transparent toward the centre.
 const mainLine = {
   background:
-    'linear-gradient(to right, rgba(110,150,215,0.45), transparent 30%, transparent 70%, rgba(110,150,215,0.45))',
+    'linear-gradient(to right, rgba(176,138,224,0.45), transparent 30%, transparent 70%, rgba(176,138,224,0.45))',
   WebkitMaskImage: dotH,
   maskImage: dotH,
 } as const
 
 // Horizontal arms — extend a short way past each rail and fade out softly.
 const armLeft = {
-  background: 'linear-gradient(to left, rgba(110,150,215,0.3), transparent)',
+  background: 'linear-gradient(to left, rgba(176,138,224,0.3), transparent)',
   WebkitMaskImage: dotH,
   maskImage: dotH,
 } as const
 
 const armRight = {
-  background: 'linear-gradient(to right, rgba(110,150,215,0.3), transparent)',
+  background: 'linear-gradient(to right, rgba(176,138,224,0.3), transparent)',
   WebkitMaskImage: dotH,
   maskImage: dotH,
 } as const
@@ -32,7 +32,7 @@ const armRight = {
 // Vertical arms — centred on each crossing, bright in the middle and fading
 // up/down so the "+" is symmetric with the horizontal arms.
 const armVertical = {
-  background: 'linear-gradient(to bottom, transparent, rgba(110,150,215,0.3), transparent)',
+  background: 'linear-gradient(to bottom, transparent, rgba(176,138,224,0.3), transparent)',
   WebkitMaskImage: dotV,
   maskImage: dotV,
 } as const

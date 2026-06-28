@@ -4,14 +4,14 @@
 // Component and is compatible with static export.
 //
 // Dark bluish / navy shades — each ring a slightly different dark blue so the
-// pulse reads as subtle expanding rings against the #0a0a0a page bg.
+// pulse reads as subtle expanding rings against the #06030A page bg.
 
 const RING_SHADES = [
-  'rgba(10, 18, 44, 0.55)',
-  'rgba(14, 24, 58, 0.50)',
-  'rgba(20, 32, 72, 0.45)',
-  'rgba(8, 14, 38, 0.55)',
-  'rgba(26, 40, 86, 0.40)',
+  'rgba(28, 12, 48, 0.55)',
+  'rgba(38, 16, 64, 0.50)',
+  'rgba(50, 22, 80, 0.45)',
+  'rgba(24, 10, 44, 0.55)',
+  'rgba(60, 28, 96, 0.40)',
 ]
 
 const DURATION = 30 // seconds — keep in sync with the .pulse-ring animation

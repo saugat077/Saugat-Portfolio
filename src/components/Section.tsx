@@ -12,9 +12,11 @@ type SectionProps = {
   className?: string
   fadeTop?: boolean
   fadeBottom?: boolean
+  /** First section (hero) — drop the top padding so the banner stays flush to the nav. */
+  noTopPad?: boolean
 }
 
-const BRIGHT = 'rgba(110,150,215,0.45)'
+const BRIGHT = 'rgba(176,138,224,0.45)'
 const dotV = 'repeating-linear-gradient(to bottom, #000 0 2px, transparent 2px 5px)'
 
 export default function Section({
@@ -22,6 +24,7 @@ export default function Section({
   className = '',
   fadeTop = false,
   fadeBottom = false,
+  noTopPad = false,
 }: SectionProps) {
   const top = fadeTop ? 'transparent' : BRIGHT
   const bottom = fadeBottom ? 'transparent' : BRIGHT
@@ -32,7 +35,7 @@ export default function Section({
   } as const
 
   return (
-    <div className={`relative px-6 py-8 sm:py-10 ${className}`}>
+    <div className={`relative px-[13.5px] ${noTopPad ? 'pt-0' : 'pt-6 sm:pt-10'} pb-6 sm:pb-10 ${className}`}>
       <div className="absolute inset-y-0 left-0 w-px" style={rail} aria-hidden="true" />
       <div className="absolute inset-y-0 right-0 w-px" style={rail} aria-hidden="true" />
       {children}

@@ -21,8 +21,8 @@ export default function Home() {
       <Nav />
 
       <main className="max-w-[1440px] mx-auto overflow-x-clip px-4 sm:px-6 lg:px-0">
-        <div className="max-w-[864px] mx-auto pt-[60px] sm:pt-[72px] pb-12 flex flex-col">
-          <Section fadeTop className="pt-0 sm:pt-0">
+        <div className="max-w-[960px] mx-auto pt-[54px] sm:pt-[60px] flex flex-col">
+          <Section fadeTop noTopPad>
             {/* Hero and About are tightly grouped */}
             <div className="flex flex-col gap-4 sm:gap-5">
               <Hero />
@@ -30,9 +30,6 @@ export default function Home() {
             </div>
           </Section>
           <SectionDivider />
-          <Section>
-            <BookReview />
-          </Section>
           <SectionDivider />
           <Section>
             <Experience />
@@ -46,11 +43,14 @@ export default function Home() {
             <Projects />
           </Section>
           <SectionDivider />
+          <Section>
+            <BookReview />
+          </Section>
         </div>
 
-        {/* Decorative name watermark — centered, full word visible */}
+        {/* Decorative name watermark — only the top half is shown, sitting at the page edge */}
         <div
-          className="font-display text-[64px] sm:text-[160px] leading-none text-center text-white pointer-events-none select-none py-6 sm:py-8"
+          className="font-footer font-extrabold text-[64px] sm:text-[160px] leading-none text-center text-white pointer-events-none select-none overflow-hidden h-[50px] sm:h-[140px] mt-6 sm:mt-8"
           style={watermarkMask}
           aria-hidden="true"
         >

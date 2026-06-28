@@ -33,8 +33,8 @@ export default async function Projects() {
     <section className="flex flex-col gap-6">
       {/* Section header */}
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-[18px] sm:text-[23px] text-white">Projects</h2>
-        <Link href="/projects" className="font-body text-[13px] text-white hover:text-[#a1a1aa] transition-colors">
+        <h2 className="t-display text-white">Projects</h2>
+        <Link href="/projects" className="t-caption text-white hover:text-[#a1a1aa] transition-colors">
           View more &gt;
         </Link>
       </div>

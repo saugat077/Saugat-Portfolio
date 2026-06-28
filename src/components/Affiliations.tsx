@@ -24,7 +24,7 @@ export default async function Affiliations() {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-[18px] sm:text-[23px] text-white">Also Affiliated With</h2>
+      <h2 className="t-display text-white">Also Affiliated With</h2>
 
       <div className="flex flex-nowrap items-center gap-7 overflow-x-auto pb-1">
         {affiliations.map((aff) => (
@@ -46,7 +46,7 @@ export default async function Affiliations() {
                 decoding="async"
               />
             ) : (
-              <span className="font-display text-[14px] text-[#c7c7c7]">{aff.orgName}</span>
+              <span className="t-display text-[#c7c7c7]">{aff.orgName}</span>
             )}
           </a>
         ))}

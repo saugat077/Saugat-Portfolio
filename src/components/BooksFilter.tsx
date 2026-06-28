@@ -37,7 +37,7 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
   const pillClass = (isActive: boolean) =>
     `filter-pill inline-flex items-center gap-1.5 font-body text-[13px] px-3 py-1 rounded-full border transition-colors cursor-pointer ${
       isActive
-        ? 'border-[#378ADD] bg-[#378ADD]/10 text-white'
+        ? 'border-[#a855f7] bg-[#a855f7]/10 text-white'
         : 'border-[#3f3f46] text-[#71717a] hover:border-[#52525b] hover:text-[#a1a1aa]'
     }`
 

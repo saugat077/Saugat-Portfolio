@@ -27,7 +27,7 @@ export default function NepalClock() {
   return (
     <span
       id="npt-clock"
-      className="font-pixel text-[11px] sm:text-[18px] text-white whitespace-nowrap tabular-nums"
+      className="font-bitcount text-[11px] sm:text-[18px] text-white whitespace-nowrap tabular-nums"
       aria-label="Current time in Nepal"
     >
       {time}

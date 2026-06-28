@@ -1,16 +1,44 @@
-@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400;0,600;0,700;1,400&family=Pixelify+Sans:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Bitcount+Single:wght@400&display=swap");
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Coolvetica';
-  src: url('/fonts/coolvetica.otf') format('opentype');
-  font-display: swap;
+@theme {
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-caption: 'Inter', sans-serif;
+  --font-bitcount: 'Bitcount Single', monospace;
+  --font-footer: 'Manrope', sans-serif;
 }
 
-@theme {
-  --font-display: 'Coolvetica', sans-serif;
-  --font-body: 'Afacad', sans-serif;
-  --font-pixel: 'Pixelify Sans', monospace;
+/* Typographic scale — three roles */
+@layer components {
+  /* Mobile-first base sizes; scale up to the approved desktop sizes at sm (640px). */
+  .t-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .t-body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 15px;
+  }
+  .t-caption {
+    font-family: var(--font-caption);
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  @media (min-width: 640px) {
+    .t-display {
+      font-size: 27px;
+    }
+    .t-body {
+      font-size: 18px;
+    }
+    .t-caption {
+      font-size: 13.5px;
+    }
+  }
 }
 
 /* Animated pulse background — concentric rings expand from the centre and fade.
@@ -64,5 +92,5 @@
 /* Revealed only after the profile-photo hover unlocks it */
 body.easter-unlocked .easter-word {
   color: white;
-  background-color: #4da2f19b;
+  background-color: #a855f79b;
 }

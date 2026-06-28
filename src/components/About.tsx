@@ -62,7 +62,7 @@ export default async function About() {
     <section className="flex flex-col gap-6">
       {/* Bio quote (Portable Text — may contain .easter-word spans) */}
       <div
-        className="font-body text-[16px] sm:text-[21px] text-white leading-relaxed text-left [&>p]:m-0"
+        className="t-body text-white leading-relaxed text-left [&>p]:m-0"
         dangerouslySetInnerHTML={{ __html: ptToHtml(settings?.bioQuote) }}
       />
 

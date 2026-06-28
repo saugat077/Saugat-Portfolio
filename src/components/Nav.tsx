@@ -32,13 +32,13 @@ export default function Nav() {
     <>
       <header
         id="site-header"
-        className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/50 backdrop-blur-xl backdrop-saturate-150"
+        className="fixed top-0 left-0 right-0 z-50 bg-[#06030A]/50 backdrop-blur-xl backdrop-saturate-150"
       >
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-0">
-          <div className="max-w-[864px] mx-auto px-6 flex items-center justify-between h-[60px] sm:h-[72px]">
+        <div className="max-w-[1440px] mx-auto px-[13.5px]">
+          <div className="max-w-[960px] mx-auto px-[13.5px] flex items-center justify-between h-[54px] sm:h-[60px]">
             <Link
               href="/"
-              className="font-display text-[22px] sm:text-[28px] bg-gradient-to-r from-[#0d9aff] to-[#e0efff] bg-clip-text text-transparent leading-normal py-1"
+              className="t-display font-extrabold tracking-tighter bg-gradient-to-r from-[#a855f7] to-[#e7d2f9] bg-clip-text text-transparent leading-normal py-1"
             >
               @alwaysaugat
             </Link>
@@ -49,7 +49,7 @@ export default function Nav() {
                 <div key={link.href} className="relative">
                   <Link
                     href={link.href}
-                    className={`font-display text-[22px] transition-colors ${
+                    className={`t-body font-bold transition-colors ${
                       link.active ? 'text-white' : 'text-white hover:text-[#a1a1aa]'
                     }`}
                   >
@@ -57,7 +57,7 @@ export default function Nav() {
                   </Link>
                   <span
                     className={`absolute -bottom-2 left-1/2 -translate-x-1/2 block w-1 h-1 rounded-full transition-opacity ${
-                      link.active ? 'bg-[#378ADD] opacity-100' : 'opacity-0'
+                      link.active ? 'bg-[#a855f7] opacity-100' : 'opacity-0'
                     }`}
                   ></span>
                 </div>
@@ -99,7 +99,7 @@ export default function Nav() {
           className="absolute bottom-0 left-0 right-0 h-px"
           style={{
             background:
-              'linear-gradient(to right, transparent, rgba(55, 138, 221, 0.5), transparent)',
+              'linear-gradient(to right, transparent, rgba(168, 85, 247, 0.5), transparent)',
           }}
         />
       </header>
@@ -107,7 +107,7 @@ export default function Nav() {
       {/* Mobile full-screen menu */}
       <div
         id="mobile-menu"
-        className={`sm:hidden fixed inset-0 bg-[#0a0a0a]/80 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-10 transition-opacity duration-300 ${
+        className={`sm:hidden fixed inset-0 bg-[#06030A]/80 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-10 transition-opacity duration-300 ${
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         aria-hidden={!open}
@@ -118,7 +118,7 @@ export default function Nav() {
             href={link.href}
             onClick={() => setOpen(false)}
             className={`font-display text-[36px] transition-colors ${
-              link.active ? 'text-[#378ADD]' : 'text-white hover:text-[#a1a1aa]'
+              link.active ? 'text-[#a855f7]' : 'text-white hover:text-[#a1a1aa]'
             }`}
           >
             {link.label}
