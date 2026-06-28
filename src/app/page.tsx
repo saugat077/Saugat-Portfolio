@@ -1,5 +1,4 @@
 import Nav from '@/components/Nav'
-import PulseBackground from '@/components/PulseBackground'
 import Section from '@/components/Section'
 import SectionDivider from '@/components/SectionDivider'
 import Hero from '@/components/Hero'
@@ -17,7 +16,6 @@ const watermarkMask = {
 export default function Home() {
   return (
     <>
-      <PulseBackground />
       <Nav />
 
       <main className="max-w-[1440px] mx-auto overflow-x-clip px-4 sm:px-6 lg:px-0">
