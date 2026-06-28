@@ -23,8 +23,8 @@ export default function Nav() {
 
   const links: { href: string; label: string; active: boolean }[] = [
     { href: '/', label: 'Home', active: isHome },
-    { href: '/books', label: 'Books', active: isBooks },
     { href: '/projects', label: 'Projects', active: isProjects },
+    { href: '/books', label: 'Books', active: isBooks },
     { href: '/blogs', label: 'Blogs', active: isBlogs },
   ]
 
@@ -36,11 +36,13 @@ export default function Nav() {
       >
         <div className="max-w-[1440px] mx-auto px-[13.5px]">
           <div className="max-w-[864px] mx-auto px-[13.5px] flex items-center justify-between h-[54px] sm:h-[60px]">
-            <Link
-              href="/"
-              className="t-display font-extrabold tracking-tighter bg-gradient-to-r from-accent to-accent-soft bg-clip-text text-transparent leading-normal py-1"
-            >
-              @alwaysaugat
+            <Link href="/" className="flex items-center py-1" aria-label="Home">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/emblem.svg"
+                alt="alwaysaugat"
+                className="h-[28px] sm:h-[34px] w-auto"
+              />
             </Link>
 
             {/* Desktop nav */}

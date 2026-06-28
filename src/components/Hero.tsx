@@ -10,8 +10,8 @@ interface SiteSettings {
 }
 
 const maskStyle = {
-  WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 80%)',
-  maskImage: 'linear-gradient(to bottom, black 50%, transparent 80%)',
+  WebkitMaskImage: 'linear-gradient(to bottom, black 28%, transparent 80%)',
+  maskImage: 'linear-gradient(to bottom, black 28%, transparent 75%)',
 } as const
 
 export default async function Hero() {
@@ -59,15 +59,14 @@ export default async function Hero() {
               {name}
             </span>
             {/* Verified checkmark */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/icons/verify.png"
               alt="Verified"
-              className="w-[16px] h-[16px] sm:w-[25px] sm:h-[25px] shrink-0 object-contain"
+              className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] shrink-0 object-contain"
             />
           </div>
-          <span className="text-[18px] sm:text-[22.5px] pt-[2px] pb-[2px] text-accent-soft leading-tight">{role}</span>
-          <span className="t-body text-white-soft leading-tight">{location}</span>
+          <span className="text-[16px] sm:text-[18px] font-medium pt-0.5 pb-0.5 text-accent-soft leading-tight">{role}</span>
+          <span className="t-body text-zinc-400 leading-tight">{location}</span>
         </div>
       </div>
     </div>

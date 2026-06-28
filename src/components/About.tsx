@@ -54,91 +54,73 @@ const githubUrl = 'https://github.com/saugat077'
 const linkedinUrl = 'https://www.linkedin.com/in/saugat-kc77/'
 const emailUrl = 'mailto:ksaugat77@gmail.com'
 const chessUrl = 'https://www.chess.com/member/brainbrainboom'
+const instagramUrl = 'https://www.instagram.com/_alwaysaugat/'
+
+// Social links — icons are PNGs in public/icons (black glyphs, rendered white
+// via brightness-0 invert, matching the Affiliations logos).
+const socials = [
+  { label: 'Mail', href: emailUrl, icon: '/icons/mail.png', external: false },
+  { label: 'LinkedIn', href: linkedinUrl, icon: '/icons/linkedin.png', external: true },
+  { label: 'GitHub', href: githubUrl, icon: '/icons/github.png', external: true },
+  { label: 'Instagram', href: instagramUrl, icon: '/icons/instagram.png', external: true },
+  { label: 'Chess.com', href: chessUrl, icon: '/icons/pawn.png', external: true },
+] as const
+
+// Faded dotted horizontal rule — same dotted mask + lavender fade as the section
+// dividers, but fading out toward both ends. Used above and below the social row.
+const dotH = 'repeating-linear-gradient(to right, black 0 2px, transparent 2px 5px)'
+const fadedRule = {
+  background:
+    'linear-gradient(to right, transparent, var(--color-rail-bright) 20%, var(--color-rail-bright) 80%, transparent)',
+  WebkitMaskImage: dotH,
+  maskImage: dotH,
+} as const
 
 export default async function About() {
   const settings = await client.fetch<SiteSettings | null>(`*[_type == "siteSettings"][0] { bioQuote }`)
 
   return (
-    <section className="flex flex-col gap-6">
+    <section className="flex flex-col gap-4 sm:gap-5">
       {/* Bio quote (Portable Text — may contain .easter-word spans) */}
       <div
-        className="t-body text-white leading-relaxed text-left [&>p]:m-0"
+        className="t-body text-zinc-400 leading-relaxed text-left [&>p]:m-0"
         dangerouslySetInnerHTML={{ __html: ptToHtml(settings?.bioQuote) }}
       />
 
-      {/* Social icon row */}
-      <div className="flex items-center gap-3">
-        {/* Email */}
-        <a
-          href={emailUrl}
-          aria-label="Send email"
-          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors shrink-0"
-        >
-          <svg
-            className="w-[16px] h-[12px] sm:w-[19px] sm:h-[14px] text-white"
-            viewBox="0 0 24 18"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <rect width="22" height="16" x="1" y="1" rx="2" />
-            <path d="m1 4 11 7 11-7" />
-          </svg>
-        </a>
-
-        {/* LinkedIn */}
-        <a
-          href={linkedinUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn profile"
-          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors shrink-0"
-        >
-          <span className="font-['Inter',sans-serif] font-extrabold text-[15px] sm:text-[20px] text-white leading-none select-none">
-            in
-          </span>
-        </a>
-
-        {/* Chess.com */}
-        <a
-          href={chessUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chess.com profile"
-          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors shrink-0"
-        >
-          <svg
-            className="w-[15px] h-[15px] sm:w-[18px] sm:h-[18px] text-white"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <circle cx="12" cy="5.5" r="3.5" />
-            <path d="M9.5 9l-2 7h9l-2-7H9.5z" />
-            <rect x="6" y="17" width="12" height="2.5" rx="1.25" />
-          </svg>
-        </a>
-
-        {/* GitHub */}
-        <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub profile"
-          className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors shrink-0"
-        >
-          <svg
-            className="w-[18px] h-[18px] sm:w-[22px] sm:h-[22px] text-white"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
-          </svg>
-        </a>
+      {/* Social links — plain icon + label, bounded by faded dotted rules */}
+      <div className="flex flex-col gap-4 sm:gap-5">
+        <div className="h-px w-full" style={fadedRule} aria-hidden="true" />
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:gap-x-9">
+          {socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              {...(s.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              aria-label={s.label}
+              className="group inline-flex items-center gap-2 text-white hover:text-accent-soft transition-colors"
+            >
+              {/* PNG used as a mask so the glyph takes the secondary-accent colour */}
+              <span
+                aria-hidden="true"
+                className="w-[24px] h-[24px] sm:w-[20px] sm:h-[20px] shrink-0 bg-accent-soft opacity-80 group-hover:opacity-100 transition-opacity"
+                style={{
+                  maskImage: `url(${s.icon})`,
+                  WebkitMaskImage: `url(${s.icon})`,
+                  maskSize: 'contain',
+                  WebkitMaskSize: 'contain',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskPosition: 'center',
+                  WebkitMaskPosition: 'center',
+                }}
+              />
+              <span className="hidden sm:inline t-body font-bold text-accent-soft leading-none">
+                {s.label}
+              </span>
+            </a>
+          ))}
+        </div>
+        <div className="h-px w-full" style={fadedRule} aria-hidden="true" />
       </div>
     </section>
   )

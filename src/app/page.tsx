@@ -29,8 +29,6 @@ export default function Home() {
               <About />
             </div>
           </Section>
-          <SectionDivider />
-          <SectionDivider />
           <Section>
             <Experience />
           </Section>
