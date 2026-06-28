@@ -26,15 +26,18 @@ export default async function BookReview() {
   return (
     <section className="flex flex-col gap-6">
       {/* Section header */}
-      <div className="flex items-center justify-between">
-        <h2 className="t-display text-white">Book Review</h2>
+      <div className="flex items-end justify-between">
+        <div className="flex flex-col">
+          <span className="text-[14px] text-zinc-400 leading-tight">Summarizing</span>
+          <h2 className="t-display text-white">Books</h2>
+        </div>
         <Link href="/books" className="t-caption text-white hover:text-zinc-400 transition-colors">
           View more &gt;
         </Link>
       </div>
 
       {/* Book covers row — 4 fixed-size cards; scrollable on mobile */}
-      <div className="flex gap-[10px] sm:gap-[14px] items-start overflow-x-auto pb-1 -mb-1">
+      <div className="flex gap-2.5 sm:gap-3.5 items-start overflow-x-auto pb-1 -mb-1">
         {books.map((book) => (
           <BookCard
             key={book._id}

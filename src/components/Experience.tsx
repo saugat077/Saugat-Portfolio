@@ -50,14 +50,17 @@ export default async function Experience() {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="t-display text-white">Career So Far</h2>
+      <div className="flex flex-col">
+        <span className="text-[14px] text-zinc-400 leading-tight">So Far</span>
+        <h2 className="t-display text-white">Career</h2>
+      </div>
 
       <div className="flex flex-col gap-8 sm:gap-6">
         {careers.map((career) => (
           <div key={career._id} className="flex flex-col sm:flex-row items-start w-full gap-1 sm:gap-0">
             {/* Date — full width on mobile, fixed column on desktop */}
-            <div className="sm:w-[213px] shrink-0 sm:pt-1">
-              <p className="t-caption text-silver uppercase tracking-[1.2px] leading-[18px] sm:leading-[24px]">
+            <div className="sm:w-53.25 shrink-0 sm:pt-1">
+              <p className="t-caption text-silver uppercase tracking-[1.2px] leading-4.5 sm:leading-6">
                 {formatDate(career.startDate)}
                 <br />— {career.endDate ? formatDate(career.endDate) : 'PRESENT'}
               </p>
@@ -66,13 +69,13 @@ export default async function Experience() {
             {/* Timeline line + content */}
             <div className="flex-1 border-l border-zinc-800 pl-6 sm:pl-12 relative min-w-0 w-full">
               {/* Company logo dot */}
-              <div className="absolute -left-[15px] sm:-left-[21px] top-0 w-[30px] h-[30px] sm:w-[43px] sm:h-[43px] rounded-full bg-base border border-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
+              <div className="absolute -left-3.75 sm:-left-5.25 top-0 w-7.5 h-7.5 sm:w-10.75 sm:h-10.75 rounded-full bg-base border border-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
                 {career.companyLogo?.asset ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={urlFor(career.companyLogo).width(54).height(54).url()}
                     alt={career.company}
-                    className="w-[18px] h-[18px] sm:w-[27px] sm:h-[27px] object-contain rounded-full"
+                    className="w-4.5 h-4.5 sm:w-6.75 sm:h-6.75 object-contain rounded-full"
                     loading="lazy"
                     decoding="async"
                   />
@@ -84,7 +87,7 @@ export default async function Experience() {
               {/* Company + role */}
               <div className="flex flex-col gap-0.5 sm:gap-1 mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-[20px] sm:text-[22.5px]  leading-tight t-body text-white sm:leading-[30px]">
+                  <span className="font-semibold text-[20px] sm:text-[22.5px]  leading-tight t-body text-white sm:leading-7.5">
                     {career.company}
                   </span>
                   {!career.endDate && (
@@ -94,14 +97,14 @@ export default async function Experience() {
                     ></span>
                   )}
                 </div>
-                <span className="t-body text-white leading-[22px] sm:leading-[26px]">
+                <span className="t-body text-white leading-5.5 sm:leading-6.5">
                   {career.role}
                 </span>
               </div>
 
               {/* Description */}
               {career.description && (
-                <p className="t-body text-zinc-500 leading-[22px] sm:leading-[28px] mb-3">
+                <p className="t-body text-zinc-500 leading-5.5 sm:leading-7 mb-3">
                   {career.description}
                 </p>
               )}
@@ -112,7 +115,7 @@ export default async function Experience() {
                   {career.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 sm:px-[9px] sm:py-[5px] t-caption text-zinc-400 whitespace-nowrap leading-[16px] sm:leading-[18px]"
+                      className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 sm:px-2.25 sm:py-1.25 t-caption text-zinc-400 whitespace-nowrap leading-4 sm:leading-4.5"
                     >
                       {tag}
                     </span>

@@ -24,7 +24,10 @@ export default async function Affiliations() {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="t-display text-white">Also Affiliated With</h2>
+      <div className="flex flex-col">
+        <span className="text-[14px] text-zinc-400 leading-tight">Built with others</span>
+        <h2 className="t-display text-white">Clubs & Events</h2>
+      </div>
 
       <div className="flex flex-nowrap items-center gap-7 overflow-x-auto pb-1">
         {affiliations.map((aff) => (
@@ -41,7 +44,7 @@ export default async function Affiliations() {
               <img
                 src={urlFor(aff.logo).width(312).url()}
                 alt={aff.orgName}
-                className="max-h-[36px] sm:max-h-[52px] max-w-[110px] sm:max-w-[156px] w-auto h-auto object-contain brightness-0 invert transition-[filter] duration-300 group-hover:brightness-100 group-hover:invert-0"
+                className="max-h-9 sm:max-h-13 max-w-27.5 sm:max-w-39 w-auto h-auto object-contain brightness-0 invert transition-[filter] duration-300 group-hover:brightness-100 group-hover:invert-0"
                 loading="lazy"
                 decoding="async"
               />

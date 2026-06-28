@@ -32,15 +32,18 @@ export default async function Projects() {
   return (
     <section className="flex flex-col gap-6">
       {/* Section header */}
-      <div className="flex items-center justify-between">
-        <h2 className="t-display text-white">Projects</h2>
+      <div className="flex items-end justify-between">
+        <div className="flex flex-col">
+          <span className="text-[14px] text-zinc-400 leading-tight">Featured</span>
+          <h2 className="t-display text-white">Projects</h2>
+        </div>
         <Link href="/projects" className="t-caption text-white hover:text-zinc-400 transition-colors">
           View more &gt;
         </Link>
       </div>
 
       {/* Project cards grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-[74px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-18.5">
         {projects.map((project) => (
           <ProjectCard
             key={project._id}

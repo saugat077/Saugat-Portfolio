@@ -80,10 +80,10 @@ export default async function About() {
   const settings = await client.fetch<SiteSettings | null>(`*[_type == "siteSettings"][0] { bioQuote }`)
 
   return (
-    <section className="flex flex-col gap-4 sm:gap-5">
+    <section className="flex flex-col gap-6 sm:gap-12">
       {/* Bio quote (Portable Text — may contain .easter-word spans) */}
       <div
-        className="t-body text-zinc-400 leading-relaxed text-left [&>p]:m-0"
+        className="t-body text-zinc-400 leading-relaxed text-left [&>p]:m-2"
         dangerouslySetInnerHTML={{ __html: ptToHtml(settings?.bioQuote) }}
       />
 
@@ -102,7 +102,7 @@ export default async function About() {
               {/* PNG used as a mask so the glyph takes the secondary-accent colour */}
               <span
                 aria-hidden="true"
-                className="w-[24px] h-[24px] sm:w-[20px] sm:h-[20px] shrink-0 bg-accent-soft opacity-80 group-hover:opacity-100 transition-opacity"
+                className="w-6 h-6 sm:w-5 sm:h-5 shrink-0 bg-accent-soft opacity-80 group-hover:opacity-100 transition-opacity"
                 style={{
                   maskImage: `url(${s.icon})`,
                   WebkitMaskImage: `url(${s.icon})`,

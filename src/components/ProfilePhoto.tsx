@@ -47,7 +47,7 @@ export default function ProfilePhoto() {
       id="profile-photo-wrapper"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative shrink-0 w-[110px] h-[110px] sm:w-[237px] sm:h-[237px] cursor-pointer"
+      className="relative shrink-0 w-[100px] h-[100px] sm:w-[205px] sm:h-[205px] cursor-pointer"
     >
       <div className="w-full h-full rounded-full border-2 border-ink bg-zinc-900 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}

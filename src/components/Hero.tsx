@@ -29,10 +29,10 @@ export default async function Hero() {
   const bannerUrl = settings?.heroBanner ? urlFor(settings.heroBanner).width(760).url() : null
 
   return (
-    <div className="relative h-[200px] sm:h-[348px] w-full">
+    <div className="relative h-36 sm:h-70 w-full">
       {/* Banner background: image from Sanity */}
       <div
-        className="absolute -inset-x-[13.5px] top-0 h-[170px] sm:h-[294px]"
+        className="absolute -inset-x-2 top-0 h-25 sm:h-70"
         style={maskStyle}
       >
         {bannerUrl ? (
@@ -44,12 +44,12 @@ export default async function Hero() {
       </div>
 
       {/* Nepal clock badge (top-right) */}
-      <div className="absolute top-[8px] right-[8px] sm:top-[9px] sm:right-[9px] bg-panel rounded-[6px] px-2 py-[3px] sm:px-3 sm:py-[5px] z-[2]">
+      <div className="absolute top-2 right-2 sm:top-2 sm:right-2 bg-panel rounded-md px-2 py-0.75 sm:px-3 sm:py-1.25 z-2">
         <NepalClock />
       </div>
 
       {/* Profile: photo + name/role/location */}
-      <div className="absolute bottom-0 left-0 flex items-end gap-2 sm:gap-5 z-[2]">
+      <div className="absolute bottom-0 left-0 flex items-end gap-2 sm:gap-5 z-2">
         <ProfilePhoto />
 
         {/* Text info */}
@@ -62,10 +62,10 @@ export default async function Hero() {
             <img
               src="/icons/verify.png"
               alt="Verified"
-              className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] shrink-0 object-contain"
+              className="w-6 h-6 sm:w-8 sm:h-8 shrink-0 object-contain"
             />
           </div>
-          <span className="text-[16px] sm:text-[18px] font-medium pt-0.5 pb-0.5 text-accent-soft leading-tight">{role}</span>
+          <span className="text-[14px] sm:text-[18px] font-medium pt-1 pb-0.5 text-accent-soft leading-tight">{role}</span>
           <span className="t-body text-zinc-400 leading-tight">{location}</span>
         </div>
       </div>
