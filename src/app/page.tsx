@@ -20,9 +20,9 @@ export default function Home() {
       <PulseBackground />
       <Nav />
 
-      <main className="max-w-[1440px] mx-auto overflow-x-clip">
-        <div className="max-w-[864px] mx-auto pt-[60px] sm:pt-[88px] pb-12 flex flex-col">
-          <Section fadeTop>
+      <main className="max-w-[1440px] mx-auto overflow-x-clip px-4 sm:px-6 lg:px-0">
+        <div className="max-w-[864px] mx-auto pt-[60px] sm:pt-[72px] pb-12 flex flex-col">
+          <Section fadeTop className="pt-0 sm:pt-0">
             {/* Hero and About are tightly grouped */}
             <div className="flex flex-col gap-4 sm:gap-5">
               <Hero />

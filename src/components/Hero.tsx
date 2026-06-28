@@ -30,9 +30,11 @@ export default async function Hero() {
 
   return (
     <div className="relative h-[200px] sm:h-[348px] w-full">
-      {/* Banner background: image from Sanity or fallback blue gradient */}
+      {/* Banner background: image from Sanity or fallback blue gradient.
+          -inset-x-6 cancels the section's px-6 so the banner edges land on the
+          rails (the "+" line); square top so it sits flush under the nav. */}
       <div
-        className="absolute inset-x-0 top-0 h-[170px] sm:h-[294px] rounded-[13px] overflow-hidden"
+        className="absolute -inset-x-6 top-0 h-[170px] sm:h-[294px] rounded-b-[13px] overflow-hidden"
         style={maskStyle}
       >
         {bannerUrl ? (

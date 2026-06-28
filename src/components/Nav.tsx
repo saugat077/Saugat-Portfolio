@@ -34,7 +34,7 @@ export default function Nav() {
         id="site-header"
         className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/50 backdrop-blur-xl backdrop-saturate-150"
       >
-        <div className="max-w-[1440px] mx-auto">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-0">
           <div className="max-w-[864px] mx-auto px-6 flex items-center justify-between h-[60px] sm:h-[72px]">
             <Link
               href="/"
