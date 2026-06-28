@@ -13,6 +13,45 @@
   --font-pixel: 'Pixelify Sans', monospace;
 }
 
+/* Animated pulse background — concentric rings expand from the centre and fade.
+   Each ring's animation-delay is set inline (see PulseBackground.tsx). */
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150vmax;
+  height: 150vmax;
+  border-radius: 9999px;
+  /* background-color is set per-ring inline (see PulseBackground.tsx) */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* subtle white outline */
+  transform: translate(-50%, -50%) scale(0);
+  animation: pulse-ring 30s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Respect users who prefer reduced motion — show a single static ring instead */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring {
+    animation: none;
+    opacity: 0.08;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+}
+
 /* Easter egg — highlighted bio words look completely normal by default */
 .easter-word {
   color: inherit;

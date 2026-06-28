@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="bg-[#0a0a0a] min-h-screen text-white antialiased overflow-x-hidden">
-        {children}
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   )

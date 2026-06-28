@@ -1,4 +1,7 @@
 import Nav from '@/components/Nav'
+import PulseBackground from '@/components/PulseBackground'
+import Section from '@/components/Section'
+import SectionDivider from '@/components/SectionDivider'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
 import BookReview from '@/components/BookReview'
@@ -14,19 +17,35 @@ const watermarkMask = {
 export default function Home() {
   return (
     <>
+      <PulseBackground />
       <Nav />
 
-      <main className="max-w-[1440px] mx-auto">
-        <div className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[68px] sm:pt-[96px] pb-12 flex flex-col gap-16 sm:gap-28">
-          {/* Hero and About are tightly grouped — use inner gap instead of the outer gap-20 */}
-          <div className="flex flex-col gap-4 sm:gap-5">
-            <Hero />
-            <About />
-          </div>
-          <BookReview />
-          <Experience />
-          <Affiliations />
-          <Projects />
+      <main className="max-w-[1440px] mx-auto overflow-x-clip">
+        <div className="max-w-[864px] mx-auto pt-[60px] sm:pt-[88px] pb-12 flex flex-col">
+          <Section fadeTop>
+            {/* Hero and About are tightly grouped */}
+            <div className="flex flex-col gap-4 sm:gap-5">
+              <Hero />
+              <About />
+            </div>
+          </Section>
+          <SectionDivider />
+          <Section>
+            <BookReview />
+          </Section>
+          <SectionDivider />
+          <Section>
+            <Experience />
+          </Section>
+          <SectionDivider />
+          <Section>
+            <Affiliations />
+          </Section>
+          <SectionDivider />
+          <Section>
+            <Projects />
+          </Section>
+          <SectionDivider />
         </div>
 
         {/* Decorative name watermark — centered, full word visible */}

@@ -32,12 +32,10 @@ export default function Nav() {
     <>
       <header
         id="site-header"
-        className={`fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a] border-b transition-colors ${
-          open ? 'border-[#18181b]' : 'border-transparent'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/50 backdrop-blur-xl backdrop-saturate-150"
       >
         <div className="max-w-[1440px] mx-auto">
-          <div className="max-w-[760px] mx-auto px-6 xl:px-0 flex items-center justify-between h-[60px] sm:h-[72px]">
+          <div className="max-w-[864px] mx-auto px-6 flex items-center justify-between h-[60px] sm:h-[72px]">
             <Link
               href="/"
               className="font-display text-[22px] sm:text-[28px] bg-gradient-to-r from-[#0d9aff] to-[#e0efff] bg-clip-text text-transparent leading-normal py-1"
@@ -94,12 +92,22 @@ export default function Nav() {
             </button>
           </div>
         </div>
+
+        {/* Fading bluish underline — brightest in the centre, transparent at the ends */}
+        <div
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 right-0 h-px"
+          style={{
+            background:
+              'linear-gradient(to right, transparent, rgba(55, 138, 221, 0.5), transparent)',
+          }}
+        />
       </header>
 
       {/* Mobile full-screen menu */}
       <div
         id="mobile-menu"
-        className={`sm:hidden fixed inset-0 bg-[#0a0a0a] z-40 flex flex-col items-center justify-center gap-10 transition-opacity duration-300 ${
+        className={`sm:hidden fixed inset-0 bg-[#0a0a0a]/80 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-10 transition-opacity duration-300 ${
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         aria-hidden={!open}
