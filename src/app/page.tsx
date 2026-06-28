@@ -21,7 +21,7 @@ export default function Home() {
       <Nav />
 
       <main className="max-w-[1440px] mx-auto overflow-x-clip px-4 sm:px-6 lg:px-0">
-        <div className="max-w-[960px] mx-auto pt-[54px] sm:pt-[60px] flex flex-col">
+        <div className="max-w-[864px] mx-auto pt-[54px] sm:pt-[60px] flex flex-col">
           <Section fadeTop noTopPad>
             {/* Hero and About are tightly grouped */}
             <div className="flex flex-col gap-4 sm:gap-5">

@@ -59,21 +59,15 @@ export default async function Hero() {
               {name}
             </span>
             {/* Verified checkmark */}
-            <svg
-              className="w-[16px] h-[16px] sm:w-[25px] sm:h-[25px] text-blue-400 shrink-0"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                clipRule="evenodd"
-              />
-            </svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/icons/verify.png"
+              alt="Verified"
+              className="w-[16px] h-[16px] sm:w-[25px] sm:h-[25px] shrink-0 object-contain"
+            />
           </div>
           <span className="text-[18px] sm:text-[22.5px] pt-[2px] pb-[2px] text-accent-soft leading-tight">{role}</span>
-          <span className="t-body text-zinc-400 leading-tight">{location}</span>
+          <span className="t-body text-white-soft leading-tight">{location}</span>
         </div>
       </div>
     </div>

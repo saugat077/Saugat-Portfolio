@@ -25,6 +25,17 @@
   --color-rail-soft: rgb(176 138 224 / 0.3);
 }
 
+/* Hide the browser scrollbar while keeping scroll behaviour intact.
+   Firefox + legacy IE/Edge use properties; Chrome/Safari/new Edge use the
+   ::-webkit-scrollbar pseudo-element. */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / old Edge */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, new Edge */
+}
+
 /* Typographic scale — three roles */
 @layer components {
   /* Mobile-first base sizes; scale up to the approved desktop sizes at sm (640px). */

@@ -35,7 +35,7 @@ export default function Nav() {
         className="fixed top-0 left-0 right-0 z-50 bg-base/50 backdrop-blur-xl backdrop-saturate-150"
       >
         <div className="max-w-[1440px] mx-auto px-[13.5px]">
-          <div className="max-w-[960px] mx-auto px-[13.5px] flex items-center justify-between h-[54px] sm:h-[60px]">
+          <div className="max-w-[864px] mx-auto px-[13.5px] flex items-center justify-between h-[54px] sm:h-[60px]">
             <Link
               href="/"
               className="t-display font-extrabold tracking-tighter bg-gradient-to-r from-accent to-accent-soft bg-clip-text text-transparent leading-normal py-1"
