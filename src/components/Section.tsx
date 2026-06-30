@@ -35,7 +35,7 @@ export default function Section({
   } as const
 
   return (
-    <div className={`relative px-[13.5px] ${noTopPad ? 'pt-0' : 'pt-6 sm:pt-10'} pb-4 sm:pb-4 ${className}`}>
+    <div className={`relative px-[13.5px] ${noTopPad ? 'pt-0' : 'pt-9 sm:pt-16 pb-9 sm:pb-16'}${className}`}>
       <div className="absolute inset-y-0 left-0 w-px" style={rail} aria-hidden="true" />
       <div className="absolute inset-y-0 right-0 w-px" style={rail} aria-hidden="true" />
       {children}
