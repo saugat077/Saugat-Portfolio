@@ -102,7 +102,7 @@ export default async function About() {
               {/* PNG used as a mask so the glyph takes the secondary-accent colour */}
               <span
                 aria-hidden="true"
-                className="w-6 h-6 sm:w-5 sm:h-5 shrink-0 bg-accent-soft opacity-80 group-hover:opacity-100 transition-opacity"
+                className="w-6 h-6 sm:w-5 sm:h-5 shrink-0 bg-accent-soft transition-opacity"
                 style={{
                   maskImage: `url(${s.icon})`,
                   WebkitMaskImage: `url(${s.icon})`,
