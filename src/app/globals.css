@@ -54,7 +54,7 @@ html::-webkit-scrollbar {
 
   @media (min-width: 640px) {
     .t-display {
-      font-size: 30px;
+      font-size: 28px;
     }
     .t-body {
       font-size: 18px;
