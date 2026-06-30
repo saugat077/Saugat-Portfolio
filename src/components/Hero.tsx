@@ -55,7 +55,7 @@ export default async function Hero() {
         {/* Text info */}
         <div className="flex flex-col gap-0 pb-1 sm:pb-2">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="t-display font-bold text-[22px] sm:text-[36px] text-white leading-tight whitespace-nowrap">
+            <span className="t-display text-white leading-tight whitespace-nowrap">
               {name}
             </span>
             {/* Verified checkmark */}
@@ -65,7 +65,7 @@ export default async function Hero() {
               className="w-6 h-6 sm:w-8 sm:h-8 shrink-0 object-contain"
             />
           </div>
-          <span className="text-[14px] sm:text-[18px] font-medium pt-1 pb-0.5 text-accent-soft leading-tight">{role}</span>
+          <span className="t-body font-bold pt-1 pb-0.5 text-accent-soft leading-tight">{role}</span>
           <span className="t-body text-zinc-400 leading-tight">{location}</span>
         </div>
       </div>

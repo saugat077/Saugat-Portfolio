@@ -80,7 +80,7 @@ export default async function About() {
   const settings = await client.fetch<SiteSettings | null>(`*[_type == "siteSettings"][0] { bioQuote }`)
 
   return (
-    <section className="flex flex-col gap-6 sm:gap-12">
+    <section className="flex flex-col gap-4 sm:gap-5">
       {/* Bio quote (Portable Text — may contain .easter-word spans) */}
       <div
         className="t-body text-zinc-400 leading-relaxed text-left [&>p]:m-2"
@@ -114,7 +114,7 @@ export default async function About() {
                   WebkitMaskPosition: 'center',
                 }}
               />
-              <span className="hidden sm:inline t-body font-bold text-accent-soft leading-none">
+              <span className="hidden sm:inline t-body font-bold text-accent-soft leading-tight">
                 {s.label}
               </span>
             </a>

@@ -4,20 +4,17 @@
 @theme {
   --font-display: 'Manrope', sans-serif;
   --font-body: 'Manrope', sans-serif;
-  --font-caption: 'Inter', sans-serif;
+  --font-caption: 'Manrope', sans-serif;
   --font-bitcount: 'Bitcount Single', monospace;
   --font-footer: 'Manrope', sans-serif;
 
-  /* Brand palette — single source of truth for colour.
-     Greys reuse Tailwind's built-in `zinc` scale; only the custom
-     colours below need to be declared here. */
-  --color-accent: #7430c6;       /* main accent */
-  --color-accent-soft: #e7d2f9;  /* secondary accent */
-  --color-accent-pill: #6c379e;  /* nav active pill */
-  --color-base: #06030a;         /* page background / near-black */
-  --color-panel: #0f1317;        /* small dark chips (e.g. hero badge) */
-  --color-ink: #0a0b0b;          /* darkest border ring */
-  --color-silver: #c7c7c7;       /* light neutral text */
+  --color-accent: #7430c6;      
+  --color-accent-soft: #e7d2f9;  
+  --color-accent-pill: #6c379e;  
+  --color-base: #06030a;        
+  --color-panel: #0f1317;
+  --color-ink: #0a0b0b;          
+  --color-silver: #c7c7c7;       
 
   /* Decorative lavender used by the section rails + dividers, pre-mixed
      with alpha so the fade reads correctly over the dark page. */
@@ -57,13 +54,13 @@ html::-webkit-scrollbar {
 
   @media (min-width: 640px) {
     .t-display {
-      font-size: 27px;
+      font-size: 30px;
     }
     .t-body {
       font-size: 18px;
     }
     .t-caption {
-      font-size: 13.5px;
+      font-size: 16px;
     }
   }
 }
