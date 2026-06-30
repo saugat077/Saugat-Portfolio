@@ -31,7 +31,7 @@ export default function ProfilePhoto() {
 
   function handleMouseLeave() {
     if (unlocked) {
-      // Reset after unlock — hide the words and let the ring drain
+      // Reset after unlock   hide the words and let the ring drain
       document.body.classList.remove('easter-unlocked')
       setUnlocked(false)
     }
@@ -53,7 +53,7 @@ export default function ProfilePhoto() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/profile.png" alt="Saugat K.C." className="w-full h-full object-cover" />
       </div>
-      {/* SVG progress ring — sits outside the photo edge via overflow="visible" */}
+      {/* SVG progress ring   sits outside the photo edge via overflow="visible" */}
       <svg
         className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none"
         viewBox="0 0 100 100"

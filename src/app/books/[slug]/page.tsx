@@ -47,7 +47,7 @@ export async function generateMetadata({
   if (!book) return {}
   return {
     title: `${book.title} | Saugat K.C.`,
-    description: `${book.title} by ${book.author} — reviewed by Saugat K.C.`,
+    description: `${book.title} by ${book.author}   reviewed by Saugat K.C.`,
   }
 }
 
@@ -80,7 +80,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
 
         {/* Two-column hero */}
         <div className="flex flex-col md:flex-row gap-8 mb-8">
-          {/* Left: cover (25%) — portrait ratio */}
+          {/* Left: cover (25%)   portrait ratio */}
           {coverUrl && (
             <div className="md:w-[25%] shrink-0 self-start rounded-[16px] overflow-hidden bg-zinc-900">
               {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -16,7 +16,7 @@ const mainLine = {
   maskImage: dotH,
 } as const
 
-// Horizontal arms — extend a short way past each rail and fade out softly.
+// Horizontal arms   extend a short way past each rail and fade out softly.
 const armLeft = {
   background: 'linear-gradient(to left, var(--color-rail-soft), transparent)',
   WebkitMaskImage: dotH,
@@ -29,7 +29,7 @@ const armRight = {
   maskImage: dotH,
 } as const
 
-// Vertical arms — centred on each crossing, bright in the middle and fading
+// Vertical arms   centred on each crossing, bright in the middle and fading
 // up/down so the "+" is symmetric with the horizontal arms.
 const armVertical = {
   background: 'linear-gradient(to bottom, transparent, var(--color-rail-soft), transparent)',
@@ -40,12 +40,12 @@ const armVertical = {
 export default function SectionDivider() {
   return (
     <div aria-hidden="true" className="relative h-px pointer-events-none">
-      {/* main line — its own child so its mask doesn't affect the arms */}
+      {/* main line   its own child so its mask doesn't affect the arms */}
       <div className="absolute inset-0" style={mainLine} />
       {/* horizontal arms cross each rail into the margin */}
       <div className="absolute top-0 right-full h-px w-40 sm:w-56" style={armLeft} />
       <div className="absolute top-0 left-full h-px w-40 sm:w-56" style={armRight} />
-      {/* vertical arms run through each crossing — same length as the horizontal arms */}
+      {/* vertical arms run through each crossing   same length as the horizontal arms */}
       <div
         className="absolute left-0 top-1/2 w-px h-40 sm:h-56 -translate-x-1/2 -translate-y-1/2"
         style={armVertical}

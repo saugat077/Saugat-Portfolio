@@ -36,7 +36,7 @@ export default async function BookReview() {
         </Link>
       </div>
 
-      {/* Book covers row — 4 fixed-size cards; scrollable on mobile */}
+      {/* Book covers row   4 fixed-size cards; scrollable on mobile */}
       <div className="flex gap-2.5 sm:gap-3.5 items-start overflow-x-auto pb-1 -mb-1">
         {books.map((book) => (
           <BookCard

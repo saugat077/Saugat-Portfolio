@@ -59,7 +59,7 @@ interface ExperienceItemProps {
 /**
  * One role in the Career timeline: the date sits on the left, the role title
  * (linked to the company site) and company name on the right, with an accent
- * arrow that toggles the description bullets when clicked.
+ * arrow that toggles the description when clicked.
  */
 export default function ExperienceItem({
   role,
@@ -80,14 +80,14 @@ export default function ExperienceItem({
   return (
     <div className="py-1 sm:py-1">
       <div className="flex flex-col sm:flex-row items-start gap-1 sm:gap-6">
-        {/* Date range — fixed column on desktop */}
+        {/* Date range   fixed column on desktop */}
         <div className="sm:w-44 shrink-0 sm:pt-0.5">
-          <p className="t-body text-zinc-400 leading-tight tabular-nums">{dateLabel}</p>
+          <p className="t-caption text-zinc-400 leading-tight tabular-nums">{dateLabel}</p>
         </div>
 
-        {/* Role + arrow on one row, company below, then bullets when open */}
+        {/* Role + arrow on one row, company below, then description when open */}
         <div className="flex-1 min-w-0 self-stretch">
-          {/* Role row — arrow is absolutely pinned to the right so it never shifts */}
+          {/* Role row   arrow is absolutely pinned to the right so it never shifts */}
           <div className="relative pr-8 sm:pr-9">
             {website ? (
               <a

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 const description =
-  'Portfolio of Saugat K.C. — QA Engineer by profession, Designer by instinct. Specialising in UK payroll compliance testing and UI/UX design. Based in Kathmandu, Nepal.'
+  'Portfolio of Saugat K.C. - QA Engineer by profession, Designer by instinct. Specialising in UK payroll compliance testing and UI/UX design. Based in Kathmandu, Nepal.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://saugatkc77.com.np'),

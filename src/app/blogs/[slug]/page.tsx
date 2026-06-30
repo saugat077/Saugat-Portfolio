@@ -55,7 +55,7 @@ export async function generateMetadata({
   if (!blog) return {}
   return {
     title: `${blog.title} | Saugat K.C.`,
-    description: blog.shortDescription ?? `${blog.title} — by Saugat K.C.`,
+    description: blog.shortDescription ?? `${blog.title}   by Saugat K.C.`,
   }
 }
 

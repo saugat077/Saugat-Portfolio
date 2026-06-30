@@ -19,16 +19,7 @@ function formatMonthYear(dateStr: string): string {
 }
 
 function formatRange(startDate: string, endDate?: string): string {
-  return `${formatMonthYear(startDate)} — ${endDate ? formatMonthYear(endDate) : 'Present'}`
-}
-
-/** Split a description into bullet lines, trimming any leading bullet/dash markers. */
-function toBullets(description?: string): string[] {
-  if (!description) return []
-  return description
-    .split('\n')
-    .map((line) => line.replace(/^\s*[•\-*]\s*/, '').trim())
-    .filter(Boolean)
+  return `${formatMonthYear(startDate)} - ${endDate ? formatMonthYear(endDate) : 'Present'}`
 }
 
 export default async function Experience() {
@@ -49,40 +40,27 @@ export default async function Experience() {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col">
-        <span className="t-body text-zinc-400 leading-tight">So Far</span>
+        <span className="t-caption text-zinc-400 leading-tight">So Far</span>
         <h2 className="t-display text-white">Career</h2>
       </div>
 
       <div className="flex flex-col">
-        {careers.map((career, index) => {
-          const bullets = toBullets(career.description)
-          return (
-            <ExperienceItem
-              key={career._id}
-              role={career.role}
-              company={career.company}
-              website={career.website}
-              dateLabel={formatRange(career.startDate, career.endDate)}
-              defaultOpen={index === 0}
-            >
-              {bullets.length > 0 && (
-                <ul className="flex flex-col gap-1">
-                  {bullets.map((bullet, i) => (
-                    <li
-                      key={i}
-                      className="flex gap-2 t-body text-zinc-400 leading-relaxed"
-                    >
-                      <span className="select-none" aria-hidden="true">
-                        •
-                      </span>
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </ExperienceItem>
-          )
-        })}
+        {careers.map((career, index) => (
+          <ExperienceItem
+            key={career._id}
+            role={career.role}
+            company={career.company}
+            website={career.website}
+            dateLabel={formatRange(career.startDate, career.endDate)}
+            defaultOpen={index === 0}
+          >
+            {career.description && (
+              <p className="t-caption text-zinc-400 leading-relaxed whitespace-pre-line">
+                {career.description}
+              </p>
+            )}
+          </ExperienceItem>
+        ))}
       </div>
     </section>
   )

@@ -95,7 +95,7 @@ export default function Nav() {
           </div>
         </div>
 
-        {/* Fading bluish underline — brightest in the centre, transparent at the ends */}
+        {/* Fading bluish underline   brightest in the centre, transparent at the ends */}
         <div
           aria-hidden="true"
           className="absolute bottom-0 left-0 right-0 h-px"

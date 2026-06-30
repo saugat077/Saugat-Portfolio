@@ -1,6 +1,6 @@
 // Wraps a home section with vertical "rails" that are bright at the top and
 // bottom (the divider crossings) and fade toward the middle, mirroring how the
-// horizontal dividers fade — so every divider×rail intersection reads as a "+".
+// horizontal dividers fade   so every divider×rail intersection reads as a "+".
 // The rails are dotted (a repeating mask over the gradient) to match the
 // dotted divider lines.
 //
@@ -12,7 +12,7 @@ type SectionProps = {
   className?: string
   fadeTop?: boolean
   fadeBottom?: boolean
-  /** First section (hero) — drop the top padding so the banner stays flush to the nav. */
+  /** First section (hero)   drop the top padding so the banner stays flush to the nav. */
   noTopPad?: boolean
 }
 

@@ -1,10 +1,10 @@
-# Saugat K.C. — Portfolio (Frontend)
+# Saugat K.C.   Portfolio (Frontend)
 
 Next.js 16 (App Router, React 19) portfolio, statically exported and backed by Sanity for content.
 
 ## 🚀 Tech Stack
 
-- **Next.js 16** — App Router, React Server Components, static HTML export (`output: 'export'`).
+- **Next.js 16**   App Router, React Server Components, static HTML export (`output: 'export'`).
 - **React 19** + **TypeScript** (strict). Every page and component is `.tsx`.
 - **Tailwind CSS 4** via `@tailwindcss/postcss`.
 - **Sanity** (`@sanity/client`, `@sanity/image-url`) for content, queried at build time.
@@ -26,8 +26,8 @@ src/
     └── portableText.ts      # Portable Text → HTML renderer
 ```
 
-Data is fetched in async Server Components. Interactive pieces — `Nav`, `NepalClock`,
-`ProfilePhoto`, `BooksFilter` — are client components.
+Data is fetched in async Server Components. Interactive pieces   `Nav`, `NepalClock`,
+`ProfilePhoto`, `BooksFilter`   are client components.
 
 ## 🔑 Environment
 

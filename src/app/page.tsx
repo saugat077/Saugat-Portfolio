@@ -44,7 +44,7 @@ export default function Home() {
           </Section>
         </div>
 
-        {/* Decorative name watermark — only the top half is shown, sitting at the page edge */}
+        {/* Decorative name watermark   only the top half is shown, sitting at the page edge */}
         <div
           className="font-footer font-extrabold text-[64px] sm:text-[160px] leading-none text-center text-white pointer-events-none select-none overflow-hidden h-[50px] sm:h-[140px] mt-6 sm:mt-8"
           style={watermarkMask}
