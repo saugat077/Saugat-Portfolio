@@ -5,6 +5,7 @@ import Hero from '@/components/Hero'
 import About from '@/components/About'
 import BookReview from '@/components/BookReview'
 import Experience from '@/components/Experience'
+import CoreSkills from '@/components/CoreSkills'
 import Affiliations from '@/components/Affiliations'
 import Projects from '@/components/Projects'
 
@@ -29,6 +30,10 @@ export default function Home() {
           </Section>
           <Section>
             <Experience />
+          </Section>
+          <SectionDivider />
+          <Section>
+            <CoreSkills />
           </Section>
           <SectionDivider />
           <Section>

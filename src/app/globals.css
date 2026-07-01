@@ -8,10 +8,11 @@
   --font-bitcount: 'Bitcount Single', monospace;
   --font-footer: 'Manrope', sans-serif;
 
-  --color-accent: #8825FF;      
-  --color-accent-soft: #e7d2f9;  
-  --color-accent-pill: #6c379e;  
-  --color-base: #06030a;        
+  --color-accent: #8825FF;
+  --color-accent-soft: #e7d2f9;
+  --color-accent-pill: #6c379e;
+  --color-accent-fill: #301C4D;  /* Deep accent shade used to fill the Core Skills pills */
+  --color-base: #06030a;
   --color-panel: #0f1317;
   --color-ink: #0a0b0b;          
   --color-silver: #c7c7c7;       
@@ -63,6 +64,11 @@ html::-webkit-scrollbar {
       font-size: 16px;
     }
   }
+}
+
+/* Subtle inset shadow that gives the Core Skills pills a slight pressed depth. */
+.skill-inner-shadow {
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.06), inset 0 -1px 2px rgb(0 0 0 / 0.35);
 }
 
 /* Easter egg — highlighted bio words look completely normal by default */
