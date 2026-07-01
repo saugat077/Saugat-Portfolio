@@ -25,7 +25,7 @@ export default async function Affiliations() {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col">
-        <span className="text-[14px] text-zinc-400 leading-tight">Built with others</span>
+        <span className="t-caption text-zinc-400 leading-tight">Built with others</span>
         <h2 className="t-display text-white">Clubs & Events</h2>
       </div>
 
