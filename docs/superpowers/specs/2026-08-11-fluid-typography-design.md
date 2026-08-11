@@ -72,7 +72,9 @@ Fixed `rem` — they respect browser font settings but do not track viewport wid
 | `text-ui` | `0.875rem` (14px) | 1.4 | — | Nav links, section eyebrows, skill labels |
 | `text-label` | `0.8125rem` (13px) | 1.4 | — | Breadcrumbs, filter pills, tech pills, back-links, "View all" |
 | `text-meta` | `0.75rem` (12px) | 1.35 | 0.01em | Dates, tag pills |
-| `text-nav-mark` | `2.25rem` (36px) | 1 | −0.02em | Nav wordmark |
+| `text-menu` | `2.25rem` (36px) | 1.1 | −0.02em | Mobile full-screen menu links |
+
+**Correction to an earlier reading:** the nav has no text wordmark. `Nav.tsx:39-46` renders the logo as an `<img src="/images/emblem.svg">`, so it is unaffected by typography. The `text-[36px]` at `Nav.tsx:122` is the **mobile full-screen menu links** (`sm:hidden`, single size, below 640px only), which is why the token is `text-menu` and why stable is the right tier for it.
 
 ### Relative token (1)
 
@@ -104,11 +106,23 @@ Fonts continue to load via `next/font` in `layout.tsx`; that mechanism is unchan
 
 ### Semantic classes
 
+**Rule for resolving class-to-role conflicts: role wins over old class name.** Two legacy classes each do more than one job, so a 1:1 class mapping is impossible.
+
+`.t-display` does two jobs — section headings *and* card titles:
+
 | Today | Becomes | Notes |
 |---|---|---|
-| `t-display` | `text-display` | All section headings |
-| `t-body` — About bio, company, hero role | `text-body` | |
-| `t-body` — nav links | `text-ui` | Chrome, so stable |
+| `t-display` — section headings ("Career", "Skills", "Projects", "Books", "Clubs & Events") | `text-display` | |
+| `t-display` — Hero name (`Hero.tsx:58`) | `text-display` | Kept at display size; promoting the hero name is a redesign, out of scope. |
+| `t-display` — card titles (`BookCard.tsx:28,34`, `ProjectCard.tsx:54`, `Affiliations.tsx:52` org name) | `text-title` | Desktop 28→22.5px. Separates card titles from the section heading above them, which are the same size today. |
+
+`.t-body` does three jobs:
+
+| Today | Becomes | Notes |
+|---|---|---|
+| `t-body` — About bio, company, hero role, location | `text-body` | |
+| `t-body` — desktop nav links (`Nav.tsx:54`) | `text-ui` | Chrome, so stable |
+| `t-body` — card descriptions (`ProjectCard.tsx:60`) | `text-body-sm` | Matches the other card descriptions, which are hardcoded 14–15px today. |
 | `t-caption` — eyebrows ("So Far", "Core", "Built with others"), skill labels | `text-ui` | Desktop 16→14px |
 | `t-caption` — tech pills, "View all" links, BookCard author | `text-label` | |
 | `t-caption` — dates | `text-meta` | |
@@ -128,7 +142,7 @@ Fonts continue to load via `next/font` in `layout.tsx`; that mechanism is unchan
 | `text-[17px]`, `text-[18px]` card titles, experience role | `text-title` |
 | `text-[19px]` 404 copy | `text-lead` |
 | `text-[28px]` / `text-[34px]` page `h1` | `text-h1` |
-| `text-[36px]` nav wordmark | `text-nav-mark` |
+| `text-[36px]` mobile menu links (`Nav.tsx:122`) | `text-menu` |
 | `text-[64px]` / `text-[96px]` 404 numeral | `text-numeral` |
 | `text-[64px]` / `text-[160px]` footer wordmark | `text-wordmark` |
 | `text-[11px]` / `text-[18px]` NepalClock | `text-clock` |
@@ -157,6 +171,13 @@ This is a refactor with real visual consequences, not a no-op. Approved changes:
 4. **Section displays on mobile 20 → 23px.**
 5. **Tag pills 11 → 12px**, so pill height grows ~1px.
 6. **Career description on desktop 16 → 14.4px**, keeping it subordinate to the About bio.
+7. **Card titles on desktop 28 → 22.5px** (`BookCard`, `ProjectCard`, `Affiliations` org name). Consequence of the role-wins rule: card titles and the section heading above them are identical today, and separating them is the point.
+
+### Required companion fix: the watermark crop
+
+`page.tsx:54` renders the "SAUGATKC" watermark clipped to roughly its top half by `overflow-hidden h-[50px] sm:h-[140px]`, against a font size that jumps 64→160px at the same breakpoint. Once the font size becomes a continuous `clamp()` but the height still jumps at 640px, **the crop ratio drifts across viewport widths** — at 639px the font is ~91px inside a 50px box; one pixel wider, the box becomes 140px at the same font size.
+
+Making the font fluid causes this, so fixing it belongs to this change: replace the two fixed heights with `h-[0.8em]`. Because `em` in a height resolves against the element's own font-size, the crop ratio then stays constant at every width. Today's ratios are 50/64 = 0.78 mobile and 140/160 = 0.875 desktop, so `0.8em` is faithful to the mobile crop and slightly tighter than the current desktop one. `leading-none` and `font-extrabold` are dropped, since `text-wordmark` carries leading 1 and weight 800.
 
 ## Out of Scope
 
