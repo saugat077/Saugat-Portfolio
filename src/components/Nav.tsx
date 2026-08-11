@@ -51,7 +51,7 @@ export default function Nav() {
                 <div key={link.href} className="relative">
                   <Link
                     href={link.href}
-                    className={`t-body font-bold transition-colors ${
+                    className={`text-ui font-bold transition-colors ${
                       link.active ? 'text-white' : 'text-white hover:text-zinc-400'
                     }`}
                   >
@@ -119,7 +119,7 @@ export default function Nav() {
             key={link.href}
             href={link.href}
             onClick={() => setOpen(false)}
-            className={`font-display text-[36px] transition-colors ${
+            className={`text-menu transition-colors ${
               link.active ? 'text-purple-500' : 'text-white hover:text-zinc-400'
             }`}
           >
