@@ -83,7 +83,7 @@ export default async function About() {
     <section className="flex flex-col gap-4 sm:gap-5">
       {/* Bio quote (Portable Text   may contain .easter-word spans) */}
       <div
-        className="t-body text-zinc-400 leading-relaxed text-left [&>p]:m-2"
+        className="text-body text-zinc-400 text-left [&>p]:m-2"
         dangerouslySetInnerHTML={{ __html: ptToHtml(settings?.bioQuote) }}
       />
 
@@ -114,7 +114,7 @@ export default async function About() {
                   WebkitMaskPosition: 'center',
                 }}
               />
-              <span className="hidden sm:inline t-caption font-bold text-accent-soft leading-tight">
+              <span className="hidden sm:inline text-ui font-bold text-accent-soft leading-tight">
                 {s.label}
               </span>
             </a>

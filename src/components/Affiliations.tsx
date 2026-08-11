@@ -25,8 +25,8 @@ export default async function Affiliations() {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col">
-        <span className="t-caption text-zinc-400 leading-tight">Built with others</span>
-        <h2 className="t-display text-white">Clubs & Events</h2>
+        <span className="text-ui text-zinc-400 leading-tight">Built with others</span>
+        <h2 className="text-display text-white">Clubs & Events</h2>
       </div>
 
       <div className="flex flex-nowrap items-center gap-7 overflow-x-auto pb-1">
@@ -49,7 +49,7 @@ export default async function Affiliations() {
                 decoding="async"
               />
             ) : (
-              <span className="t-display text-silver">{aff.orgName}</span>
+              <span className="text-title text-silver">{aff.orgName}</span>
             )}
           </a>
         ))}
