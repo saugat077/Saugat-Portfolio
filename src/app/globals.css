@@ -1,12 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Bitcount+Single:wght@400&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Bitcount+Single:wght@400&display=swap"); */
+/* Bricolage Grotesque + Bitcount Single are loaded by next/font in layout.tsx,
+   which sets --font-bricolage / --font-bitcount-single on <html>. A remote
+   `@import url(...)` does not survive the CSS pipeline, so it cannot be used. */
 @import "tailwindcss";
 
 @theme {
-  --font-display: 'Manrope', sans-serif;
+  /* --font-display: 'Manrope', sans-serif;
   --font-body: 'Manrope', sans-serif;
   --font-caption: 'Inter', sans-serif;
   --font-bitcount: 'Bitcount Single', monospace;
-  --font-footer: 'Manrope', sans-serif;
+  --font-footer: 'Manrope', sans-serif; */
+
+  --font-display: var(--font-bricolage), sans-serif;
+  --font-body: var(--font-bricolage), sans-serif;
+  --font-caption: var(--font-bricolage), sans-serif;
+  --font-bitcount: var(--font-bitcount-single), monospace;
+  --font-footer: var(--font-bricolage), sans-serif;
 
   --color-accent: #8825FF;
   --color-accent-soft: #e7d2f9;
