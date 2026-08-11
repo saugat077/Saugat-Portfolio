@@ -10,7 +10,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "preview": "npx serve@latest out"
+    "preview": "npx serve@latest out",
+    "check:type": "node scripts/check-typography.mjs"
   },
   "dependencies": {
     "@sanity/client": "^7.20.0",
