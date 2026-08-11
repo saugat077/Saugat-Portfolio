@@ -35,7 +35,7 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
   const [active, setActive] = useState('all')
 
   const pillClass = (isActive: boolean) =>
-    `filter-pill inline-flex items-center gap-1.5 font-body text-[13px] px-3 py-1 rounded-full border transition-colors cursor-pointer ${
+    `filter-pill inline-flex items-center gap-1.5 text-label px-3 py-1 rounded-full border transition-colors cursor-pointer ${
       isActive
         ? 'border-purple-500 bg-purple-500/10 text-white'
         : 'border-zinc-700 text-zinc-500 hover:border-zinc-600 hover:text-zinc-400'
@@ -80,7 +80,7 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
 
       {/* Grid */}
       {books.length === 0 ? (
-        <p className="font-body text-[15px] text-zinc-600 italic">No books yet</p>
+        <p className="text-body-sm text-zinc-600 italic">No books yet</p>
       ) : (
         <div className="flex flex-wrap gap-[10px] sm:gap-[14px]" id="books-grid">
           {books.map((book) => {

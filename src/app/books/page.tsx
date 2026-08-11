@@ -43,7 +43,7 @@ export default async function BooksPage() {
       <main className="max-w-[1440px] mx-auto">
         <div className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
+          <nav className="flex items-center gap-2 mb-6 text-label" aria-label="Breadcrumb">
             <Link href="/" className="text-zinc-600 hover:text-zinc-400 transition-colors">
               Home
             </Link>
