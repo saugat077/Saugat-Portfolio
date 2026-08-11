@@ -69,7 +69,7 @@ export function renderPortableText(blocks: BodyBlock[]): string {
         let t = escapeHtml(span.text)
         if (span.marks?.includes('strong')) t = `<strong class="font-semibold text-white">${t}</strong>`
         if (span.marks?.includes('em')) t = `<em class="italic">${t}</em>`
-        if (span.marks?.includes('code')) t = `<code class="bg-zinc-900 text-zinc-400 px-1 rounded text-sm">${t}</code>`
+        if (span.marks?.includes('code')) t = `<code class="bg-zinc-900 text-zinc-400 px-1 rounded text-code">${t}</code>`
         return t
       })
       .join('')
@@ -81,8 +81,8 @@ export function renderPortableText(blocks: BodyBlock[]): string {
         if (currentList) parts.push(currentList === 'bullet' ? '</ul>' : '</ol>')
         parts.push(
           listType === 'bullet'
-            ? '<ul class="list-disc list-inside font-body text-[16px] text-zinc-400 leading-relaxed space-y-2 my-4 ml-4">'
-            : '<ol class="list-decimal list-inside font-body text-[16px] text-zinc-400 leading-relaxed space-y-2 my-4 ml-4">'
+            ? '<ul class="list-disc list-inside text-body text-zinc-400 space-y-2 my-4 ml-4">'
+            : '<ol class="list-decimal list-inside text-body text-zinc-400 space-y-2 my-4 ml-4">'
         )
         currentList = listType
       }
@@ -101,22 +101,22 @@ export function renderPortableText(blocks: BodyBlock[]): string {
     // ── Block styles ──
     switch (b.style) {
       case 'h1':
-        parts.push(`<h1 class="font-display text-3xl text-white mt-10 mb-4 leading-tight">${inlineHtml}</h1>`)
+        parts.push(`<h1 class="text-h1 text-white mt-10 mb-4">${inlineHtml}</h1>`)
         break
       case 'h2':
-        parts.push(`<h2 class="font-display text-2xl text-white mt-8 mb-3 leading-tight">${inlineHtml}</h2>`)
+        parts.push(`<h2 class="text-display text-white mt-8 mb-3">${inlineHtml}</h2>`)
         break
       case 'h3':
-        parts.push(`<h3 class="font-display text-xl text-white mt-6 mb-2 leading-tight">${inlineHtml}</h3>`)
+        parts.push(`<h3 class="text-title text-white mt-6 mb-2">${inlineHtml}</h3>`)
         break
       case 'blockquote':
         parts.push(
-          `<blockquote class="border-l-2 border-zinc-700 pl-4 my-4 font-body text-[16px] text-zinc-400 italic leading-relaxed">${inlineHtml}</blockquote>`
+          `<blockquote class="border-l-2 border-zinc-700 pl-4 my-4 text-body text-zinc-400 italic">${inlineHtml}</blockquote>`
         )
         break
       default:
         parts.push(
-          `<p class="font-body text-[16px] text-zinc-300 leading-relaxed mb-4">${inlineHtml}</p>`
+          `<p class="text-body text-zinc-300 mb-4">${inlineHtml}</p>`
         )
     }
   }

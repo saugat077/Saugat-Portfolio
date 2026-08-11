@@ -28,8 +28,8 @@ export default async function CoreSkills() {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col">
-        <span className="t-caption text-zinc-400 leading-tight">Core</span>
-        <h2 className="t-display text-white">Skills</h2>
+        <span className="text-ui text-zinc-400 leading-tight">Core</span>
+        <h2 className="text-display text-white">Skills</h2>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
@@ -47,7 +47,7 @@ export default async function CoreSkills() {
                   decoding="async"
                 />
               )}
-              <span className="t-caption font-bold text-white leading-none">{skill.label}</span>
+              <span className="text-ui font-bold text-white leading-none">{skill.label}</span>
             </>
           )
 

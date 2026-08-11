@@ -34,10 +34,10 @@ export default async function Projects() {
       {/* Section header */}
       <div className="flex items-end justify-between">
         <div className="flex flex-col">
-          <span className="text-[14px] text-zinc-400 leading-tight">Featured</span>
-          <h2 className="t-display text-white">Projects</h2>
+          <span className="text-ui text-zinc-400 leading-tight">Featured</span>
+          <h2 className="text-display text-white">Projects</h2>
         </div>
-        <Link href="/projects" className="t-caption text-white hover:text-zinc-400 transition-colors">
+        <Link href="/projects" className="text-label text-white hover:text-zinc-400 transition-colors">
           View more &gt;
         </Link>
       </div>

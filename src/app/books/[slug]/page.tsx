@@ -66,7 +66,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
 
       <main className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 mb-6 font-body text-[13px]" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-2 mb-6 text-label" aria-label="Breadcrumb">
           <Link href="/" className="text-zinc-600 hover:text-zinc-400 transition-colors">
             Home
           </Link>
@@ -97,12 +97,12 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
 
           {/* Right: metadata (75%) */}
           <div className="flex flex-col gap-4 md:w-[75%]">
-            <h1 className="font-display text-[28px] sm:text-[34px] text-white leading-tight">{book.title}</h1>
+            <h1 className="text-h1 text-white">{book.title}</h1>
 
-            <p className="font-body text-[14px] text-zinc-400 leading-relaxed">by {book.author}</p>
+            <p className="text-body-sm text-zinc-400">by {book.author}</p>
 
             {book.shortDescription && (
-              <p className="font-body text-[14px] text-zinc-400 leading-relaxed">{book.shortDescription}</p>
+              <p className="text-body-sm text-zinc-400">{book.shortDescription}</p>
             )}
 
             {book.tags?.length > 0 && (
@@ -110,7 +110,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
                 {book.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="bg-zinc-900 border border-zinc-800 rounded px-2 py-0.5 font-body text-[11px] text-zinc-500 whitespace-nowrap leading-[16px]"
+                    className="bg-zinc-900 border border-zinc-800 rounded px-2 py-0.5 text-meta text-zinc-500 whitespace-nowrap leading-[16px]"
                   >
                     {tag}
                   </span>
@@ -127,14 +127,14 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
         {bodyHtml ? (
           <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
         ) : (
-          <p className="font-body text-[16px] text-zinc-500 italic">No review written yet.</p>
+          <p className="text-body text-zinc-500 italic">No review written yet.</p>
         )}
 
         {/* Back link */}
         <div className="mt-12">
           <Link
             href="/books"
-            className="inline-flex items-center gap-1.5 font-body text-[13px] text-zinc-500 hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 text-label text-zinc-500 hover:text-white transition-colors"
           >
             <svg
               className="w-3.5 h-3.5"
