@@ -40,8 +40,8 @@ export default async function Experience() {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col">
-        <span className="t-caption text-zinc-400 leading-tight">So Far</span>
-        <h2 className="t-display text-white">Career</h2>
+        <span className="text-ui text-zinc-400 leading-tight">So Far</span>
+        <h2 className="text-display text-white">Career</h2>
       </div>
 
       <div className="flex flex-col">
@@ -55,7 +55,7 @@ export default async function Experience() {
             defaultOpen={index === 0}
           >
             {career.description && (
-              <p className="t-caption text-zinc-400 leading-relaxed whitespace-pre-line">
+              <p className="text-body-sm text-zinc-400 whitespace-pre-line">
                 {career.description}
               </p>
             )}

@@ -72,7 +72,7 @@ export default function ExperienceItem({
   const [open, setOpen] = useState(defaultOpen)
 
   const roleTitle = (
-    <h4 className="font-display font-semibold text-[17px] sm:text-[18px] text-white leading-snug transition-colors duration-200 group-hover:text-accent-soft">
+    <h4 className="text-title text-white transition-colors duration-200 group-hover:text-accent-soft">
       {role}
     </h4>
   )
@@ -82,7 +82,7 @@ export default function ExperienceItem({
       <div className="flex flex-col sm:flex-row items-start gap-1 sm:gap-6">
         {/* Date range   fixed column on desktop */}
         <div className="sm:w-44 shrink-0 sm:pt-0.5">
-          <p className="t-caption text-zinc-400 leading-tight tabular-nums">{dateLabel}</p>
+          <p className="text-meta text-zinc-400 leading-tight tabular-nums">{dateLabel}</p>
         </div>
 
         {/* Role + arrow on one row, company below, then description when open */}
@@ -121,13 +121,13 @@ export default function ExperienceItem({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visit ${company} website`}
-              className="mt-1 inline-flex items-center gap-1.5 t-body font-bold text-accent-soft transition-colors duration-200 hover:text-accent"
+              className="mt-1 inline-flex items-center gap-1.5 text-body font-bold text-accent-soft transition-colors duration-200 hover:text-accent"
             >
               {company}
               <LinkIcon />
             </a>
           ) : (
-            <p className="mt-1 t-body font-bold text-accent-soft">{company}</p>
+            <p className="mt-1 text-body font-bold text-accent-soft">{company}</p>
           )}
 
           {open && <div className="mt-4">{children}</div>}
