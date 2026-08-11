@@ -5,28 +5,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* --font-display: 'Manrope', sans-serif;
-  --font-body: 'Manrope', sans-serif;
-  --font-caption: 'Inter', sans-serif;
-  --font-bitcount: 'Bitcount Single', monospace;
-  --font-footer: 'Manrope', sans-serif; */
-
-  --font-display: var(--font-bricolage), sans-serif;
-  --font-body: var(--font-bricolage), sans-serif;
-  --font-caption: var(--font-bricolage), sans-serif;
-  --font-bitcount: var(--font-bitcount-single), monospace;
-  --font-footer: var(--font-bricolage), sans-serif;
-
   /* ── Font families ─────────────────────────────────────────────────────── */
   /* Tailwind preflight sets the document family from --font-sans, so no call
      site needs a family class. */
   --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-bitcount: var(--font-bitcount-single), monospace;
 
   /* ── Fluid content type ────────────────────────────────────────────────── */
   /* Ratio 1.20 @320px easing to 1.25 @1440px, base 16px → 18px.
      Intercepts are in rem, NEVER pure vw, so text still scales at 200% browser
      zoom (WCAG 1.4.4). Full derivation:
      docs/superpowers/specs/2026-08-11-fluid-typography-design.md */
+
+  /* Clears Tailwind's built-in text-xs … text-9xl so the only sizes that exist
+     are the ones below. A stray `text-sm` now fails loudly instead of quietly
+     introducing a fourth scale. */
+  --text-*: initial;
+
   --text-h1: clamp(1.728rem, 1.594rem + 0.671vw, 2.198rem);   /* 27.7 → 35.2px */
   --text-h1--line-height: 1.15;
   --text-h1--letter-spacing: -0.02em;
@@ -115,38 +110,6 @@ html {
 }
 html::-webkit-scrollbar {
   display: none; /* Chrome, Safari, new Edge */
-}
-
-/* Typographic scale — three roles */
-@layer components {
-  /* Mobile-first base sizes; scale up to the approved desktop sizes at sm (640px). */
-  .t-display {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 20px;
-  }
-  .t-body {
-    font-family: var(--font-body);
-    font-weight: 400;
-    font-size: 14px;
-  }
-  .t-caption {
-    font-family: var(--font-caption);
-    font-weight: 400;
-    font-size: 12px;
-  }
-
-  @media (min-width: 640px) {
-    .t-display {
-      font-size: 28px;
-    }
-    .t-body {
-      font-size: 18px;
-    }
-    .t-caption {
-      font-size: 16px;
-    }
-  }
 }
 
 /* Subtle inset shadow that gives the Core Skills pills a slight pressed depth. */
