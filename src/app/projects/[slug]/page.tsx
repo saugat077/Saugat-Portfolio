@@ -49,8 +49,9 @@ export async function generateMetadata({
   const project = await getProject(slug)
   if (!project) return {}
   return {
-    title: `${project.title} | Saugat K.C.`,
+    title: `${project.title} | Saugat KC`,
     description: project.shortDescription,
+    alternates: { canonical: `/projects/${slug}` },
   }
 }
 

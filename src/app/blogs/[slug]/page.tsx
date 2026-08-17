@@ -54,8 +54,9 @@ export async function generateMetadata({
   const blog = await getBlog(slug)
   if (!blog) return {}
   return {
-    title: `${blog.title} | Saugat K.C.`,
-    description: blog.shortDescription ?? `${blog.title}   by Saugat K.C.`,
+    title: `${blog.title} | Saugat KC`,
+    description: blog.shortDescription ?? `${blog.title}   by Saugat KC`,
+    alternates: { canonical: `/blogs/${slug}` },
   }
 }
 

@@ -5,8 +5,9 @@ import BooksFilter, { type FilterBook } from '@/components/BooksFilter'
 import { client, urlFor } from '@/lib/sanity'
 
 export const metadata: Metadata = {
-  title: 'Books | Saugat K.C.',
-  description: 'A summary and thoughts on every book Saugat K.C. finishes.',
+  title: 'Books | Saugat KC',
+  description: 'A summary and thoughts on every book Saugat KC finishes.',
+  alternates: { canonical: '/books' },
 }
 
 interface RawBook {

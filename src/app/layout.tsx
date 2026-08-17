@@ -21,12 +21,13 @@ const bitcount = Bitcount_Single({
 })
 
 const description =
-  'Portfolio of Saugat K.C. - QA Engineer by profession, Designer by instinct. Specialising in UK payroll compliance testing and UI/UX design. Based in Kathmandu, Nepal.'
+  'Portfolio of Saugat KC - QA Engineer by profession, Designer by instinct. Specialising in UK payroll compliance testing and UI/UX design. Based in Kathmandu, Nepal.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'Saugat K.C. | Portfolio',
+  title: 'Saugat KC | QA Engineer & Designer, Kathmandu',
   description,
+  alternates: { canonical: '/' },
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'Saugat K.C. | Portfolio',
+    title: 'Saugat KC | Portfolio',
     description,
     url: SITE_URL,
     type: 'website',
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Saugat K.C. | Portfolio',
+    title: 'Saugat KC | Portfolio',
     images: [`${SITE_URL}/images/og-preview.png`],
   },
 }

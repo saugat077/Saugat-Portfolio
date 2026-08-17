@@ -8,6 +8,30 @@ import Experience from '@/components/Experience'
 import CoreSkills from '@/components/CoreSkills'
 import Affiliations from '@/components/Affiliations'
 import Projects from '@/components/Projects'
+import { SITE_URL } from '@/lib/site'
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Saugat KC',
+  alternateName: ['saugatkc', 'Saugat KC77'],
+  url: SITE_URL,
+  image: `${SITE_URL}/images/profile.png`,
+  jobTitle: 'QA Engineer',
+  description:
+    'QA Engineer specialising in UK payroll compliance testing, and a UI/UX designer, based in Kathmandu, Nepal.',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Kathmandu',
+    addressCountry: 'NP',
+  },
+  sameAs: [
+    'https://www.linkedin.com/in/saugat-kc77/',
+    'https://github.com/saugat077',
+    'https://www.instagram.com/_alwaysaugat/',
+    'https://www.chess.com/member/brainbrainboom',
+  ],
+}
 
 const watermarkMask = {
   WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.49) 25%, rgba(0,0,0,0) 80%)',
@@ -17,6 +41,11 @@ const watermarkMask = {
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+
       <Nav />
 
       <main className="max-w-[1440px] mx-auto overflow-x-clip px-4 sm:px-6 lg:px-0">

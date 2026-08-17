@@ -4,8 +4,9 @@ import Nav from '@/components/Nav'
 import { client, urlFor } from '@/lib/sanity'
 
 export const metadata: Metadata = {
-  title: 'Blogs | Saugat K.C.',
-  description: 'Thoughts and writing by Saugat K.C.',
+  title: 'Blogs | Saugat KC',
+  description: 'Thoughts and writing by Saugat KC',
+  alternates: { canonical: '/blogs' },
 }
 
 interface Blog {

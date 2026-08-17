@@ -46,8 +46,9 @@ export async function generateMetadata({
   const book = await getBook(slug)
   if (!book) return {}
   return {
-    title: `${book.title} | Saugat K.C.`,
-    description: `${book.title} by ${book.author}   reviewed by Saugat K.C.`,
+    title: `${book.title} | Saugat KC`,
+    description: `${book.title} by ${book.author}   reviewed by Saugat KC`,
+    alternates: { canonical: `/books/${slug}` },
   }
 }
 

@@ -5,8 +5,9 @@ import ProjectCard from '@/components/ProjectCard'
 import { client } from '@/lib/sanity'
 
 export const metadata: Metadata = {
-  title: 'Projects | Saugat K.C.',
-  description: 'Projects built by Saugat K.C.',
+  title: 'Projects | Saugat KC',
+  description: 'Projects built by Saugat KC',
+  alternates: { canonical: '/projects' },
 }
 
 interface Project {
