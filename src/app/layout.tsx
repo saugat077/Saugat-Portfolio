@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Bitcount_Single, Bricolage_Grotesque } from 'next/font/google'
 import { SITE_URL } from '@/lib/site'
 import './globals.css'
@@ -48,11 +48,24 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  themeColor: '#06030a',
+  colorScheme: 'dark',
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${bricolage.variable} ${bitcount.variable}`}>
       <body className="bg-base min-h-screen text-white antialiased overflow-x-hidden">
-        <div className="relative z-10">{children}</div>
+        <a
+          href="#page-content"
+          className="focusable sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-md focus:bg-panel focus:px-4 focus:py-2.5 focus:text-ui focus:text-white"
+        >
+          Skip to content
+        </a>
+        <div id="page-content" tabIndex={-1} className="relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   )

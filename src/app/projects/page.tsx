@@ -43,17 +43,19 @@ export default async function ProjectsPage() {
         <div className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 mb-6 text-label" aria-label="Breadcrumb">
-            <Link href="/" className="text-zinc-600 hover:text-zinc-400 transition-colors">
+            <Link href="/" className="press focusable tap text-zinc-400 hover:text-white">
               Home
             </Link>
-            <span className="text-zinc-700">/</span>
+            <span className="text-quiet" aria-hidden="true">/</span>
             <span className="text-zinc-400">Projects</span>
           </nav>
+
+          <h1 className="text-h1 text-white mb-6">Projects</h1>
 
           <hr className="border-zinc-800 mb-8" />
 
           {projects.length === 0 ? (
-            <p className="text-body-sm text-zinc-600 italic">No projects yet</p>
+            <p className="text-body-sm text-quiet italic">No projects yet</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-[74px]">
               {projects.map((project) => (
@@ -66,6 +68,7 @@ export default async function ProjectsPage() {
                   liveUrl={project.liveUrl}
                   tags={project.tags}
                   slug={project.slug.current}
+                  headingLevel={2}
                 />
               ))}
             </div>

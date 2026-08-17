@@ -4,6 +4,8 @@
    `@import url(...)` does not survive the CSS pipeline, so it cannot be used. */
 @import "tailwindcss";
 
+@source not "../../**/*.md";
+
 @theme {
   /* ── Font families ─────────────────────────────────────────────────────── */
   /* Tailwind preflight sets the document family from --font-sans, so no call
@@ -21,6 +23,13 @@
      are the ones below. A stray `text-sm` now fails loudly instead of quietly
      introducing a fourth scale. */
   --text-*: initial;
+  --leading-*: initial;
+  --tracking-*: initial;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --duration-press: 110ms;
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
 
   --text-h1: clamp(1.728rem, 1.594rem + 0.671vw, 2.198rem);   /* 27.7 → 35.2px */
   --text-h1--line-height: 1.15;
@@ -34,6 +43,7 @@
 
   --text-title: clamp(1.2rem, 1.141rem + 0.295vw, 1.406rem);  /* 19.2 → 22.5px */
   --text-title--line-height: 1.3;
+  --text-title--letter-spacing: -0.005em;
   --text-title--font-weight: 600;
 
   /* Same size as --text-title; looser leading because it sets paragraphs, not
@@ -48,6 +58,7 @@
 
   --text-body-sm: clamp(0.833rem, 0.814rem + 0.1vw, 0.9rem);  /* 13.3 → 14.4px */
   --text-body-sm--line-height: 1.55;
+  --text-body-sm--letter-spacing: 0.008em;
   --text-body-sm--font-weight: 400;
 
   /* ── Fluid decorative type ─────────────────────────────────────────────── */
@@ -55,6 +66,8 @@
      these onto it would more than halve them. */
   --text-clock: clamp(0.6875rem, 0.5625rem + 0.625vw, 1.125rem); /* 11 → 18px */
   --text-clock--line-height: 1;
+  --text-clock--letter-spacing: clamp(0.108px, 0.252px - 0.01vw, 0.22px);
+  --text-clock--font-weight: 400;
 
   --text-numeral: clamp(4rem, 3.429rem + 2.857vw, 6rem);      /* 64 → 96px */
   --text-numeral--line-height: 1;
@@ -63,25 +76,31 @@
 
   --text-wordmark: clamp(4rem, 2.286rem + 8.571vw, 10rem);    /* 64 → 160px */
   --text-wordmark--line-height: 1;
-  --text-wordmark--letter-spacing: -0.02em;
+  --text-wordmark--letter-spacing: clamp(-5.6px, -0.046px - 0.3857vw, -1.28px);
   --text-wordmark--font-weight: 800;
 
   /* ── Stable UI type ────────────────────────────────────────────────────── */
   /* Fixed rem: respects browser font size, ignores viewport width. These sit in
      containers with fixed padding and borders, which fluid text would distort. */
   --text-ui: 0.875rem;      /* 14px — nav links, eyebrows, skill labels */
-  --text-ui--line-height: 1.4;
+  --text-ui--line-height: 1.25;
+  --text-ui--letter-spacing: 0.006em;
+  --text-ui--font-weight: 500;
 
   --text-label: 0.8125rem;  /* 13px — breadcrumbs, pills, back-links */
   --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.01em;
+  --text-label--font-weight: 500;
 
   --text-meta: 0.75rem;     /* 12px — dates, tag pills */
   --text-meta--line-height: 1.35;
-  --text-meta--letter-spacing: 0.01em;
+  --text-meta--letter-spacing: 0.012em;
+  --text-meta--font-weight: 400;
 
   --text-menu: 2.25rem;     /* 36px — mobile full-screen menu links (sm:hidden) */
   --text-menu--line-height: 1.1;
   --text-menu--letter-spacing: -0.02em;
+  --text-menu--font-weight: 600;
 
   /* em-relative on purpose: inline code must track the size of its host text. */
   --text-code: 0.9em;
@@ -92,6 +111,7 @@
   --color-accent-fill: #301C4D;  /* Deep accent shade used to fill the Core Skills pills */
   --color-base: #06030a;
   --color-panel: #0f1317;
+  --color-quiet: #8a8a94;
   --color-ink: #0a0b0b;          
   --color-silver: #c7c7c7;       
 
@@ -105,11 +125,167 @@
    Firefox + legacy IE/Edge use properties; Chrome/Safari/new Edge use the
    ::-webkit-scrollbar pseudo-element. */
 html {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE / old Edge */
+  color-scheme: dark;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(176 138 224 / 0.35) transparent;
 }
 html::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, new Edge */
+  width: 10px;
+}
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+html::-webkit-scrollbar-thumb {
+  background: rgb(176 138 224 / 0.35);
+  border-radius: 5px;
+}
+
+@keyframes filter-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@property --fade-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --fade-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@utility press {
+  transition-property: transform, translate, scale, rotate, color, background-color, border-color,
+    opacity, filter;
+  transition-duration: var(--tw-duration, var(--duration-press));
+  transition-timing-function: var(--tw-ease, var(--ease-standard));
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@utility press-inline {
+  display: inline-block;
+  transition-property: transform, translate, scale, rotate, color, background-color, border-color,
+    opacity, filter;
+  transition-duration: var(--tw-duration, var(--duration-press));
+  transition-timing-function: var(--tw-ease, var(--ease-standard));
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@utility focusable {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-soft);
+    outline-offset: 2px;
+  }
+}
+
+@utility tap {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+@utility scroll-row {
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: 44px;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--fade-start),
+    black calc(100% - var(--fade-end)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--fade-start),
+    black calc(100% - var(--fade-end)),
+    transparent 100%
+  );
+  transition: --fade-start 200ms linear, --fade-end 200ms linear;
+
+  &[data-start='true'] {
+    --fade-start: 44px;
+  }
+
+  &[data-end='true'] {
+    --fade-end: 44px;
+  }
+
+  & > * {
+    scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+
+  .press,
+  .press-inline {
+    transition-duration: 150ms !important;
+  }
+
+  .press:active,
+  .press-inline:active {
+    transform: none;
+    opacity: 0.68;
+    transition-duration: 0s !important;
+  }
+
+  .scroll-row {
+    scroll-snap-type: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  #site-header,
+  #mobile-menu {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--color-base);
+  }
+}
+
+@media (prefers-contrast: more) {
+  #site-header,
+  #mobile-menu {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--color-base);
+  }
+
+  :root {
+    --color-quiet: #d4d4d8;
+    --color-zinc-400: #e4e4e7;
+    --color-zinc-700: #a1a1aa;
+    --color-zinc-800: #a1a1aa;
+  }
+}
+
+@media (forced-colors: active) {
+  .focusable:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
 }
 
 /* Subtle inset shadow that gives the Core Skills pills a slight pressed depth. */
@@ -123,7 +299,7 @@ html::-webkit-scrollbar {
   background: transparent;
   border-radius: 3px;
   padding: 0 1px;
-  transition: color 0.4s ease, background-color 0.4s ease;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 
 /* Revealed only after the profile-photo hover unlocks it */

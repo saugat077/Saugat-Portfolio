@@ -68,14 +68,14 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
       <main className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 mb-6 text-label" aria-label="Breadcrumb">
-          <Link href="/" className="text-zinc-600 hover:text-zinc-400 transition-colors">
+          <Link href="/" className="press focusable tap text-zinc-400 hover:text-white">
             Home
           </Link>
-          <span className="text-zinc-700">/</span>
-          <Link href="/books" className="text-zinc-600 hover:text-zinc-400 transition-colors">
+          <span className="text-quiet" aria-hidden="true">/</span>
+          <Link href="/books" className="press focusable tap text-zinc-400 hover:text-white">
             Books
           </Link>
-          <span className="text-zinc-700">/</span>
+          <span className="text-quiet" aria-hidden="true">/</span>
           <span className="text-zinc-400 truncate">{book.title}</span>
         </nav>
 
@@ -111,7 +111,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
                 {book.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="bg-zinc-900 border border-zinc-800 rounded px-2 py-0.5 text-meta text-zinc-500 whitespace-nowrap leading-[16px]"
+                    className="bg-zinc-900 border border-zinc-800 rounded px-2 py-0.5 text-meta text-zinc-400 whitespace-nowrap"
                   >
                     {tag}
                   </span>
@@ -126,16 +126,16 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
 
         {/* Body */}
         {bodyHtml ? (
-          <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+          <div className="max-w-[68ch]" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
         ) : (
-          <p className="text-body text-zinc-500 italic">No review written yet.</p>
+          <p className="text-body text-zinc-400 italic">No review written yet.</p>
         )}
 
         {/* Back link */}
         <div className="mt-12">
           <Link
             href="/books"
-            className="inline-flex items-center gap-1.5 text-label text-zinc-500 hover:text-white transition-colors"
+            className="press focusable tap inline-flex gap-1.5 text-label text-zinc-400 hover:text-white"
           >
             <svg
               className="w-3.5 h-3.5"

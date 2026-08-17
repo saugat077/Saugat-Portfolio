@@ -12,7 +12,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-label text-zinc-500 hover:text-white transition-colors mt-2"
+          className="press focusable tap inline-flex gap-1.5 text-label text-zinc-400 hover:text-white mt-2"
         >
           <svg
             className="w-3.5 h-3.5"

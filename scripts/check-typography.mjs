@@ -21,6 +21,14 @@ const FORBIDDEN = [
     re: /\btext-(?:xs|sm|base|lg|xl|[2-9]xl)\b/g,
     why: "Tailwind's default size scale — use a --text-* token",
   },
+  {
+    re: /\bleading-(?:none|tight|snug|normal|relaxed|loose|\[)/g,
+    why: 'leading override — line-height travels with its --text-* token',
+  },
+  {
+    re: /\btracking-(?:tighter|tight|normal|wide|wider|widest|\[)/g,
+    why: 'tracking override — letter-spacing travels with its --text-* token',
+  },
 ]
 
 // Every token the system promises. Missing one breaks call sites silently.
@@ -40,6 +48,25 @@ const REQUIRED_TOKENS = [
   'menu',
   'code',
 ]
+
+// Sizes below ~15px need positive tracking; display sizes need negative. Either
+// way the value has to exist, or the size is relying on the browser default.
+const REQUIRED_TRACKING = [
+  'h1',
+  'display',
+  'body-sm',
+  'clock',
+  'numeral',
+  'wordmark',
+  'ui',
+  'label',
+  'meta',
+  'menu',
+]
+
+// Weight is the third leg of the hierarchy set. A token without one leaves the
+// call site to decide, which is how one token ends up rendering at two weights.
+const REQUIRED_WEIGHT = ['h1', 'display', 'title', 'lead', 'body', 'body-sm', 'ui', 'label', 'menu']
 
 function walk(dir) {
   const out = []
@@ -82,6 +109,15 @@ if (filters.length === 0) {
   const css = readFileSync(join(SRC, 'app', 'globals.css'), 'utf8')
   for (const t of REQUIRED_TOKENS) {
     if (!css.includes(`--text-${t}:`)) missing.push(`--text-${t}`)
+  }
+  for (const t of REQUIRED_TRACKING) {
+    if (!css.includes(`--text-${t}--letter-spacing:`)) missing.push(`--text-${t}--letter-spacing`)
+  }
+  for (const t of REQUIRED_WEIGHT) {
+    if (!css.includes(`--text-${t}--font-weight:`)) missing.push(`--text-${t}--font-weight`)
+  }
+  for (const ns of ['--leading-*: initial', '--tracking-*: initial']) {
+    if (!css.includes(ns)) missing.push(`${ns} (clears Tailwind's default scale)`)
   }
 }
 

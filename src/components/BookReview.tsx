@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { client, urlFor } from '@/lib/sanity'
 import BookCard from './BookCard'
+import ScrollRow from './ScrollRow'
 
 interface Book {
   _id: string
@@ -28,16 +29,16 @@ export default async function BookReview() {
       {/* Section header */}
       <div className="flex items-end justify-between">
         <div className="flex flex-col">
-          <span className="text-ui text-zinc-400 leading-tight">Summarizing</span>
+          <span className="text-ui text-zinc-400">Summarizing</span>
           <h2 className="text-display text-white">Books</h2>
         </div>
-        <Link href="/books" className="text-label text-white hover:text-zinc-400 transition-colors">
+        <Link href="/books" className="press focusable tap text-label text-white hover:text-accent-soft">
           View more &gt;
         </Link>
       </div>
 
       {/* Book covers row   4 fixed-size cards; scrollable on mobile */}
-      <div className="flex gap-2.5 sm:gap-3.5 items-start overflow-x-auto pb-1 -mb-1">
+      <ScrollRow className="flex gap-2.5 sm:gap-3.5 items-start overflow-x-auto pb-1 -mb-1">
         {books.map((book) => (
           <BookCard
             key={book._id}
@@ -47,7 +48,7 @@ export default async function BookReview() {
             slug={book.slug.current}
           />
         ))}
-      </div>
+      </ScrollRow>
     </section>
   )
 }

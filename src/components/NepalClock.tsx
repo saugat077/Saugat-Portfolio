@@ -27,8 +27,9 @@ export default function NepalClock() {
   return (
     <span
       id="npt-clock"
+      role="img"
+      aria-label={`Current time in Nepal: ${time}`}
       className="font-bitcount text-clock text-white whitespace-nowrap tabular-nums"
-      aria-label="Current time in Nepal"
     >
       {time}
     </span>

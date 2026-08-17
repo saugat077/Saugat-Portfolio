@@ -37,7 +37,7 @@ export default async function Hero() {
       >
         {bannerUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={bannerUrl} alt="Background Image" className="w-full h-full object-cover" aria-hidden="true" />
+          <img src={bannerUrl} alt="" className="w-full h-full object-cover" aria-hidden="true" />
         ) : (
           <div className="w-full h-full bg-violet-900"></div>
         )}
@@ -55,20 +55,22 @@ export default async function Hero() {
         {/* Text info */}
         <div className="flex flex-col gap-0 pb-1 sm:pb-2">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="text-display text-white whitespace-nowrap">
-              {name}
-            </span>
+            <h1 className="text-display text-white whitespace-nowrap">{name}</h1>
             {/* Verified checkmark */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/icons/verify.png"
-              alt="Verified"
+              alt=""
+              aria-hidden="true"
               className="w-6 h-6 sm:w-8 sm:h-8 shrink-0 object-contain"
+              loading="lazy"
+              decoding="async"
             />
           </div>
-          {/* leading-tight is kept: these are single-line labels in a tight
+          {/* is kept: these are single-line labels in a tight
               stack, where text-body's 1.6 leading would open visible gaps. */}
-          <span className="text-body font-bold pt-1 pb-0.5 text-accent-soft leading-tight">{role}</span>
-          <span className="text-body text-zinc-400 leading-tight">{location}</span>
+          <span className="text-body font-bold pt-1 pb-0.5 text-accent-soft">{role}</span>
+          <span className="text-body text-zinc-400">{location}</span>
         </div>
       </div>
     </div>

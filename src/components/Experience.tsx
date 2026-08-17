@@ -40,7 +40,7 @@ export default async function Experience() {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col">
-        <span className="text-ui text-zinc-400 leading-tight">So Far</span>
+        <span className="text-ui text-zinc-400">So Far</span>
         <h2 className="text-display text-white">Career</h2>
       </div>
 

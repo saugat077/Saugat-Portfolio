@@ -101,7 +101,7 @@ export function renderPortableText(blocks: BodyBlock[]): string {
     // ── Block styles ──
     switch (b.style) {
       case 'h1':
-        parts.push(`<h1 class="text-h1 text-white mt-10 mb-4">${inlineHtml}</h1>`)
+        parts.push(`<h2 class="text-h1 text-white mt-10 mb-4">${inlineHtml}</h2>`)
         break
       case 'h2':
         parts.push(`<h2 class="text-display text-white mt-8 mb-3">${inlineHtml}</h2>`)

@@ -83,7 +83,7 @@ export default async function About() {
     <section className="flex flex-col gap-4 sm:gap-5">
       {/* Bio quote (Portable Text   may contain .easter-word spans) */}
       <div
-        className="text-body text-zinc-400 text-left [&>p]:m-2"
+        className="text-body text-zinc-400 text-left max-w-[68ch] [&>p]:m-2"
         dangerouslySetInnerHTML={{ __html: ptToHtml(settings?.bioQuote) }}
       />
 
@@ -97,12 +97,12 @@ export default async function About() {
               href={s.href}
               {...(s.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               aria-label={s.label}
-              className="group inline-flex items-center gap-2 text-white hover:text-accent-soft transition-colors"
+              className="press focusable group inline-flex items-center justify-center gap-2 min-w-11 min-h-11 px-1"
             >
               {/* PNG used as a mask so the glyph takes the secondary-accent colour */}
               <span
                 aria-hidden="true"
-                className="w-6 h-6 sm:w-5 sm:h-5 shrink-0 bg-accent-soft transition-opacity"
+                className="w-6 h-6 sm:w-5 sm:h-5 shrink-0 bg-accent-soft transition-colors duration-200 group-hover:bg-white"
                 style={{
                   maskImage: `url(${s.icon})`,
                   WebkitMaskImage: `url(${s.icon})`,
@@ -114,7 +114,7 @@ export default async function About() {
                   WebkitMaskPosition: 'center',
                 }}
               />
-              <span className="hidden sm:inline text-ui font-bold text-accent-soft leading-tight">
+              <span className="hidden sm:inline text-ui font-bold text-accent-soft transition-colors duration-200 group-hover:text-white">
                 {s.label}
               </span>
             </a>

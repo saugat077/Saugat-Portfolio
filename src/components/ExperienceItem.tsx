@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type ReactNode } from 'react'
+import { useReducedMotion } from '@/lib/useReducedMotion'
 
 // Use the PNG as a mask so the arrow can be tinted with the accent colour.
 // The source art points up-right (↗); we rotate it 45° to point right (→).
@@ -70,11 +71,12 @@ export default function ExperienceItem({
   children,
 }: ExperienceItemProps) {
   const [open, setOpen] = useState(defaultOpen)
+  const reducedMotion = useReducedMotion()
 
   const roleTitle = (
-    <h4 className="text-title text-white transition-colors duration-200 group-hover:text-accent-soft">
+    <h3 className="text-title text-white transition-colors duration-200 group-hover:text-accent-soft">
       {role}
-    </h4>
+    </h3>
   )
 
   return (
@@ -82,7 +84,7 @@ export default function ExperienceItem({
       <div className="flex flex-col sm:flex-row items-start gap-1 sm:gap-6">
         {/* Date range   fixed column on desktop */}
         <div className="sm:w-44 shrink-0 sm:pt-0.5">
-          <p className="text-meta text-zinc-400 leading-tight tabular-nums">{dateLabel}</p>
+          <p className="text-meta text-zinc-400 tabular-nums">{dateLabel}</p>
         </div>
 
         {/* Role + arrow on one row, company below, then description when open */}
@@ -94,8 +96,9 @@ export default function ExperienceItem({
                 href={website}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Visit ${company} website`}
-                className="group inline-block"
+                tabIndex={-1}
+                aria-hidden="true"
+                className="press-inline group"
               >
                 {roleTitle}
               </a>
@@ -109,7 +112,7 @@ export default function ExperienceItem({
               onClick={() => setOpen((prev) => !prev)}
               aria-expanded={open}
               aria-label={open ? `Hide ${role} details` : `Show ${role} details`}
-              className="absolute right-0 top-0.5 cursor-pointer p-1 -m-1"
+              className="press focusable absolute -right-3 -top-2.5 cursor-pointer flex items-center justify-center w-11 h-11"
             >
               <ArrowIcon open={open} />
             </button>
@@ -120,8 +123,7 @@ export default function ExperienceItem({
               href={website}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Visit ${company} website`}
-              className="mt-1 inline-flex items-center gap-1.5 text-body font-bold text-accent-soft transition-colors duration-200 hover:text-accent"
+              className="press focusable tap mt-1 gap-1.5 text-body font-bold text-accent-soft hover:text-white"
             >
               {company}
               <LinkIcon />
@@ -130,7 +132,21 @@ export default function ExperienceItem({
             <p className="mt-1 text-body font-bold text-accent-soft">{company}</p>
           )}
 
-          {open && <div className="mt-4">{children}</div>}
+          <div
+            className="grid transition-[grid-template-rows] duration-300 ease-out"
+            style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
+          >
+            <div
+              inert={!open}
+              className={`overflow-hidden ${
+                reducedMotion
+                  ? ''
+                  : `transition-opacity duration-200 ease-out ${open ? 'opacity-100' : 'opacity-0'}`
+              }`}
+            >
+              <div className="mt-4">{children}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

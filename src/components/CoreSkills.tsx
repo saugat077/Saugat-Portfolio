@@ -28,7 +28,7 @@ export default async function CoreSkills() {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col">
-        <span className="text-ui text-zinc-400 leading-tight">Core</span>
+        <span className="text-ui text-zinc-400">Core</span>
         <h2 className="text-display text-white">Skills</h2>
       </div>
 
@@ -47,7 +47,7 @@ export default async function CoreSkills() {
                   decoding="async"
                 />
               )}
-              <span className="text-ui font-bold text-white leading-none">{skill.label}</span>
+              <span className="text-ui font-bold text-white">{skill.label}</span>
             </>
           )
 
@@ -57,7 +57,7 @@ export default async function CoreSkills() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${PILL_CLASS} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft/40`}
+              className={`press focusable tap ${PILL_CLASS} border-accent-soft/30 transition-colors duration-200 hover:border-accent-soft/70 hover:bg-accent-fill/70`}
             >
               {inner}
             </a>

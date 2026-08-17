@@ -33,28 +33,55 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
   }, [books, allTags])
 
   const [active, setActive] = useState('all')
+  const [entering, setEntering] = useState<Set<string>>(new Set())
+
+  const visibleFor = (tag: string) =>
+    new Set(
+      books
+        .filter((b) => tag === 'all' || (b.tags ?? []).includes(tag))
+        .map((b) => b.slug.current)
+    )
+
+  function selectTag(tag: string) {
+    if (tag === active) return
+    const before = visibleFor(active)
+    setEntering(new Set([...visibleFor(tag)].filter((slug) => !before.has(slug))))
+    setActive(tag)
+  }
+
+  const shownCount = active === 'all' ? books.length : tagCounts[active]
 
   const pillClass = (isActive: boolean) =>
-    `filter-pill inline-flex items-center gap-1.5 text-label px-3 py-1 rounded-full border transition-colors cursor-pointer ${
+    `press focusable tap inline-flex items-center gap-1.5 text-label px-4 rounded-full border cursor-pointer ${
       isActive
         ? 'border-purple-500 bg-purple-500/10 text-white'
-        : 'border-zinc-700 text-zinc-500 hover:border-zinc-600 hover:text-zinc-400'
+        : 'border-zinc-500 text-zinc-400 hover:border-accent-soft/40 hover:text-accent-soft'
+    }`
+
+  const countClass = (isActive: boolean) =>
+    `tabular-nums text-zinc-400 transition-opacity duration-150 ${
+      isActive ? 'opacity-100' : 'opacity-0'
     }`
 
   return (
     <>
       {/* Filter row */}
       {books.length > 0 && (
-        <div className="flex items-center gap-2 flex-wrap mb-8" id="filter-row">
+        <div
+          className="flex items-center gap-2 flex-wrap mb-8"
+          id="filter-row"
+          role="group"
+          aria-label="Filter books by tag"
+        >
           {/* All pill */}
           <button
             type="button"
-            onClick={() => setActive('all')}
+            onClick={() => selectTag('all')}
             className={pillClass(active === 'all')}
             aria-pressed={active === 'all'}
           >
             All
-            <span className={`tabular-nums text-zinc-400 ${active === 'all' ? '' : 'hidden'}`}>
+            <span className={countClass(active === 'all')} aria-hidden={active !== 'all'}>
               {tagCounts.all}
             </span>
           </button>
@@ -66,28 +93,43 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
               <button
                 key={tag}
                 type="button"
-                onClick={() => setActive(tag)}
+                onClick={() => selectTag(tag)}
                 className={pillClass(isActive)}
                 aria-pressed={isActive}
               >
                 {tag}
-                <span className={`tabular-nums text-zinc-400 ${isActive ? '' : 'hidden'}`}>{tagCounts[tag]}</span>
+                <span className={countClass(isActive)} aria-hidden={!isActive}>
+                  {tagCounts[tag]}
+                </span>
               </button>
             )
           })}
         </div>
       )}
 
+      <p aria-live="polite" className="sr-only">
+        Showing {shownCount} of {books.length} books
+        {active === 'all' ? '' : `, filtered by ${active}`}
+      </p>
+
       {/* Grid */}
       {books.length === 0 ? (
-        <p className="text-body-sm text-zinc-600 italic">No books yet</p>
+        <p className="text-body-sm text-quiet italic">No books yet</p>
       ) : (
         <div className="flex flex-wrap gap-[10px] sm:gap-[14px]" id="books-grid">
           {books.map((book) => {
             const tags = book.tags ?? []
             const show = active === 'all' || tags.includes(active)
             return (
-              <div key={book.slug.current} style={{ display: show ? undefined : 'none' }}>
+              <div
+                key={book.slug.current}
+                style={{ display: show ? undefined : 'none' }}
+                className={
+                  show && entering.has(book.slug.current)
+                    ? 'animate-[filter-in_220ms_ease-out]'
+                    : undefined
+                }
+              >
                 <BookCard
                   title={book.title}
                   author={book.author}

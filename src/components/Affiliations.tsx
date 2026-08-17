@@ -1,5 +1,6 @@
 import { client, urlFor } from '@/lib/sanity'
 import { safeUrl } from '@/lib/url'
+import ScrollRow from './ScrollRow'
 
 interface Affiliation {
   _id: string
@@ -25,11 +26,11 @@ export default async function Affiliations() {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col">
-        <span className="text-ui text-zinc-400 leading-tight">Built with others</span>
+        <span className="text-ui text-zinc-400">Built with others</span>
         <h2 className="text-display text-white">Clubs & Events</h2>
       </div>
 
-      <div className="flex flex-nowrap items-center gap-7 overflow-x-auto pb-1">
+      <ScrollRow className="flex flex-nowrap items-center gap-7 overflow-x-auto pb-1">
         {affiliations.map((aff) => (
           <a
             key={aff._id}
@@ -37,7 +38,7 @@ export default async function Affiliations() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={aff.orgName}
-            className="group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded"
+            className="press focusable group shrink-0"
           >
             {aff.logo?.asset ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -53,7 +54,7 @@ export default async function Affiliations() {
             )}
           </a>
         ))}
-      </div>
+      </ScrollRow>
     </section>
   )
 }
