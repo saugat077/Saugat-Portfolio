@@ -3,6 +3,9 @@
 out/
 next-env.d.ts
 
+# typescript incremental build cache
+*.tsbuildinfo
+
 # dependencies
 node_modules/
 
