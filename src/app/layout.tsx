@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Bitcount_Single, Bricolage_Grotesque } from 'next/font/google'
+import { SITE_URL } from '@/lib/site'
 import './globals.css'
 
 // Fonts are loaded here rather than with `@import url(...)` in globals.css: the
@@ -23,7 +24,7 @@ const description =
   'Portfolio of Saugat K.C. - QA Engineer by profession, Designer by instinct. Specialising in UK payroll compliance testing and UI/UX design. Based in Kathmandu, Nepal.'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://saugatkc77.com.np'),
+  metadataBase: new URL(SITE_URL),
   title: 'Saugat K.C. | Portfolio',
   description,
   icons: {
@@ -35,14 +36,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Saugat K.C. | Portfolio',
     description,
-    url: 'https://saugatkc77.com.np',
+    url: SITE_URL,
     type: 'website',
-    images: ['https://saugatkc77.com.np/images/og-preview.png'],
+    images: [`${SITE_URL}/images/og-preview.png`],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Saugat K.C. | Portfolio',
-    images: ['https://saugatkc77.com.np/images/og-preview.png'],
+    images: [`${SITE_URL}/images/og-preview.png`],
   },
 }
 
