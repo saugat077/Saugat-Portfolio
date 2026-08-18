@@ -54,7 +54,6 @@ const githubUrl = 'https://github.com/saugat077'
 const linkedinUrl = 'https://www.linkedin.com/in/saugat-kc77/'
 const emailUrl = 'mailto:ksaugat77@gmail.com'
 const chessUrl = 'https://www.chess.com/member/brainbrainboom'
-const instagramUrl = 'https://www.instagram.com/_alwaysaugat/'
 
 // Social links   icons are PNGs in public/icons (black glyphs, rendered white
 // via brightness-0 invert, matching the Affiliations logos).
@@ -62,7 +61,6 @@ const socials = [
   { label: 'Mail', href: emailUrl, icon: '/icons/mail.png', external: false },
   { label: 'LinkedIn', href: linkedinUrl, icon: '/icons/linkedin.png', external: true },
   { label: 'GitHub', href: githubUrl, icon: '/icons/github.png', external: true },
-  { label: 'Instagram', href: instagramUrl, icon: '/icons/instagram.png', external: true },
   { label: 'Chess.com', href: chessUrl, icon: '/icons/pawn.png', external: true },
 ] as const
 

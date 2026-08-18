@@ -45,19 +45,16 @@ export default async function Experience() {
       </div>
 
       <div className="flex flex-col">
-        {careers.map((career, index) => (
+        {careers.map((career) => (
           <ExperienceItem
             key={career._id}
             role={career.role}
             company={career.company}
             website={career.website}
             dateLabel={formatRange(career.startDate, career.endDate)}
-            defaultOpen={index === 0}
           >
             {career.description && (
-              <p className="text-body-sm text-zinc-400 whitespace-pre-line">
-                {career.description}
-              </p>
+              <p className="whitespace-pre-line">{career.description}</p>
             )}
           </ExperienceItem>
         ))}

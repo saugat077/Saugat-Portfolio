@@ -28,7 +28,6 @@ const personSchema = {
   sameAs: [
     'https://www.linkedin.com/in/saugat-kc77/',
     'https://github.com/saugat077',
-    'https://www.instagram.com/_alwaysaugat/',
     'https://www.chess.com/member/brainbrainboom',
   ],
 }
