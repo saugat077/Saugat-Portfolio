@@ -40,17 +40,17 @@ export default function ExperienceItem({
   children,
 }: ExperienceItemProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[8.5rem_minmax(0,1fr)_minmax(0,1.15fr)] gap-y-1.5 sm:gap-x-7 py-3 sm:py-4">
-      <p className="text-body-sm font-bold text-white tabular-nums">{dateLabel}</p>
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-1.5 sm:gap-x-7 py-3 sm:py-4">
+      <p className="text-body-sm font-bold text-white tabular-nums text-balance">{dateLabel}</p>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col min-w-0">
         <h3 className="text-body font-bold text-white">{role}</h3>
         {website ? (
           <a
             href={website}
             target="_blank"
             rel="noopener noreferrer"
-            className="press-inline focusable inline-flex items-center gap-1.5 w-fit py-2 -my-1 text-body-sm text-zinc-400 hover:text-accent-soft"
+            className="press-inline focusable inline-flex items-center gap-1.5 self-start max-w-full py-2 -my-1 text-body-sm text-zinc-400 hover:text-accent-soft"
           >
             {company}
             <LinkIcon />
