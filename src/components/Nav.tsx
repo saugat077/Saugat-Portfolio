@@ -17,7 +17,7 @@ export default function Nav() {
   useEffect(() => {
     if (!open) return
 
-    const content = document.getElementById('page-content')
+    const content = document.querySelector('main')
     document.body.style.overflow = 'hidden'
     content?.setAttribute('inert', '')
 
@@ -156,7 +156,7 @@ export default function Nav() {
             onClick={() => setOpen(false)}
             tabIndex={open ? undefined : -1}
             aria-current={link.active ? 'page' : undefined}
-            className={`press-inline focusable text-menu ${
+            className={`press focusable tap text-menu ${
               link.active ? 'text-accent-soft' : 'text-white hover:text-accent-soft'
             }`}
           >
