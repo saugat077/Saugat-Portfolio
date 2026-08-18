@@ -19,11 +19,12 @@ interface Project {
   liveUrl: string | null
   tags: string[]
   slug: { current: string }
+  order?: number
 }
 
 export default async function ProjectsPage() {
   const projects = await client.fetch<Project[]>(
-    `*[_type == "project" && status == "published"] | order(_createdAt desc) {
+    `*[_type == "project" && status == "published"] | order(coalesce(order, 9999) asc, _createdAt desc) {
       _id,
       title,
       shortDescription,
@@ -31,7 +32,8 @@ export default async function ProjectsPage() {
       githubUrl,
       liveUrl,
       tags,
-      slug
+      slug,
+      order
     }`
   )
 
