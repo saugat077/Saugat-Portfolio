@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import ProjectCard from '@/components/ProjectCard'
-import { client } from '@/lib/sanity'
+import { client, urlFor } from '@/lib/sanity'
 
 export const metadata: Metadata = {
   title: 'Projects | Saugat KC',
@@ -65,7 +65,11 @@ export default async function ProjectsPage() {
                   key={project._id}
                   title={project.title}
                   shortDescription={project.shortDescription}
-                  screenshot={project.screenshot}
+                  screenshotUrl={
+                    project.screenshot?.asset
+                      ? urlFor(project.screenshot).width(586).height(342).url()
+                      : null
+                  }
                   githubUrl={project.githubUrl}
                   liveUrl={project.liveUrl}
                   tags={project.tags}

@@ -1,13 +1,12 @@
+import type { ReactNode } from 'react'
 import Nav from '@/components/Nav'
-import Section from '@/components/Section'
-import SectionDivider from '@/components/SectionDivider'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
-import BookReview from '@/components/BookReview'
-import Experience from '@/components/Experience'
-import CoreSkills from '@/components/CoreSkills'
-import Affiliations from '@/components/Affiliations'
 import Projects from '@/components/Projects'
+import Blogs from '@/components/Blogs'
+import BeyondWork from '@/components/BeyondWork'
+import Books from '@/components/Books'
+import Footer from '@/components/Footer'
 import { SITE_URL } from '@/lib/site'
 
 const personSchema = {
@@ -19,7 +18,7 @@ const personSchema = {
   image: `${SITE_URL}/images/profile.png`,
   jobTitle: 'QA Engineer',
   description:
-    'QA Engineer specialising in UK payroll compliance testing, and a UI/UX designer, based in Kathmandu, Nepal.',
+    'Saugat works at Qniverse',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Kathmandu',
@@ -32,10 +31,19 @@ const personSchema = {
   ],
 }
 
-const watermarkMask = {
-  WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.49) 25%, rgba(0,0,0,0) 80%)',
-  maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.49) 25%, rgba(0,0,0,0) 80%)',
-} as const
+/**
+ * The 951px reading column the design centres inside the 1440px canvas. The
+ * About statement and the footer deliberately sit outside it — both bleed
+ * wider than the text — so the column is applied per section rather than once
+ * around the whole page.
+ */
+function Column({ children }: { children: ReactNode }) {
+  return (
+    <div className="px-gutter">
+      <div className="max-w-[951px] mx-auto">{children}</div>
+    </div>
+  )
+}
 
 export default function Home() {
   return (
@@ -47,43 +55,35 @@ export default function Home() {
 
       <Nav />
 
-      <main className="max-w-[1440px] mx-auto overflow-x-clip px-4 sm:px-6 lg:px-0">
-        <div className="max-w-[864px] mx-auto pt-[54px] sm:pt-[60px] flex flex-col">
-          <Section fadeTop noTopPad>
-            {/* Hero and About are tightly grouped */}
-            <div className="flex flex-col gap-4 sm:gap-5">
-              <Hero />
-              <About />
-            </div>
-          </Section>
-          <Section>
-            <Experience />
-          </Section>
-          <SectionDivider />
-          <Section>
-            <CoreSkills />
-          </Section>
-          <SectionDivider />
-          <Section>
-            <Affiliations />
-          </Section>
-          <SectionDivider />
-          <Section>
-            <Projects />
-          </Section>
-          <SectionDivider />
-          <Section>
-            <BookReview />
-          </Section>
-        </div>
+      {/* Full-bleed: no max-width and no auto margins, so the decorative layers
+          that run past the reading column — the hero wash, the icon orbit, the
+          footer blossoms — reach the viewport edge on wide displays instead of
+          being cut off at a 1440px box. overflow-x-clip still contains them. */}
+      <main className="w-full overflow-x-clip pt-[144px] lg:pt-[151px]">
+        <div className="flex flex-col gap-[135px] lg:gap-[168px]">
+          <Column>
+            <Hero />
+          </Column>
 
-        {/* Decorative name watermark   only the top half is shown, sitting at the page edge */}
-        <div
-          className="text-wordmark text-center text-white pointer-events-none select-none overflow-hidden h-[0.8em] mt-6 sm:mt-8"
-          style={watermarkMask}
-          aria-hidden="true"
-        >
-          SAUGATKC
+          <About />
+
+          <Column>
+            <Projects />
+          </Column>
+
+          <Column>
+            <Blogs />
+          </Column>
+
+          <Column>
+            <BeyondWork />
+          </Column>
+
+          <Column>
+            <Books />
+          </Column>
+
+          <Footer />
         </div>
       </main>
     </>

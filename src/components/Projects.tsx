@@ -1,64 +1,70 @@
-import Link from 'next/link'
-import { client } from '@/lib/sanity'
-import ProjectCard from './ProjectCard'
+import { client, urlFor } from '@/lib/sanity'
+import { safeUrl } from '@/lib/url'
+import ProjectTabs, { type TabProject, type TabSkill } from './ProjectTabs'
+
+type SanityImage = { _type: 'image'; asset: { _ref: string; _type: 'reference' } }
 
 interface Project {
   _id: string
   title: string
   shortDescription: string
-  screenshot: { _type: 'image'; asset: { _ref: string; _type: 'reference' } }
+  screenshot?: SanityImage | null
   githubUrl: string | null
   liveUrl: string | null
   tags: string[]
   slug: { current: string }
-  order?: number
 }
 
+interface CoreSkill {
+  _id: string
+  label: string
+  logo?: SanityImage | null
+  website?: string
+}
+
+/**
+ * Both panels behind the Projects / Tech Stack tabs. Fetching happens here so
+ * the client component only ever receives plain strings — image URLs are built
+ * server-side rather than shipping the Sanity URL builder to the browser.
+ */
 export default async function Projects() {
-  const projects = await client.fetch<Project[]>(
-    `*[_type == "project" && status == "published"] | order(coalesce(order, 9999) asc, _createdAt desc) [0...2] {
-      _id,
-      title,
-      shortDescription,
-      screenshot,
-      githubUrl,
-      liveUrl,
-      tags,
-      slug,
-      order
-    }`
-  )
+  const [projects, skills] = await Promise.all([
+    client.fetch<Project[]>(
+      `*[_type == "project" && status == "published"] | order(coalesce(order, 9999) asc, _createdAt desc) [0...6] {
+        _id,
+        title,
+        shortDescription,
+        screenshot,
+        githubUrl,
+        liveUrl,
+        tags,
+        slug
+      }`
+    ),
+    client.fetch<CoreSkill[]>(
+      `*[_type == "coreSkill"] | order(order asc) { _id, label, logo, website }`
+    ),
+  ])
 
-  if (projects.length === 0) return null
+  const tabProjects: TabProject[] = projects.map((project) => ({
+    _id: project._id,
+    title: project.title,
+    shortDescription: project.shortDescription,
+    screenshotUrl: project.screenshot?.asset
+      ? urlFor(project.screenshot).width(586).height(342).url()
+      : null,
+    githubUrl: project.githubUrl,
+    liveUrl: project.liveUrl,
+    tags: project.tags,
+    slug: project.slug.current,
+  }))
 
-  return (
-    <section className="flex flex-col gap-6">
-      {/* Section header */}
-      <div className="flex items-end justify-between">
-        <div className="flex flex-col">
-          <span className="text-ui text-zinc-400">Featured</span>
-          <h2 className="text-display text-white">Projects</h2>
-        </div>
-        <Link href="/projects" className="press focusable tap text-label text-white hover:text-accent-soft">
-          View more &gt;
-        </Link>
-      </div>
+  const tabSkills: TabSkill[] = skills.map((skill) => ({
+    _id: skill._id,
+    label: skill.label,
+    logoUrl: skill.logo?.asset ? urlFor(skill.logo).width(48).height(48).fit('max').url() : null,
+    href: safeUrl(skill.website),
+  }))
 
-      {/* Project cards grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-18.5">
-        {projects.map((project) => (
-          <ProjectCard
-            key={project._id}
-            title={project.title}
-            shortDescription={project.shortDescription}
-            screenshot={project.screenshot}
-            githubUrl={project.githubUrl}
-            liveUrl={project.liveUrl}
-            tags={project.tags}
-            slug={project.slug.current}
-          />
-        ))}
-      </div>
-    </section>
-  )
+  return <ProjectTabs projects={tabProjects} skills={tabSkills} />
 }

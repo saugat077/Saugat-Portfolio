@@ -4,121 +4,87 @@ import { escapeHtml } from '@/lib/portableText'
 interface PTSpan {
   _type: 'span'
   text: string
-  marks?: string[]
-}
-
-interface PTMarkDef {
-  _key: string
-  _type: string
 }
 
 interface PTBlock {
   _type: string
   children?: PTSpan[]
-  markDefs?: PTMarkDef[]
 }
 
 interface SiteSettings {
   bioQuote?: PTBlock[] | null
 }
 
+const FALLBACK_STATEMENT =
+  '<p>Experience across ERP system development, Quality Assurance &amp; Web Design. Focused on building software that is reliable, practical, and easy to use.</p>'
+
 function ptToHtml(blocks: PTBlock[] | null | undefined): string {
-  if (!blocks?.length) return '<p>Be not afraid of greatness.</p>'
+  if (!blocks?.length) return FALLBACK_STATEMENT
   return blocks
     .map((block) => {
       if (block._type !== 'block') return ''
-
-      // Sanity custom annotations: the span's marks[] holds the markDef _key (a UUID),
-      // not the annotation type name. Build a lookup set of keys whose _type is "highlight".
-      const highlightKeys = new Set(
-        (block.markDefs ?? []).filter((def) => def._type === 'highlight').map((def) => def._key)
-      )
-
-      const inner = (block.children ?? [])
-        .map((span) => {
-          const text = escapeHtml(span.text)
-
-          // Match either a plain "highlight" decorator OR an annotation key reference
-          const isHighlighted =
-            span.marks?.includes('highlight') || span.marks?.some((m) => highlightKeys.has(m))
-
-          return isHighlighted ? `<span class="easter-word">${text}</span>` : text
-        })
-        .join('')
+      const inner = (block.children ?? []).map((span) => escapeHtml(span.text)).join('')
       return `<p>${inner}</p>`
     })
     .join('')
 }
 
-const githubUrl = 'https://github.com/saugat077'
-const linkedinUrl = 'https://www.linkedin.com/in/saugat-kc77/'
-const emailUrl = 'mailto:ksaugat77@gmail.com'
-const chessUrl = 'https://www.chess.com/member/brainbrainboom'
-
-// Social links   icons are PNGs in public/icons (black glyphs, rendered white
-// via brightness-0 invert, matching the Affiliations logos).
-const socials = [
-  { label: 'Mail', href: emailUrl, icon: '/icons/mail.png', external: false },
-  { label: 'LinkedIn', href: linkedinUrl, icon: '/icons/linkedin.png', external: true },
-  { label: 'GitHub', href: githubUrl, icon: '/icons/github.png', external: true },
-  { label: 'Chess.com', href: chessUrl, icon: '/icons/pawn.png', external: true },
+/**
+ * The tools orbiting the statement. `x`/`y` are percentages of the 1141×340
+ * Figma frame; `size` is that frame's icon width in px. Widths are clamped so
+ * the icons stay legible once the frame is narrower than a laptop, instead of
+ * shrinking to specks alongside text that has its own floor.
+ */
+const ORBIT = [
+  { src: '/icons/stack/al-extension.png', alt: 'AL', x: 8.5, y: 8.3, size: 42, rotate: -16 },
+  { src: '/icons/stack/claude-code.png', alt: 'Claude Code', x: 33.3, y: 0, size: 36, rotate: 10 },
+  { src: '/icons/stack/business-central.png', alt: 'Business Central', x: 69.5, y: 3.7, size: 46, rotate: 0 },
+  { src: '/icons/stack/typescript.png', alt: 'TypeScript', x: 95.2, y: 27.7, size: 45, rotate: 16 },
+  { src: '/icons/stack/postman.png', alt: 'Postman', x: 0, y: 52.5, size: 41, rotate: -11 },
+  { src: '/icons/stack/react.png', alt: 'React', x: 87.3, y: 71.3, size: 66, rotate: -12 },
+  { src: '/icons/stack/figma.png', alt: 'Figma', x: 20.8, y: 78.2, size: 29, rotate: -18 },
+  { src: '/icons/stack/xls.png', alt: 'Excel', x: 57.8, y: 86, size: 37, rotate: -20 },
 ] as const
 
-// Faded dotted horizontal rule   same dotted mask + lavender fade as the section
-// dividers, but fading out toward both ends. Used above and below the social row.
-const dotH = 'repeating-linear-gradient(to right, black 0 2px, transparent 2px 5px)'
-const fadedRule = {
-  background:
-    'linear-gradient(to right, transparent, var(--color-rail-bright) 20%, var(--color-rail-bright) 80%, transparent)',
-  WebkitMaskImage: dotH,
-  maskImage: dotH,
-} as const
+const FRAME_WIDTH = 1141
 
 export default async function About() {
-  const settings = await client.fetch<SiteSettings | null>(`*[_type == "siteSettings"][0] { bioQuote }`)
+  const settings = await client.fetch<SiteSettings | null>(
+    `*[_type == "siteSettings"][0] { bioQuote }`
+  )
 
   return (
-    <section className="flex flex-col gap-4 sm:gap-5">
-      {/* Bio quote (Portable Text   may contain .easter-word spans) */}
-      <div
-        className="text-body text-zinc-400 text-left max-w-[68ch] [&>p]:m-2"
-        dangerouslySetInnerHTML={{ __html: ptToHtml(settings?.bioQuote) }}
-      />
+    <section className="relative mx-auto w-full max-w-[1141px] min-h-[304px] lg:min-h-[340px] flex items-center justify-center">
+      {ORBIT.map((icon) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={icon.src}
+          src={icon.src}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
+          style={{
+            left: `${icon.x}%`,
+            top: `${icon.y}%`,
+            width: `clamp(${Math.round(icon.size * 0.73)}px, ${(
+              (icon.size / FRAME_WIDTH) *
+              100
+            ).toFixed(2)}%, ${icon.size}px)`,
+            rotate: `${icon.rotate}deg`,
+          }}
+        />
+      ))}
 
-      {/* Social links   plain icon + label, bounded by faded dotted rules */}
-      <div className="flex flex-col gap-4 sm:gap-5">
-        <div className="h-px w-full" style={fadedRule} aria-hidden="true" />
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:gap-x-9">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              {...(s.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              aria-label={s.label}
-              className="press focusable group inline-flex items-center justify-center gap-2 min-w-11 min-h-11 px-1"
-            >
-              {/* PNG used as a mask so the glyph takes the secondary-accent colour */}
-              <span
-                aria-hidden="true"
-                className="w-6 h-6 sm:w-5 sm:h-5 shrink-0 bg-accent-soft transition-colors duration-200 group-hover:bg-white"
-                style={{
-                  maskImage: `url(${s.icon})`,
-                  WebkitMaskImage: `url(${s.icon})`,
-                  maskSize: 'contain',
-                  WebkitMaskSize: 'contain',
-                  maskRepeat: 'no-repeat',
-                  WebkitMaskRepeat: 'no-repeat',
-                  maskPosition: 'center',
-                  WebkitMaskPosition: 'center',
-                }}
-              />
-              <span className="hidden sm:inline text-ui font-bold text-accent-soft transition-colors duration-200 group-hover:text-white">
-                {s.label}
-              </span>
-            </a>
-          ))}
-        </div>
-        <div className="h-px w-full" style={fadedRule} aria-hidden="true" />
+      {/* The gutter lives on the wrapper, not on the statement: with both on one
+          element the 469px cap was measuring the padding box, leaving the text
+          only 361px and breaking it a line early. */}
+      <div className="relative w-full px-gutter flex justify-center">
+        <div
+          className="text-display sheen text-center max-w-[469px] [&>p]:m-0"
+          dangerouslySetInnerHTML={{ __html: ptToHtml(settings?.bioQuote) }}
+        />
       </div>
     </section>
   )

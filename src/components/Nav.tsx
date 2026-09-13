@@ -4,15 +4,36 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+const LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/blogs', label: 'Blogs' },
+  { href: '/books', label: 'Books' },
+] as const
+
+// Rendered as masks rather than <img>, so a single PNG glyph can take the
+// link's colour on hover instead of shipping a second, lighter file.
+const SOCIALS = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/saugat-kc77/', icon: '/icons/linkedin.png' },
+  { label: 'GitHub', href: 'https://github.com/saugat077', icon: '/icons/github.png' },
+  { label: 'Email', href: 'mailto:ksaugat77@gmail.com', icon: '/icons/mail.png' },
+] as const
+
+function maskStyle(icon: string) {
+  return {
+    maskImage: `url(${icon})`,
+    WebkitMaskImage: `url(${icon})`,
+    maskSize: 'contain',
+    WebkitMaskSize: 'contain',
+    maskRepeat: 'no-repeat',
+    WebkitMaskRepeat: 'no-repeat',
+    maskPosition: 'center',
+    WebkitMaskPosition: 'center',
+  } as const
+}
+
 export default function Nav() {
   const pathname = usePathname()
-  const isHome = pathname === '/'
-  const isBooks = pathname === '/books' || pathname.startsWith('/books/')
-  const isProjects = pathname === '/projects' || pathname.startsWith('/projects/')
-  const isBlogs = pathname === '/blogs' || pathname.startsWith('/blogs/')
-
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     if (!open) return
@@ -41,65 +62,69 @@ export default function Nav() {
     }
   }, [open])
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  const links: { href: string; label: string; active: boolean }[] = [
-    { href: '/', label: 'About', active: isHome },
-    { href: '/projects', label: 'Projects', active: isProjects },
-    { href: '/books', label: 'Books', active: isBooks },
-    { href: '/blogs', label: 'Blogs', active: isBlogs },
-  ]
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`)
 
   return (
     <>
-      <header
-        id="site-header"
-        className={`fixed top-0 left-0 right-0 z-50 bg-base/70 backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-300 ease-out ${
-          scrolled ? 'shadow-[0_1px_24px_rgb(0_0_0/0.45)]' : 'shadow-none'
-        }`}
-      >
-        <div className="max-w-[1440px] mx-auto px-[13.5px]">
-          <div className="max-w-[864px] mx-auto px-[13.5px] flex items-center justify-between h-[54px] sm:h-[60px]">
-            <Link href="/" className="press focusable flex items-center py-1" aria-label="Home">
+      {/* Transparent by design — the bar sits directly on the page, over the
+          violet wash at the top of the hero. */}
+      <header id="site-header" className="fixed top-0 left-0 right-0 z-50">
+        <div className="w-full px-gutter">
+          <div className="relative max-w-[951px] mx-auto h-14 sm:h-[58px] flex items-center">
+            <Link
+              href="/"
+              className="press focusable flex items-center py-1 shrink-0"
+              aria-label="Home"
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/emblem.svg" alt="" className="h-[28px] sm:h-[34px] w-auto" />
+              <img src="/images/emblem.svg" alt="" className="h-[21px] w-auto" />
             </Link>
 
-            {/* Desktop nav */}
-            <nav className="hidden sm:flex items-center gap-4 sm:gap-5" aria-label="Primary navigation">
-              {links.map((link) => (
-                <div key={link.href} className="relative">
-                  <Link
-                    href={link.href}
-                    className={`press focusable tap text-ui ${
-                      link.active
-                        ? 'font-bold text-accent-soft'
-                        : 'font-medium text-white hover:text-accent-soft'
-                    }`}
-                    aria-current={link.active ? 'page' : undefined}
-                  >
-                    {link.label}
-                  </Link>
-                  <span
-                    className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 block w-1 h-1 rounded-full transition-opacity ${
-                      link.active ? 'bg-accent-soft opacity-100' : 'opacity-0'
-                    }`}
-                  ></span>
-                </div>
+            {/* Centred on the full bar rather than in the leftover space, so the
+                links stay put no matter how wide the social cluster gets. */}
+            <nav
+              className="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center gap-4"
+              aria-label="Primary navigation"
+            >
+              {LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                  className="press focusable text-label text-white hover:text-accent-soft"
+                >
+                  {link.label}
+                </Link>
               ))}
             </nav>
+
+            <div className="hidden sm:flex items-center gap-[7px] ml-auto">
+              {SOCIALS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  {...(social.href.startsWith('mailto:')
+                    ? {}
+                    : { target: '_blank', rel: 'noopener noreferrer' })}
+                  aria-label={social.label}
+                  className="press focusable group flex items-center justify-center size-11"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="size-[15px] bg-white transition-colors duration-200 group-hover:bg-accent-soft"
+                    style={maskStyle(social.icon)}
+                  />
+                </a>
+              ))}
+            </div>
 
             {/* Mobile hamburger button */}
             <button
               id="mobile-menu-btn"
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="press focusable sm:hidden flex flex-col items-center justify-center gap-[5px] w-11 h-11 shrink-0 -mr-1.5"
+              className="press focusable sm:hidden ml-auto flex flex-col items-center justify-center gap-[5px] w-11 h-11 shrink-0 -mr-1.5"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls="mobile-menu"
@@ -123,17 +148,6 @@ export default function Nav() {
           </div>
         </div>
 
-        {/* Fading bluish underline   brightest in the centre, transparent at the ends */}
-        <div
-          aria-hidden="true"
-          className={`absolute bottom-0 left-0 right-0 h-px transition-opacity duration-300 ease-out ${
-            scrolled ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{
-            background:
-              'linear-gradient(to right, transparent, rgba(168, 85, 247, 0.5), transparent)',
-          }}
-        />
       </header>
 
       {/* Mobile full-screen menu */}
@@ -149,20 +163,37 @@ export default function Nav() {
             : 'pointer-events-none opacity-0 scale-[0.96] backdrop-blur-none'
         }`}
       >
-        {links.map((link) => (
+        {LINKS.map((link) => (
           <Link
             key={link.href}
             href={link.href}
             onClick={() => setOpen(false)}
             tabIndex={open ? undefined : -1}
-            aria-current={link.active ? 'page' : undefined}
+            aria-current={isActive(link.href) ? 'page' : undefined}
             className={`press focusable tap text-menu ${
-              link.active ? 'text-accent-soft' : 'text-white hover:text-accent-soft'
+              isActive(link.href) ? 'text-accent-soft' : 'text-white hover:text-accent-soft'
             }`}
           >
             {link.label}
           </Link>
         ))}
+
+        <div className="flex items-center gap-6 pt-4">
+          {SOCIALS.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              {...(social.href.startsWith('mailto:')
+                ? {}
+                : { target: '_blank', rel: 'noopener noreferrer' })}
+              tabIndex={open ? undefined : -1}
+              aria-label={social.label}
+              className="press focusable flex items-center justify-center size-11"
+            >
+              <span aria-hidden="true" className="size-5 bg-white" style={maskStyle(social.icon)} />
+            </a>
+          ))}
+        </div>
       </nav>
     </>
   )

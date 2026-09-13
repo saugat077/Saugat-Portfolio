@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Bitcount_Single, Bricolage_Grotesque } from 'next/font/google'
+import { Geist } from 'next/font/google'
 import { SITE_URL } from '@/lib/site'
 import './globals.css'
 
@@ -7,25 +7,18 @@ import './globals.css'
 // CSS pipeline strips remote imports, so that stylesheet never reached the
 // browser. next/font self-hosts the files and exposes them as CSS variables
 // that globals.css maps onto the --font-* theme tokens.
-const bricolage = Bricolage_Grotesque({
-  subsets: ['latin'],
-  axes: ['opsz'],
-  display: 'swap',
-  variable: '--font-bricolage',
-})
-
-const bitcount = Bitcount_Single({
+const geist = Geist({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-bitcount-single',
+  variable: '--font-geist',
 })
 
 const description =
-  'Portfolio of Saugat KC - QA Engineer by profession, Designer by instinct. Specialising in UK payroll compliance testing and UI/UX design. Based in Kathmandu, Nepal.'
+  'Portfolio of Saugat KC.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'Saugat KC | QA Engineer & Designer, Kathmandu',
+  title: 'Saugat KC',
   description,
   alternates: { canonical: '/' },
   icons: {
@@ -49,13 +42,13 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#06030a',
+  themeColor: '#0a0a0a',
   colorScheme: 'dark',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${bitcount.variable}`}>
+    <html lang="en" className={geist.variable}>
       <body className="bg-base min-h-screen text-white antialiased overflow-x-hidden">
         <a
           href="#page-content"
