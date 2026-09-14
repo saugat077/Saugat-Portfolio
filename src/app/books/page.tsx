@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import Nav from '@/components/Nav'
 import BooksFilter, { type FilterBook } from '@/components/BooksFilter'
 import { client, urlFor } from '@/lib/sanity'
@@ -43,18 +42,9 @@ export default async function BooksPage() {
 
       <main className="max-w-[1440px] mx-auto">
         <div className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 mb-6 text-label" aria-label="Breadcrumb">
-            <Link href="/" className="press focusable tap text-zinc-400 hover:text-white">
-              Home
-            </Link>
-            <span className="text-quiet" aria-hidden="true">/</span>
-            <span className="text-zinc-400">Books</span>
-          </nav>
-
-          <h1 className="text-h1 text-white mb-6">Books</h1>
-
-          <hr className="border-zinc-800 mb-6" />
+          {/* Kept for the document outline and the screen-reader page title;
+              the route is named in the header, so showing it again is noise. */}
+          <h1 className="sr-only">Books</h1>
 
           <BooksFilter books={books} />
         </div>
