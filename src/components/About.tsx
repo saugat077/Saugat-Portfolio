@@ -1,5 +1,6 @@
 import { client } from '@/lib/sanity'
 import { escapeHtml } from '@/lib/portableText'
+import OrbitIcons from './OrbitIcons'
 
 interface PTSpan {
   _type: 'span'
@@ -29,42 +30,6 @@ function ptToHtml(blocks: PTBlock[] | null | undefined): string {
     .join('')
 }
 
-/**
- * The tools orbiting the statement. `x`/`y` are percentages of the 1141×340
- * Figma frame; `size` is that frame's icon width in px. Widths are clamped so
- * the icons stay legible once the frame is narrower than a laptop, instead of
- * shrinking to specks alongside text that has its own floor.
- */
-const ORBIT = [
-  { src: '/icons/stack/al-extension.png', alt: 'AL', x: 8.5, y: 8.3, size: 42, rotate: -16 },
-  { src: '/icons/stack/claude-code.png', alt: 'Claude Code', x: 33.3, y: 0, size: 36, rotate: 10 },
-  { src: '/icons/stack/business-central.png', alt: 'Business Central', x: 69.5, y: 3.7, size: 46, rotate: 0 },
-  { src: '/icons/stack/typescript.png', alt: 'TypeScript', x: 95.2, y: 27.7, size: 45, rotate: 16 },
-  { src: '/icons/stack/postman.png', alt: 'Postman', x: 0, y: 52.5, size: 41, rotate: -11 },
-  { src: '/icons/stack/react.png', alt: 'React', x: 87.3, y: 71.3, size: 66, rotate: -12 },
-  { src: '/icons/stack/figma.png', alt: 'Figma', x: 20.8, y: 78.2, size: 29, rotate: -18 },
-  { src: '/icons/stack/xls.png', alt: 'Excel', x: 57.8, y: 86, size: 37, rotate: -20 },
-] as const
-
-const FRAME_WIDTH = 1141
-
-/**
- * Two dials over the Figma coordinates, both in the same percentage units as
- * the source numbers so they ride the frame instead of fighting it: SPREAD
- * pushes the set out from the frame's centre, DROP slides it down.
- *
- * Only `x` is clamped. A horizontal overshoot walks an icon clean off a phone
- * screen, where the frame is barely wider than the icon itself; a vertical one
- * lands in the 135px gap between sections, where nothing is looking.
- */
-const SPREAD = 1.07
-const DROP = 8
-
-const place = ({ x, y }: { x: number; y: number }) => ({
-  left: Math.min(100, Math.max(0, 50 + (x - 50) * SPREAD)),
-  top: 50 + (y - 50) * SPREAD + DROP,
-})
-
 export default async function About() {
   const settings = await client.fetch<SiteSettings | null>(
     `*[_type == "siteSettings"][0] { bioQuote }`
@@ -72,27 +37,7 @@ export default async function About() {
 
   return (
     <section className="relative mx-auto w-full max-w-[1141px] min-h-[304px] lg:min-h-[340px] flex items-center justify-center">
-      {ORBIT.map((icon) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          key={icon.src}
-          src={icon.src}
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          decoding="async"
-          className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
-          style={{
-            left: `${place(icon).left}%`,
-            top: `${place(icon).top}%`,
-            width: `clamp(${Math.round(icon.size * 0.73)}px, ${(
-              (icon.size / FRAME_WIDTH) *
-              100
-            ).toFixed(2)}%, ${icon.size}px)`,
-            rotate: `${icon.rotate}deg`,
-          }}
-        />
-      ))}
+      <OrbitIcons />
 
       {/* The gutter lives on the wrapper, not on the statement: with both on one
           element the 469px cap was measuring the padding box, leaving the text

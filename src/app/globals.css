@@ -291,6 +291,56 @@ html::-webkit-scrollbar-thumb {
   }
 }
 
+/* The About stack's entrance. Scale lives on a full-size flyer wrapping each
+   icon, so growing it from 0 carries the icon out from the section's centre;
+   the icon itself never learns where the centre is. */
+@keyframes orbit-fly {
+  from {
+    scale: 0;
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* Idle drift, on `transform` so it composes with the `translate` that centres
+   the icon and the `rotate` that tilts it — three separate properties, no
+   shorthand to fight over. */
+@keyframes orbit-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(var(--drift-x), var(--drift-y)) rotate(var(--drift-rotate));
+  }
+  50% {
+    transform: translate(calc(var(--drift-x) * -0.4), calc(var(--drift-y) * -0.9))
+      rotate(calc(var(--drift-rotate) * -1));
+  }
+  75% {
+    transform: translate(calc(var(--drift-x) * -0.85), calc(var(--drift-y) * 0.55))
+      rotate(calc(var(--drift-rotate) * 0.5));
+  }
+}
+
+.orbit-fly {
+  /* Duration is set inline from FLY_MS in OrbitIcons, which also uses it to
+     hold the drift back until each icon has landed. */
+  /* Duration comes inline from FLY_MS in OrbitIcons, which also uses it to hold
+     each icon's drift back until it has landed. */
+  animation: orbit-fly 2200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.orbit-drift {
+  animation: orbit-drift 8s ease-in-out infinite both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
