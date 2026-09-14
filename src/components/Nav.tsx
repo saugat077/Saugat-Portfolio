@@ -109,9 +109,7 @@ export default function Nav() {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive(link.href) ? 'page' : undefined}
-                  className={`focusable text-nav text-white transition-[color,transform] duration-200 hover:text-accent motion-safe:hover:scale-[1.2] ${
-                    isActive(link.href) ? 'motion-safe:scale-[1.2]' : ''
-                  }`}
+                  className="focusable text-nav text-white transition-[color,transform] duration-200 hover:text-accent motion-safe:hover:scale-[1.2]"
                 >
                   {link.label}
                 </Link>
