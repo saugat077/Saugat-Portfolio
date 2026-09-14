@@ -34,6 +34,17 @@ function maskStyle(icon: string) {
 export default function Nav() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  // The bar frosts over once the page has moved under it. Reading scrollY in a
+  // passive listener rather than observing a sentinel: the state is a boolean,
+  // so React bails out of every event but the two that flip it.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -67,8 +78,15 @@ export default function Nav() {
 
   return (
     <>
-      {/* Transparent by design — the bar sits directly on the page. */}
-      <header id="site-header" className="fixed top-0 left-0 right-0 z-50">
+      {/* Transparent at rest, glass once scrolled — no edge, the blur is the
+          only thing marking where the bar ends. */}
+      <header
+        id="site-header"
+        data-scrolled={scrolled || undefined}
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+          scrolled ? 'bg-base/60 backdrop-blur-xs' : 'bg-transparent'
+        }`}
+      >
         <div className="w-full px-gutter">
           <div className="relative max-w-[951px] mx-auto h-14 sm:h-[58px] flex items-center">
             <Link
