@@ -48,6 +48,23 @@ const ORBIT = [
 
 const FRAME_WIDTH = 1141
 
+/**
+ * Two dials over the Figma coordinates, both in the same percentage units as
+ * the source numbers so they ride the frame instead of fighting it: SPREAD
+ * pushes the set out from the frame's centre, DROP slides it down.
+ *
+ * Only `x` is clamped. A horizontal overshoot walks an icon clean off a phone
+ * screen, where the frame is barely wider than the icon itself; a vertical one
+ * lands in the 135px gap between sections, where nothing is looking.
+ */
+const SPREAD = 1.07
+const DROP = 8
+
+const place = ({ x, y }: { x: number; y: number }) => ({
+  left: Math.min(100, Math.max(0, 50 + (x - 50) * SPREAD)),
+  top: 50 + (y - 50) * SPREAD + DROP,
+})
+
 export default async function About() {
   const settings = await client.fetch<SiteSettings | null>(
     `*[_type == "siteSettings"][0] { bioQuote }`
@@ -66,8 +83,8 @@ export default async function About() {
           decoding="async"
           className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
           style={{
-            left: `${icon.x}%`,
-            top: `${icon.y}%`,
+            left: `${place(icon).left}%`,
+            top: `${place(icon).top}%`,
             width: `clamp(${Math.round(icon.size * 0.73)}px, ${(
               (icon.size / FRAME_WIDTH) *
               100
