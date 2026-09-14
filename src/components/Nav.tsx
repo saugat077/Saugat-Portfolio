@@ -91,7 +91,7 @@ export default function Nav() {
           <div className="relative max-w-[951px] mx-auto h-14 sm:h-[58px] flex items-center">
             <Link
               href="/"
-              className="press focusable flex items-center py-1 shrink-0"
+              className="focusable flex items-center py-1 shrink-0 transition-transform duration-200 motion-safe:hover:scale-[1.2]"
               aria-label="Home"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -109,17 +109,18 @@ export default function Nav() {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive(link.href) ? 'page' : undefined}
-                  className="focusable text-nav text-white transition-[color,transform] duration-200 hover:text-accent motion-safe:hover:scale-[1.2]"
+                  className="focusable text-nav text-white transition-[color,scale] duration-200 hover:text-accent motion-safe:hover:scale-[1.2]"
                 >
                   {link.label}
                 </Link>
               ))}
             </nav>
 
-            {/* The design's 28px box / 7px gap / 15px glyph, taken up by the same
-                1.25x as the links. The negative margin cancels the box's padding
-                so the last glyph still lands on the right rail. */}
-            <div className="hidden sm:flex items-center gap-[9px] ml-auto -mr-[8px]">
+            {/* 35px boxes on a 9px gap, holding a 16px glyph — a shade under the
+                15px links, which read heavier than the icons at matched sizes.
+                The negative margin cancels the box's padding so the last glyph
+                still lands on the right rail. */}
+            <div className="hidden sm:flex items-center gap-[9px] ml-auto -mr-[10px]">
               {SOCIALS.map((social) => (
                 <a
                   key={social.label}
@@ -128,11 +129,11 @@ export default function Nav() {
                     ? {}
                     : { target: '_blank', rel: 'noopener noreferrer' })}
                   aria-label={social.label}
-                  className="press focusable group flex items-center justify-center size-[35px]"
+                  className="focusable group flex items-center justify-center size-[35px] transition-transform duration-200 motion-safe:hover:scale-[1.2]"
                 >
                   <span
                     aria-hidden="true"
-                    className="size-[19px] bg-white transition-colors duration-200 group-hover:bg-accent"
+                    className="size-4 bg-white transition-colors duration-200 group-hover:bg-accent"
                     style={maskStyle(social.icon)}
                   />
                 </a>

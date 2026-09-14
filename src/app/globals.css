@@ -90,13 +90,6 @@
   --text-wordmark--letter-spacing: 0em;
   --text-wordmark--font-weight: 700;
 
-  /* Retained so the token layer stays complete for the interior routes; the
-     home page no longer renders a clock. */
-  --text-clock: clamp(0.6875rem, 0.5625rem + 0.625vw, 1.125rem); /* 11 → 18px */
-  --text-clock--line-height: 1;
-  --text-clock--letter-spacing: 0.01em;
-  --text-clock--font-weight: 400;
-
   /* ── Stable UI type ────────────────────────────────────────────────────── */
   --text-ui: clamp(0.8965rem, 0.8801rem + 0.0638vw, 0.9375rem); /* 14.3 → 15px */
   --text-ui--line-height: 1.2;
@@ -142,7 +135,6 @@
   --color-base: #0a0a0a;
   --color-accent: #a63fff;
   --color-accent-soft: #e7d2f9;
-  --color-accent-pill: #6c379e;
   --color-accent-fill: #301c4d;
 
   /* The greys the design actually uses, named by how loud they are rather than
@@ -156,12 +148,6 @@
   --color-quiet: #8a8a94;
 
   --color-panel: #0f1317;
-  --color-ink: #0a0b0b;
-
-  /* Decorative lavender retained for the interior routes' rails + dividers,
-     pre-mixed with alpha so the fade reads correctly over the dark page. */
-  --color-rail-bright: rgb(176 138 224 / 0.45);
-  --color-rail-soft: rgb(176 138 224 / 0.3);
 
   /* Horizontal page gutter. Locks to the design's 54px once the viewport is at
      least as wide as the 412px mobile frame, and shrinks below that so the

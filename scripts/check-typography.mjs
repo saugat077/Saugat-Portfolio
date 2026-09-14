@@ -39,13 +39,14 @@ const REQUIRED_TOKENS = [
   'lead',
   'body',
   'body-sm',
-  'clock',
   'numeral',
   'wordmark',
   'ui',
+  'ui-lg',
   'label',
   'meta',
   'menu',
+  'nav',
   'code',
 ]
 
@@ -55,7 +56,6 @@ const REQUIRED_TRACKING = [
   'h1',
   'display',
   'body-sm',
-  'clock',
   'numeral',
   'wordmark',
   'ui',

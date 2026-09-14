@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { safeUrl } from '@/lib/url'
 
@@ -26,28 +25,19 @@ export function ArrowUpRight({ className = '' }: { className?: string }) {
 type ArrowLinkProps = {
   href: string
   children: ReactNode
-  /** Route through next/link instead of a plain anchor. */
-  internal?: boolean
   /** 'cta' is the hero's Contact Me / View Resume pair: a step larger, white,
    *  and accent on hover. Everything else is a quiet grey link. */
   variant?: 'default' | 'cta'
-  className?: string
 }
 
 /**
  * Label + trailing arrow. External hrefs run through safeUrl, so a malformed or
  * javascript: URL from the CMS renders as plain text rather than a live link.
  */
-export default function ArrowLink({
-  href,
-  children,
-  internal = false,
-  variant = 'default',
-  className = '',
-}: ArrowLinkProps) {
+export default function ArrowLink({ href, children, variant = 'default' }: ArrowLinkProps) {
   const tone =
     variant === 'cta' ? 'text-ui-lg text-white hover:text-accent' : 'text-ui text-dim hover:text-white'
-  const shared = `press-inline focusable group inline-flex items-center gap-2 ${tone} ${className}`
+  const shared = `press-inline focusable group inline-flex items-center gap-2 ${tone}`
   const inner = (
     <>
       {children}
@@ -63,14 +53,6 @@ export default function ArrowLink({
       <a href={href} className={shared}>
         {inner}
       </a>
-    )
-  }
-
-  if (internal) {
-    return (
-      <Link href={href} className={shared}>
-        {inner}
-      </Link>
     )
   }
 
