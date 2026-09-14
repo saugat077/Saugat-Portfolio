@@ -113,7 +113,14 @@
 
   /* Fixed rem: respects browser font size, ignores viewport width. These sit in
      containers with fixed padding and borders, which fluid text would distort. */
-  --text-label: 0.75rem;    /* 12px — nav links, breadcrumbs, pills */
+  /* The header's three links. Fixed like --text-label, but its own token: the
+     bar is sized around this value, and breadcrumbs and pills are not. */
+  --text-nav: 0.9375rem;    /* 15px */
+  --text-nav--line-height: 1.2;
+  --text-nav--letter-spacing: -0.01em;
+  --text-nav--font-weight: 500;
+
+  --text-label: 0.75rem;    /* 12px — breadcrumbs, pills */
   --text-label--line-height: 1.2;
   --text-label--letter-spacing: -0.01em;
   --text-label--font-weight: 500;
