@@ -34,6 +34,17 @@ function maskStyle(icon: string) {
 export default function Nav() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  // The bar frosts over once the page has moved under it. Reading scrollY in a
+  // passive listener rather than observing a sentinel: the state is a boolean,
+  // so React bails out of every event but the two that flip it.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -67,9 +78,15 @@ export default function Nav() {
 
   return (
     <>
-      {/* Transparent by design — the bar sits directly on the page, over the
-          violet wash at the top of the hero. */}
-      <header id="site-header" className="fixed top-0 left-0 right-0 z-50">
+      {/* Transparent at rest, glass once scrolled — no edge, the blur is the
+          only thing marking where the bar ends. */}
+      <header
+        id="site-header"
+        data-scrolled={scrolled || undefined}
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+          scrolled ? 'bg-base/60 backdrop-blur-xs' : 'bg-transparent'
+        }`}
+      >
         <div className="w-full px-gutter">
           <div className="relative max-w-[951px] mx-auto h-14 sm:h-[58px] flex items-center">
             <Link
@@ -78,7 +95,7 @@ export default function Nav() {
               aria-label="Home"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/emblem.svg" alt="" className="h-[21px] w-auto" />
+              <img src="/images/emblem.svg" alt="" className="h-[26px] w-auto" />
             </Link>
 
             {/* Centred on the full bar rather than in the leftover space, so the
@@ -92,14 +109,17 @@ export default function Nav() {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive(link.href) ? 'page' : undefined}
-                  className="press focusable text-label text-white hover:text-accent-soft"
+                  className="focusable text-nav text-white transition-[color,transform] duration-200 hover:text-accent motion-safe:hover:scale-[1.2]"
                 >
                   {link.label}
                 </Link>
               ))}
             </nav>
 
-            <div className="hidden sm:flex items-center gap-[7px] ml-auto">
+            {/* The design's 28px box / 7px gap / 15px glyph, taken up by the same
+                1.25x as the links. The negative margin cancels the box's padding
+                so the last glyph still lands on the right rail. */}
+            <div className="hidden sm:flex items-center gap-[9px] ml-auto -mr-[8px]">
               {SOCIALS.map((social) => (
                 <a
                   key={social.label}
@@ -108,11 +128,11 @@ export default function Nav() {
                     ? {}
                     : { target: '_blank', rel: 'noopener noreferrer' })}
                   aria-label={social.label}
-                  className="press focusable group flex items-center justify-center size-11"
+                  className="press focusable group flex items-center justify-center size-[35px]"
                 >
                   <span
                     aria-hidden="true"
-                    className="size-[15px] bg-white transition-colors duration-200 group-hover:bg-accent-soft"
+                    className="size-[19px] bg-white transition-colors duration-200 group-hover:bg-accent"
                     style={maskStyle(social.icon)}
                   />
                 </a>
@@ -124,24 +144,24 @@ export default function Nav() {
               id="mobile-menu-btn"
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="press focusable sm:hidden ml-auto flex flex-col items-center justify-center gap-[5px] w-11 h-11 shrink-0 -mr-1.5"
+              className="press focusable sm:hidden ml-auto flex flex-col items-center justify-center gap-[6px] w-11 h-11 shrink-0 -mr-1.5"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls="mobile-menu"
             >
               <span
-                className={`block w-5 h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out origin-center ${
-                  open ? 'translate-y-[7px] rotate-45' : ''
+                className={`block w-[25px] h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out origin-center ${
+                  open ? 'translate-y-[8px] rotate-45' : ''
                 }`}
               ></span>
               <span
-                className={`block w-5 h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out ${
+                className={`block w-[25px] h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out ${
                   open ? 'opacity-0 scale-x-0' : ''
                 }`}
               ></span>
               <span
-                className={`block w-5 h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out origin-center ${
-                  open ? '-translate-y-[7px] -rotate-45' : ''
+                className={`block w-[25px] h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out origin-center ${
+                  open ? '-translate-y-[8px] -rotate-45' : ''
                 }`}
               ></span>
             </button>
@@ -188,9 +208,13 @@ export default function Nav() {
                 : { target: '_blank', rel: 'noopener noreferrer' })}
               tabIndex={open ? undefined : -1}
               aria-label={social.label}
-              className="press focusable flex items-center justify-center size-11"
+              className="press focusable group flex items-center justify-center size-11"
             >
-              <span aria-hidden="true" className="size-5 bg-white" style={maskStyle(social.icon)} />
+              <span
+                aria-hidden="true"
+                className="size-5 bg-white transition-colors duration-200 group-hover:bg-accent"
+                style={maskStyle(social.icon)}
+              />
             </a>
           ))}
         </div>

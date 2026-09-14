@@ -41,19 +41,7 @@ export default async function Hero() {
   const lead = settings?.headlineLead ? [{ text: settings.headlineLead }] : FALLBACK_LEAD
 
   return (
-    <section className="relative">
-      {/* Violet wash bleeding off the top-right corner, behind the header. A
-          radial anchored past the corner rather than a rotated band: the band
-          swings out of frame at viewport widths the design never covered. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-[260px] left-1/2 -translate-x-1/2 w-[130vw] h-[440px] blur-[60px]"
-        style={{
-          background:
-            'radial-gradient(115% 100% at 82% 6%, rgba(166, 63, 255, 0.85) 0%, rgba(166, 63, 255, 0.34) 42%, rgba(166, 63, 255, 0) 72%)',
-        }}
-      />
-
+    <section>
       <div className="relative flex flex-col items-center gap-8 text-center lg:grid lg:grid-cols-[319px_minmax(0,1fr)_233px] lg:items-start lg:gap-0 lg:text-left">
         <h1 className="text-display text-white max-w-[38ch] lg:pt-[42px]">
           {headline}
@@ -85,10 +73,13 @@ export default async function Hero() {
           }}
         />
 
-        <div className="flex flex-col items-center gap-4 lg:items-end lg:pt-[185px]">
+        {/* Pulled back over the portrait's faded tail: the design starts this
+            block 4px above the image's box, not a gap below it — the mask has
+            already emptied that band. */}
+        <div className="-mt-9 flex flex-col items-center gap-4 lg:mt-0 lg:items-end lg:pt-[185px]">
           <div className="flex flex-col lg:text-right">
             <p className="text-display text-white">{name}</p>
-            <p className="text-ui font-normal text-muted pt-[15px]">{role}</p>
+            <p className="text-ui-lg font-normal text-muted pt-[15px]">{role}</p>
             <p className="text-ui font-normal text-muted">
               {EMPLOYERS.map((employer, i) => (
                 <span key={employer.label}>
@@ -107,8 +98,14 @@ export default async function Hero() {
           </div>
 
           <div className="flex items-center gap-4">
-            <ArrowLink href="#contact">Contact Me</ArrowLink>
-            {settings?.resumeUrl && <ArrowLink href={settings.resumeUrl}>View Resume</ArrowLink>}
+            <ArrowLink href="#contact" variant="cta">
+              Contact Me
+            </ArrowLink>
+            {settings?.resumeUrl && (
+              <ArrowLink href={settings.resumeUrl} variant="cta">
+                View Resume
+              </ArrowLink>
+            )}
           </div>
         </div>
       </div>

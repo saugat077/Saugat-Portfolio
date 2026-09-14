@@ -56,7 +56,7 @@ export default function Home() {
       <Nav />
 
       {/* Full-bleed: no max-width and no auto margins, so the decorative layers
-          that run past the reading column — the hero wash, the icon orbit, the
+          that run past the reading column — the icon orbit and the
           footer blossoms — reach the viewport edge on wide displays instead of
           being cut off at a 1440px box. overflow-x-clip still contains them. */}
       <main className="w-full overflow-x-clip pt-[144px] lg:pt-[151px]">

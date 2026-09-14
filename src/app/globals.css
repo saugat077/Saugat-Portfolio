@@ -103,9 +103,24 @@
   --text-ui--letter-spacing: -0.04em;
   --text-ui--font-weight: 500;
 
+  /* One step above --text-ui and, unlike it, flat: the hero's role line and
+     its Contact Me / View Resume pair hold 17px at every width instead of
+     riding the 14.3 → 15px UI ramp. */
+  --text-ui-lg: 1.0625rem;  /* 17px */
+  --text-ui-lg--line-height: 1.2;
+  --text-ui-lg--letter-spacing: -0.04em;
+  --text-ui-lg--font-weight: 500;
+
   /* Fixed rem: respects browser font size, ignores viewport width. These sit in
      containers with fixed padding and borders, which fluid text would distort. */
-  --text-label: 0.75rem;    /* 12px — nav links, breadcrumbs, pills */
+  /* The header's three links. Fixed like --text-label, but its own token: the
+     bar is sized around this value, and breadcrumbs and pills are not. */
+  --text-nav: 0.9375rem;    /* 15px */
+  --text-nav--line-height: 1.2;
+  --text-nav--letter-spacing: -0.01em;
+  --text-nav--font-weight: 500;
+
+  --text-label: 0.75rem;    /* 12px — breadcrumbs, pills */
   --text-label--line-height: 1.2;
   --text-label--letter-spacing: -0.01em;
   --text-label--font-weight: 500;
@@ -276,6 +291,56 @@ html::-webkit-scrollbar-thumb {
   }
 }
 
+/* The About stack's entrance. Scale lives on a full-size flyer wrapping each
+   icon, so growing it from 0 carries the icon out from the section's centre;
+   the icon itself never learns where the centre is. */
+@keyframes orbit-fly {
+  from {
+    scale: 0;
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* Idle drift, on `transform` so it composes with the `translate` that centres
+   the icon and the `rotate` that tilts it — three separate properties, no
+   shorthand to fight over. */
+@keyframes orbit-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(var(--drift-x), var(--drift-y)) rotate(var(--drift-rotate));
+  }
+  50% {
+    transform: translate(calc(var(--drift-x) * -0.4), calc(var(--drift-y) * -0.9))
+      rotate(calc(var(--drift-rotate) * -1));
+  }
+  75% {
+    transform: translate(calc(var(--drift-x) * -0.85), calc(var(--drift-y) * 0.55))
+      rotate(calc(var(--drift-rotate) * 0.5));
+  }
+}
+
+.orbit-fly {
+  /* Duration is set inline from FLY_MS in OrbitIcons, which also uses it to
+     hold the drift back until each icon has landed. */
+  /* Duration comes inline from FLY_MS in OrbitIcons, which also uses it to hold
+     each icon's drift back until it has landed. */
+  animation: orbit-fly 2200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.orbit-drift {
+  animation: orbit-drift 8s ease-in-out infinite both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -307,6 +372,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 @media (prefers-reduced-transparency: reduce) {
+  #site-header[data-scrolled],
   #mobile-menu {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -315,6 +381,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 @media (prefers-contrast: more) {
+  #site-header[data-scrolled],
   #mobile-menu {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
