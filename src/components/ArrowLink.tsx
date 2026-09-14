@@ -28,6 +28,9 @@ type ArrowLinkProps = {
   children: ReactNode
   /** Route through next/link instead of a plain anchor. */
   internal?: boolean
+  /** 'cta' is the hero's Contact Me / View Resume pair: a step larger, white,
+   *  and accent on hover. Everything else is a quiet grey link. */
+  variant?: 'default' | 'cta'
   className?: string
 }
 
@@ -39,9 +42,12 @@ export default function ArrowLink({
   href,
   children,
   internal = false,
+  variant = 'default',
   className = '',
 }: ArrowLinkProps) {
-  const shared = `press-inline focusable group inline-flex items-center gap-2 text-ui text-dim hover:text-white ${className}`
+  const tone =
+    variant === 'cta' ? 'text-ui-lg text-white hover:text-accent' : 'text-ui text-dim hover:text-white'
+  const shared = `press-inline focusable group inline-flex items-center gap-2 ${tone} ${className}`
   const inner = (
     <>
       {children}
@@ -69,7 +75,12 @@ export default function ArrowLink({
   }
 
   const safe = safeUrl(href)
-  if (!safe) return <span className="text-ui text-dim">{children}</span>
+  if (!safe)
+    return (
+      <span className={variant === 'cta' ? 'text-ui-lg text-white' : 'text-ui text-dim'}>
+        {children}
+      </span>
+    )
 
   return (
     <a href={safe} target="_blank" rel="noopener noreferrer" className={shared}>
