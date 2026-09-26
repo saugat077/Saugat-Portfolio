@@ -1,6 +1,6 @@
 import { client } from '@/lib/sanity'
-import type { CSSProperties } from 'react'
 import ArrowLink from './ArrowLink'
+import FigmaCursor from './FigmaCursor'
 
 interface SiteSettings {
   name?: string
@@ -32,16 +32,6 @@ const EMPLOYERS = [
 const POINTERS = [
   { label: 'Philomath', icon: '/icons/pointer1.svg', fill: '#907cff', x: 85.8, y: 27.4 },
   { label: 'Product', icon: '/icons/pointer2.svg', fill: '#06bc33', x: -23.3, y: 49.4 },
-] as const
-
-/**
- * Each tag's route for the cursor-move loop in globals.css: three waypoints in
- * px from its resting spot, so the two cursors never move in step. The hero is
- * on screen at load, so the loop starts on mount — no observer.
- */
-const POINTER_ROUTES = [
-  { p1: [-18, 10], p2: [-6, 26], p3: [14, 8], seconds: 5, delay: 200 },
-  { p1: [16, -12], p2: [28, 6], p3: [8, 18], seconds: 5.6, delay: 700 },
 ] as const
 
 /**
@@ -102,27 +92,14 @@ export default async function Hero() {
             }}
           />
 
-          {POINTERS.map((pointer, i) => {
-            const route = POINTER_ROUTES[i]
-            return (
-            <div
+          {POINTERS.map((pointer, i) => (
+            <FigmaCursor
               key={pointer.label}
-              aria-hidden="true"
-              className="cursor-move absolute w-[91px] h-[38px] pointer-events-none select-none"
-              style={
-                {
-                  left: `${pointer.x}%`,
-                  top: `${pointer.y}%`,
-                  '--p1x': `${route.p1[0]}px`,
-                  '--p1y': `${route.p1[1]}px`,
-                  '--p2x': `${route.p2[0]}px`,
-                  '--p2y': `${route.p2[1]}px`,
-                  '--p3x': `${route.p3[0]}px`,
-                  '--p3y': `${route.p3[1]}px`,
-                  animationDuration: `400ms, ${route.seconds}s`,
-                  animationDelay: `0ms, ${route.delay}ms`,
-                } as CSSProperties
-              }
+              left={`${pointer.x}%`}
+              top={`${pointer.y}%`}
+              rangeX={28}
+              rangeY={22}
+              startDelay={300 + i * 500}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={pointer.icon} alt="" width={19} height={22} className="absolute -left-0.5 -top-[3px]" />
@@ -132,9 +109,8 @@ export default async function Hero() {
               >
                 {pointer.label}
               </span>
-            </div>
-            )
-          })}
+            </FigmaCursor>
+          ))}
         </div>
 
         {/* Pulled back over the portrait's faded tail on phones: the mask has
