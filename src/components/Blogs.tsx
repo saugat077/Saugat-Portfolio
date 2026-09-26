@@ -30,7 +30,7 @@ export default async function Blogs() {
 
   return (
     <section className="flex flex-col gap-[34px] lg:gap-[49px]">
-      <h2 className="text-title sheen">Blogs</h2>
+      <h2 className="text-subhead text-cream">Blogs</h2>
 
       <ul className="flex flex-col gap-4">
         {blogs.map((blog) => (

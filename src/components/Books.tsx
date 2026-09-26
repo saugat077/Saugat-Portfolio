@@ -25,7 +25,7 @@ export default async function Books() {
 
   return (
     <section className="flex flex-col gap-[34px] lg:gap-[49px]">
-      <h2 className="text-title sheen">Books</h2>
+      <h2 className="text-subhead text-cream">Books</h2>
 
       {/* The row overflows well before the desktop breakpoint, so it stays a
           scroller at every width rather than wrapping into a ragged grid. */}

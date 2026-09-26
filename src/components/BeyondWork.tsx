@@ -30,7 +30,7 @@ export default async function BeyondWork() {
 
   return (
     <section className="flex flex-col gap-[34px] lg:gap-[49px]">
-      <h2 className="text-title sheen">Beyond Work</h2>
+      <h2 className="text-subhead text-cream">Beyond Work</h2>
 
       <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-[146px]">
         <p className="text-lead text-ash lg:w-[308px] lg:shrink-0">

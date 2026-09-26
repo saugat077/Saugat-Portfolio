@@ -51,7 +51,7 @@
   --text-statement--letter-spacing: -0.04em;
   --text-statement--font-weight: 600;
 
-  /* The Projects / Tech Stack tabs. */
+  /* Section labels: the Projects / Tech Stack tabs, Blogs, Beyond Work, Books. */
   --text-subhead: clamp(1.1988rem, 1.1782rem + 0.0798vw, 1.25rem); /* 19.2 → 20px */
   --text-subhead--line-height: 1;
   --text-subhead--letter-spacing: -0.04em;
