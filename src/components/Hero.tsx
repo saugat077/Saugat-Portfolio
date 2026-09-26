@@ -25,13 +25,30 @@ const EMPLOYERS = [
 ] as const
 
 /**
- * The cursor tags on the portrait. `x`/`y` are percentages of the 317×478
- * image box, so they ride the portrait down to its phone size; the tag itself
- * stays at its design size.
+ * The cursor tags. Read the hero as a graph with its origin at the centre:
+ * Philomath roams quadrant I (top right), Product quadrant III (bottom left).
+ * Regions and `start` are fractions of the hero box; `start` is the tag's spot
+ * in the Figma design, where it sits until the first move.
  */
 const POINTERS = [
-  { label: 'Philomath', icon: '/icons/pointer1.svg', fill: '#907cff', x: 85.8, y: 27.4 },
-  { label: 'Product', icon: '/icons/pointer2.svg', fill: '#06bc33', x: -23.3, y: 49.4 },
+  {
+    label: 'Philomath',
+    icon: '/icons/pointer1.svg',
+    fill: '#907cff',
+    start: { x: 0.62, y: 0.27 },
+    regionX: [0.5, 1],
+    regionY: [0, 0.5],
+    startDelay: 300,
+  },
+  {
+    label: 'Product',
+    icon: '/icons/pointer2.svg',
+    fill: '#06bc33',
+    start: { x: 0.26, y: 0.49 },
+    regionX: [0, 0.5],
+    regionY: [0.5, 1],
+    startDelay: 800,
+  },
 ] as const
 
 /**
@@ -75,7 +92,7 @@ export default async function Hero() {
         {/* Outline and subject are baked into one asset, so the sketch can never
             drift out of register with the figure. The mask is the design's
             blurred panel over the knees, done as a fade instead. */}
-        <div className="relative w-[245px] lg:w-[317px] shrink-0">
+        <div className="w-[245px] lg:w-[317px] shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/saugat-cutout.webp"
@@ -91,27 +108,26 @@ export default async function Hero() {
               maskImage: 'linear-gradient(to bottom, black 68%, transparent 97%)',
             }}
           />
-
-          {POINTERS.map((pointer, i) => (
-            <FigmaCursor
-              key={pointer.label}
-              left={`${pointer.x}%`}
-              top={`${pointer.y}%`}
-              rangeX={28}
-              rangeY={22}
-              startDelay={300 + i * 500}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={pointer.icon} alt="" width={19} height={22} className="absolute -left-0.5 -top-[3px]" />
-              <span
-                className="absolute left-[17px] top-[15px] flex items-center justify-center w-[74px] h-[23px] rounded-full text-label text-cream"
-                style={{ backgroundColor: pointer.fill }}
-              >
-                {pointer.label}
-              </span>
-            </FigmaCursor>
-          ))}
         </div>
+
+        {POINTERS.map((pointer) => (
+          <FigmaCursor
+            key={pointer.label}
+            start={pointer.start}
+            regionX={pointer.regionX}
+            regionY={pointer.regionY}
+            startDelay={pointer.startDelay}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={pointer.icon} alt="" width={19} height={22} className="absolute -left-0.5 -top-[3px]" />
+            <span
+              className="absolute left-[17px] top-[15px] flex items-center justify-center w-[74px] h-[23px] rounded-full text-label text-cream"
+              style={{ backgroundColor: pointer.fill }}
+            >
+              {pointer.label}
+            </span>
+          </FigmaCursor>
+        ))}
 
         {/* Pulled back over the portrait's faded tail on phones: the mask has
             already emptied that band. */}
