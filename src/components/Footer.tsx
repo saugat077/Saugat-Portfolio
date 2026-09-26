@@ -74,7 +74,7 @@ export default function Footer() {
               title, so repeating it here would only add noise for screen readers. */}
           <p
             aria-hidden="true"
-            className="relative text-wordmark sheen text-center select-none"
+            className="relative text-wordmark sheen-wordmark text-center select-none"
           >
             SAUGATKC
           </p>

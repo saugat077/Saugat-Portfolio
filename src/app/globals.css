@@ -183,6 +183,15 @@
   --spacing-gutter: clamp(1.25rem, 13.1vw, 3.375rem);
 }
 
+/* The footer wordmark: the design's bottom-up fade, in cream — solid cream
+   through the lower quarter, sinking to a warm grey past the cap height. */
+@utility sheen-wordmark {
+  background-image: linear-gradient(to top, var(--color-cream) 26%, #8f8f7c 116%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Hide the browser scrollbar while keeping scroll behaviour intact.
    Firefox + legacy IE/Edge use properties; Chrome/Safari/new Edge use the
    ::-webkit-scrollbar pseudo-element. */
@@ -454,7 +463,8 @@ html::-webkit-scrollbar-thumb {
 
   /* The sheen tops out at #c8c8b6 against #010006. Flatten it to solid white
      rather than let a gradient decide the contrast ratio. */
-  .sheen {
+  .sheen,
+  .sheen-wordmark {
     background-image: none;
     color: #ffffff;
   }
@@ -466,7 +476,8 @@ html::-webkit-scrollbar-thumb {
     outline-offset: 2px;
   }
 
-  .sheen {
+  .sheen,
+  .sheen-wordmark {
     background-image: none;
     color: CanvasText;
   }
