@@ -15,7 +15,7 @@ const personSchema = {
   name: 'Saugat KC',
   alternateName: ['saugatkc', 'Saugat KC77'],
   url: SITE_URL,
-  image: `${SITE_URL}/images/profile.png`,
+  image: `${SITE_URL}/images/saugat-cutout.webp`,
   jobTitle: 'QA Engineer',
   description:
     'Saugat works at Qniverse',
