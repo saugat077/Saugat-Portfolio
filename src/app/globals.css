@@ -343,6 +343,44 @@ html::-webkit-scrollbar-thumb {
   }
 }
 
+/* The hero's cursor tags move like a collaborator's Figma cursor: a quick
+   eased glide to a spot, a rest, the next glide — label and arrow as one, no
+   rotation. Waypoints come in as custom properties so each tag takes its own
+   route. The easing applies per segment, so the rests stay still. */
+@keyframes cursor-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes cursor-move {
+  0%,
+  12% {
+    translate: 0 0;
+  }
+  24%,
+  38% {
+    translate: var(--p1x) var(--p1y);
+  }
+  50%,
+  62% {
+    translate: var(--p2x) var(--p2y);
+  }
+  74%,
+  86% {
+    translate: var(--p3x) var(--p3y);
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+.cursor-move {
+  animation:
+    cursor-in 400ms ease-out both,
+    cursor-move 5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
 .orbit-fly {
   /* Duration is set inline from FLY_MS in OrbitIcons, which also uses it to
      hold the drift back until each icon has landed. */

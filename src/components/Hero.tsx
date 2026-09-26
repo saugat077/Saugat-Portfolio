@@ -35,16 +35,13 @@ const POINTERS = [
 ] as const
 
 /**
- * Same motion as the About stack (orbit-fly / orbit-drift in globals.css): each
- * tag rides a full-size flyer that scales out from the portrait's centre, then
- * idles. The hero is on screen at load, so it plays on mount — no observer.
- * Kept in step with FLY_MS in OrbitIcons.
+ * Each tag's route for the cursor-move loop in globals.css: three waypoints in
+ * px from its resting spot, so the two cursors never move in step. The hero is
+ * on screen at load, so the loop starts on mount — no observer.
  */
-const FLY_MS = 2200
-const POINTER_DELAY_MS = 300
-const POINTER_DRIFT = [
-  { x: 10, y: -8, rotate: 3, seconds: 9 },
-  { x: -9, y: 7, rotate: -3, seconds: 11 },
+const POINTER_ROUTES = [
+  { p1: [-18, 10], p2: [-6, 26], p3: [14, 8], seconds: 5, delay: 200 },
+  { p1: [16, -12], p2: [28, 6], p3: [8, 18], seconds: 5.6, delay: 700 },
 ] as const
 
 /**
@@ -105,24 +102,25 @@ export default async function Hero() {
             }}
           />
 
-          {POINTERS.map((pointer, i) => (
+          {POINTERS.map((pointer, i) => {
+            const route = POINTER_ROUTES[i]
+            return (
             <div
               key={pointer.label}
               aria-hidden="true"
-              className="orbit-fly absolute inset-0 pointer-events-none select-none"
-              style={{ animationDelay: `${POINTER_DELAY_MS + i * 150}ms`, animationDuration: `${FLY_MS}ms` }}
-            >
-            <div
-              className="orbit-drift absolute w-[91px] h-[38px]"
+              className="cursor-move absolute w-[91px] h-[38px] pointer-events-none select-none"
               style={
                 {
                   left: `${pointer.x}%`,
                   top: `${pointer.y}%`,
-                  '--drift-x': `${POINTER_DRIFT[i].x}px`,
-                  '--drift-y': `${POINTER_DRIFT[i].y}px`,
-                  '--drift-rotate': `${POINTER_DRIFT[i].rotate}deg`,
-                  animationDuration: `${POINTER_DRIFT[i].seconds}s`,
-                  animationDelay: `${FLY_MS + POINTER_DELAY_MS + i * 150}ms`,
+                  '--p1x': `${route.p1[0]}px`,
+                  '--p1y': `${route.p1[1]}px`,
+                  '--p2x': `${route.p2[0]}px`,
+                  '--p2y': `${route.p2[1]}px`,
+                  '--p3x': `${route.p3[0]}px`,
+                  '--p3y': `${route.p3[1]}px`,
+                  animationDuration: `400ms, ${route.seconds}s`,
+                  animationDelay: `0ms, ${route.delay}ms`,
                 } as CSSProperties
               }
             >
@@ -135,8 +133,8 @@ export default async function Hero() {
                 {pointer.label}
               </span>
             </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Pulled back over the portrait's faded tail on phones: the mask has
