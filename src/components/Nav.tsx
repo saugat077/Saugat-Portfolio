@@ -78,13 +78,14 @@ export default function Nav() {
 
   return (
     <>
-      {/* An 85% bar at rest, as in the design; once the page moves under it
-          the blur is added, so text behind it stays unreadable. */}
+      {/* An 85% bar at rest, as in the design. Once the page moves under it the
+          bar thins to 50% over a light 2px blur, so what scrolls behind stays
+          visible through it rather than being frosted out. */}
       <header
         id="site-header"
         data-scrolled={scrolled || undefined}
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-          scrolled ? 'bg-bar/85 backdrop-blur-xs' : 'bg-bar/85'
+          scrolled ? 'bg-bar/50 backdrop-blur-[2px]' : 'bg-bar/85'
         }`}
       >
         <div className="w-full px-gutter">
