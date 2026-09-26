@@ -38,12 +38,12 @@ export default async function Blogs() {
             key={blog._id}
             className="flex flex-col gap-1 lg:grid lg:grid-cols-[max-content_minmax(0,1fr)] lg:items-baseline lg:gap-x-[122px] lg:gap-y-0"
           >
-            <span className="text-lead text-faint whitespace-nowrap">
+            <span className="text-lead text-ash whitespace-nowrap">
               {blog.publishedAt ? formatDate(blog.publishedAt) : '—'}
             </span>
             <Link
               href={`/blogs/${blog.slug.current}`}
-              className="press-inline focusable text-item text-white underline decoration-transparent hover:decoration-current transition-[text-decoration-color] duration-200"
+              className="press-inline focusable text-item text-cream underline decoration-transparent hover:decoration-current transition-[text-decoration-color] duration-200"
             >
               {blog.title}
             </Link>
@@ -51,9 +51,9 @@ export default async function Blogs() {
         ))}
       </ul>
 
-      <p className="text-ui text-dim">
+      <p className="text-lead text-ash">
         You can{' '}
-        <Link href="/blogs" className="press-inline focusable underline hover:text-white">
+        <Link href="/blogs" className="press-inline focusable underline text-ice hover:text-accent">
           read more articles here
         </Link>
       </p>

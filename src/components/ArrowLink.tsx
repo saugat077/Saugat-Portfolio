@@ -25,8 +25,9 @@ export function ArrowUpRight({ className = '' }: { className?: string }) {
 type ArrowLinkProps = {
   href: string
   children: ReactNode
-  /** 'cta' is the hero's Contact Me / View Resume pair: a step larger, white,
-   *  and accent on hover. Everything else is a quiet grey link. */
+  /** 'cta' is the hero's Explore My Work / Contact Me / View Resume links: a
+   *  a step larger. Everything else is the footer's smaller link. Both are
+   *  ice-blue and accent on hover. */
   variant?: 'default' | 'cta'
 }
 
@@ -36,7 +37,7 @@ type ArrowLinkProps = {
  */
 export default function ArrowLink({ href, children, variant = 'default' }: ArrowLinkProps) {
   const tone =
-    variant === 'cta' ? 'text-ui-lg text-white hover:text-accent' : 'text-ui text-dim hover:text-white'
+    variant === 'cta' ? 'text-ui-lg text-ice hover:text-accent' : 'text-ui text-ice hover:text-accent'
   const shared = `press-inline focusable group inline-flex items-center gap-2 ${tone}`
   const inner = (
     <>
@@ -59,7 +60,7 @@ export default function ArrowLink({ href, children, variant = 'default' }: Arrow
   const safe = safeUrl(href)
   if (!safe)
     return (
-      <span className={variant === 'cta' ? 'text-ui-lg text-white' : 'text-ui text-dim'}>
+      <span className={variant === 'cta' ? 'text-ui-lg text-ice' : 'text-ui text-ice'}>
         {children}
       </span>
     )

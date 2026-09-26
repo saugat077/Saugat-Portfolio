@@ -45,6 +45,30 @@
   --text-display--letter-spacing: -0.04em;
   --text-display--font-weight: 600;
 
+  /* The About statement — the one display line set a step above 28px. */
+  --text-statement: clamp(1.75rem, 1.6749rem + 0.2918vw, 1.9375rem); /* 28 → 31px */
+  --text-statement--line-height: 1.1;
+  --text-statement--letter-spacing: -0.04em;
+  --text-statement--font-weight: 600;
+
+  /* The Projects / Tech Stack tabs. */
+  --text-subhead: clamp(1.1988rem, 1.1782rem + 0.0798vw, 1.25rem); /* 19.2 → 20px */
+  --text-subhead--line-height: 1;
+  --text-subhead--letter-spacing: -0.04em;
+  --text-subhead--font-weight: 600;
+
+  /* The hero's 16px copy: the kicker above the headline, the sub-line, and the
+     role block under the name. Fixed, like --text-ui-lg beside it. */
+  --text-kicker: 1rem;
+  --text-kicker--line-height: 1.1;
+  --text-kicker--letter-spacing: -0.04em;
+  --text-kicker--font-weight: 600;
+
+  --text-copy: 1rem;
+  --text-copy--line-height: 1.3;
+  --text-copy--letter-spacing: 0em;
+  --text-copy--font-weight: 400;
+
   /* Section labels: Projects · Blogs · Beyond Work · Books. */
   --text-title: clamp(1.016rem, 0.9974rem + 0.0723vw, 1.0625rem);  /* 16.3 → 17px */
   --text-title--line-height: 1.2;
@@ -73,8 +97,8 @@
 
   /* Project card copy and tech lines. */
   --text-body-sm: clamp(0.777rem, 0.7627rem + 0.0553vw, 0.8125rem); /* 12.4 → 13px */
-  --text-body-sm--line-height: 1.5;
-  --text-body-sm--letter-spacing: -0.01em;
+  --text-body-sm--line-height: 1.3;
+  --text-body-sm--letter-spacing: -0.04em;
   --text-body-sm--font-weight: 400;
 
   /* ── Fluid decorative type ─────────────────────────────────────────────── */
@@ -96,21 +120,21 @@
   --text-ui--letter-spacing: -0.04em;
   --text-ui--font-weight: 500;
 
-  /* One step above --text-ui and, unlike it, flat: the hero's role line and
-     its Contact Me / View Resume pair hold 17px at every width instead of
-     riding the 14.3 → 15px UI ramp. */
-  --text-ui-lg: 1.0625rem;  /* 17px */
+  /* One step above --text-ui and, unlike it, flat: the hero's Explore My Work /
+     Contact Me / View Resume links hold 16px at every width instead of riding
+     the 14.3 → 15px UI ramp. */
+  --text-ui-lg: 1rem;  /* 16px */
   --text-ui-lg--line-height: 1.2;
-  --text-ui-lg--letter-spacing: -0.04em;
+  --text-ui-lg--letter-spacing: 0em;
   --text-ui-lg--font-weight: 500;
 
   /* Fixed rem: respects browser font size, ignores viewport width. These sit in
      containers with fixed padding and borders, which fluid text would distort. */
   /* The header's three links. Fixed like --text-label, but its own token: the
      bar is sized around this value, and breadcrumbs and pills are not. */
-  --text-nav: 0.9375rem;    /* 15px */
+  --text-nav: 1rem;    /* 16px */
   --text-nav--line-height: 1.2;
-  --text-nav--letter-spacing: -0.01em;
+  --text-nav--letter-spacing: 0em;
   --text-nav--font-weight: 500;
 
   --text-label: 0.75rem;    /* 12px — breadcrumbs, pills */
@@ -132,13 +156,17 @@
   --text-code: 0.9em;
 
   /* ── Colour ────────────────────────────────────────────────────────────── */
-  --color-base: #0a0a0a;
-  --color-accent: #a63fff;
+  --color-base: #010006;
+  --color-bar: #0a0a0a;     /* header bar, sits at 85% over the page */
+  --color-accent: #8c52ff;
   --color-accent-soft: #e7d2f9;
   --color-accent-fill: #301c4d;
 
   /* The greys the design actually uses, named by how loud they are rather than
      by where they happen to appear first. */
+  --color-cream: #ffffe3;   /* headline, name, nav */
+  --color-ice: #e0ecff;     /* hero links */
+  --color-ash: #5d5d5d;     /* hero secondary copy, inactive tab */
   --color-chalk: #d9d9d9;   /* "Let's Keep in Touch" */
   --color-silver: #c7c7c7;  /* Beyond Work logos */
   --color-card: #bfbfbf;    /* project card copy */
@@ -200,11 +228,11 @@ html::-webkit-scrollbar-thumb {
   initial-value: 0px;
 }
 
-/* The vertical sheen every section label and the wordmark share: grey at the
-   top edge, full white by the middle. Painted through the glyphs, so the text
-   colour itself must be transparent. */
+/* The vertical sheen the About statement, every section label and the
+   wordmark share: warm grey into cream into white. Painted through the glyphs,
+   so the text colour itself must be transparent. */
 @utility sheen {
-  background-image: linear-gradient(to bottom, var(--color-dim) 6%, #ffffff 50%);
+  background-image: linear-gradient(to bottom, #c8c8b6 9.4%, var(--color-cream) 45%, #ffffff 96.5%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -380,12 +408,13 @@ html::-webkit-scrollbar-thumb {
     --color-card: #e4e4e7;
     --color-dim: #e4e4e7;
     --color-quiet: #d4d4d8;
+    --color-ash: #d4d4d8;
     --color-zinc-400: #e4e4e7;
     --color-zinc-700: #a1a1aa;
     --color-zinc-800: #a1a1aa;
   }
 
-  /* The sheen bottoms out at #999 against #0a0a0a. Flatten it to solid white
+  /* The sheen tops out at #c8c8b6 against #010006. Flatten it to solid white
      rather than let a gradient decide the contrast ratio. */
   .sheen {
     background-image: none;

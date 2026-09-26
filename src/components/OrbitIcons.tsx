@@ -3,23 +3,24 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
 /**
- * The tools orbiting the About statement. `x`/`y` are percentages of the
- * 1141×340 Figma frame; `size` is that frame's icon width in px. Widths are
+ * The tools orbiting the About statement. `x`/`y` are each icon's centre as a
+ * percentage of the 1025×395 Figma frame; `size` is its width in px. Widths are
  * clamped so the icons stay legible once the frame is narrower than a laptop,
  * instead of shrinking to specks alongside text that has its own floor.
  */
+// `flip` mirrors the icon horizontally — the design's Claude mark is flipped.
 const ORBIT = [
-  { src: '/icons/stack/al-extension.png', alt: 'AL', x: 8.5, y: 8.3, size: 42, rotate: -16 },
-  { src: '/icons/stack/claude-code.png', alt: 'Claude Code', x: 33.3, y: 0, size: 36, rotate: 10 },
-  { src: '/icons/stack/business-central.png', alt: 'Business Central', x: 69.5, y: 3.7, size: 46, rotate: 0 },
-  { src: '/icons/stack/typescript.png', alt: 'TypeScript', x: 95.2, y: 27.7, size: 45, rotate: 16 },
-  { src: '/icons/stack/postman.png', alt: 'Postman', x: 0, y: 52.5, size: 41, rotate: -11 },
-  { src: '/icons/stack/react.png', alt: 'React', x: 87.3, y: 71.3, size: 66, rotate: -12 },
-  { src: '/icons/stack/figma.png', alt: 'Figma', x: 20.8, y: 78.2, size: 29, rotate: -18 },
-  { src: '/icons/stack/xls.png', alt: 'Excel', x: 57.8, y: 86, size: 37, rotate: -20 },
+  { src: '/icons/stack/al-extension.png', alt: 'AL', x: 31.6, y: 5.2, size: 33, rotate: -16 },
+  { src: '/icons/stack/claude-code.png', alt: 'Claude Code', x: 9.7, y: 15.2, size: 36, rotate: -10, flip: true },
+  { src: '/icons/stack/business-central.png', alt: 'Business Central', x: 74.3, y: 9.9, size: 46, rotate: 0 },
+  { src: '/icons/stack/figma.png', alt: 'Figma', x: 92.8, y: 28.3, size: 27, rotate: -18 },
+  { src: '/icons/stack/react.png', alt: 'React', x: 4.1, y: 59.1, size: 44, rotate: -12 },
+  { src: '/icons/stack/typescript.png', alt: 'TypeScript', x: 87.5, y: 76.9, size: 45, rotate: 16 },
+  { src: '/icons/stack/xls.png', alt: 'Excel', x: 65.1, y: 85, size: 37, rotate: -20 },
+  { src: '/icons/stack/postman.png', alt: 'Postman', x: 31.1, y: 87.7, size: 44, rotate: -11 },
 ] as const
 
-const FRAME_WIDTH = 1141
+const FRAME_WIDTH = 1025
 
 /**
  * Two dials over the Figma coordinates, both in the same percentage units as
@@ -30,8 +31,8 @@ const FRAME_WIDTH = 1141
  * screen, where the frame is barely wider than the icon itself; a vertical one
  * lands in the 135px gap between sections, where nothing is looking.
  */
-const SPREAD = 1.07
-const DROP = 8
+const SPREAD = 1
+const DROP = 0
 
 const place = ({ x, y }: { x: number; y: number }) => ({
   left: Math.min(100, Math.max(0, 50 + (x - 50) * SPREAD)),
@@ -83,7 +84,7 @@ export default function OrbitIcons() {
   }, [])
 
   return (
-    <div ref={ref} aria-hidden="true" className="absolute inset-0 pointer-events-none">
+    <div ref={ref} aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-50">
       {ORBIT.map((icon, i) => {
         const { left, top } = place(icon)
         const drift = sway(i)
@@ -114,6 +115,7 @@ export default function OrbitIcons() {
                     100
                   ).toFixed(2)}%, ${icon.size}px)`,
                   rotate: `${icon.rotate}deg`,
+                  scale: 'flip' in icon ? '-1 1' : undefined,
                   '--drift-x': `${drift.x}px`,
                   '--drift-y': `${drift.y}px`,
                   '--drift-rotate': `${drift.rotate}deg`,

@@ -36,15 +36,15 @@ export default async function About() {
   )
 
   return (
-    <section className="relative mx-auto w-full max-w-[1141px] min-h-[304px] lg:min-h-[340px] flex items-center justify-center">
+    <section className="relative mx-auto w-full max-w-[1025px] min-h-[304px] lg:min-h-[395px] flex items-center justify-center">
       <OrbitIcons />
 
       {/* The gutter lives on the wrapper, not on the statement: with both on one
           element the 469px cap was measuring the padding box, leaving the text
-          only 361px and breaking it a line early. */}
+          short of its cap and breaking it a line early. */}
       <div className="relative w-full px-gutter flex justify-center">
         <div
-          className="text-display sheen text-center max-w-[469px] [&>p]:m-0"
+          className="text-statement sheen text-center max-w-[509px] [&>p]:m-0"
           dangerouslySetInnerHTML={{ __html: ptToHtml(settings?.bioQuote) }}
         />
       </div>

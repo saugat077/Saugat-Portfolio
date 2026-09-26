@@ -35,8 +35,8 @@ export default function Footer() {
       <div className="relative px-gutter">
         <div className="mx-auto flex max-w-[542px] flex-col items-center gap-8 text-center">
           <div className="flex flex-col gap-4">
-            <h2 className="text-display text-chalk">Let&rsquo;s Keep in Touch</h2>
-            <p className="text-lead font-normal text-muted">
+            <h2 className="text-display text-cream">Let&rsquo;s Keep in Touch</h2>
+            <p className="text-lead font-normal text-ash">
               Stay updated on my latest projects, insights and offerings. Whether you have
               questions, need advice or just want to chat, don&rsquo;t hesitate to reach out!
             </p>
@@ -74,20 +74,14 @@ export default function Footer() {
               title, so repeating it here would only add noise for screen readers. */}
           <p
             aria-hidden="true"
-            className="relative text-wordmark text-center select-none"
-            style={{
-              backgroundImage: 'linear-gradient(to bottom, #ffffff, #909090)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              color: 'transparent',
-            }}
+            className="relative text-wordmark sheen text-center select-none"
           >
             SAUGATKC
           </p>
         </div>
       </div>
 
-      <p className="relative text-lead font-normal text-muted text-center pb-12 lg:pb-[50px]">
+      <p className="relative text-lead font-normal text-ash text-center pb-12 lg:pb-[50px]">
         Copyright &copy; {new Date().getFullYear()} - Made by Saugat
       </p>
     </footer>

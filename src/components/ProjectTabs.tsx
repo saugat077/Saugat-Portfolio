@@ -53,8 +53,13 @@ export default function ProjectTabs({
   }
 
   return (
-    <section className="flex flex-col gap-[34px] lg:gap-[49px]">
-      <div role="tablist" aria-label="Featured work" className="flex gap-8" onKeyDown={onKeyDown}>
+    <section id="projects" className="flex flex-col gap-6 scroll-mt-24 lg:mt-[33px]">
+      <div
+        role="tablist"
+        aria-label="Featured work"
+        className="flex gap-10 pb-6 border-b border-ash/30"
+        onKeyDown={onKeyDown}
+      >
         {TABS.map((tab) => (
           <button
             key={tab}
@@ -65,11 +70,15 @@ export default function ProjectTabs({
             aria-controls={panelId(tab)}
             tabIndex={active === tab ? 0 : -1}
             onClick={() => setActive(tab)}
-            className={`press focusable text-title transition-colors ${
-              active === tab ? 'sheen' : 'font-medium text-dim hover:text-white'
+            className={`press focusable flex items-start gap-1 text-subhead transition-colors ${
+              active === tab ? 'text-cream' : 'text-ash hover:text-cream'
             }`}
           >
             {tab}
+            {/* The design's accent dot on Tech Stack. */}
+            {tab === 'Tech Stack' && (
+              <span aria-hidden="true" className="size-[9px] rounded-full bg-accent" />
+            )}
           </button>
         ))}
       </div>
@@ -81,9 +90,9 @@ export default function ProjectTabs({
         hidden={active !== 'Projects'}
       >
         {projects.length === 0 ? (
-          <p className="text-body-sm text-muted">No projects published yet.</p>
+          <p className="text-body-sm text-ash">No projects published yet.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-12 lg:gap-y-[58px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-12 lg:gap-y-[49px]">
             {projects.map((project) => (
               <ProjectCard
                 key={project._id}
@@ -107,7 +116,7 @@ export default function ProjectTabs({
         hidden={active !== 'Tech Stack'}
       >
         {skills.length === 0 ? (
-          <p className="text-body-sm text-muted">No skills listed yet.</p>
+          <p className="text-body-sm text-ash">No skills listed yet.</p>
         ) : (
           <div className="flex flex-wrap items-center gap-3">
             {skills.map((skill) => {
@@ -124,7 +133,7 @@ export default function ProjectTabs({
                       decoding="async"
                     />
                   )}
-                  <span className="text-ui text-white">{skill.label}</span>
+                  <span className="text-ui text-cream">{skill.label}</span>
                 </>
               )
 

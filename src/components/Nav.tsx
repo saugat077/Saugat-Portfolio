@@ -13,7 +13,7 @@ const LINKS = [
 // Rendered as masks rather than <img>, so a single PNG glyph can take the
 // link's colour on hover instead of shipping a second, lighter file.
 const SOCIALS = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/saugat-kc77/', icon: '/icons/linkedin.png' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/saugat-kc77/', icon: '/icons/linkedin.svg' },
   { label: 'GitHub', href: 'https://github.com/saugat077', icon: '/icons/github.png' },
   { label: 'Email', href: 'mailto:ksaugat77@gmail.com', icon: '/icons/mail.png' },
 ] as const
@@ -78,17 +78,17 @@ export default function Nav() {
 
   return (
     <>
-      {/* Transparent at rest, glass once scrolled — no edge, the blur is the
-          only thing marking where the bar ends. */}
+      {/* An 85% bar at rest, as in the design; once the page moves under it
+          the blur is added, so text behind it stays unreadable. */}
       <header
         id="site-header"
         data-scrolled={scrolled || undefined}
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-          scrolled ? 'bg-base/60 backdrop-blur-xs' : 'bg-transparent'
+          scrolled ? 'bg-bar/85 backdrop-blur-xs' : 'bg-bar/85'
         }`}
       >
         <div className="w-full px-gutter">
-          <div className="relative max-w-[951px] mx-auto h-14 sm:h-[58px] flex items-center">
+          <div className="relative max-w-[951px] mx-auto h-14 sm:h-[61px] flex items-center">
             <Link
               href="/"
               className="focusable flex items-center py-1 shrink-0 transition-transform duration-200 motion-safe:hover:scale-[1.2]"
@@ -109,7 +109,7 @@ export default function Nav() {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive(link.href) ? 'page' : undefined}
-                  className="focusable text-nav text-white transition-[color,scale] duration-200 hover:text-accent motion-safe:hover:scale-[1.2]"
+                  className="focusable text-nav text-cream transition-[color,scale] duration-200 hover:text-accent motion-safe:hover:scale-[1.2]"
                 >
                   {link.label}
                 </Link>
@@ -133,7 +133,7 @@ export default function Nav() {
                 >
                   <span
                     aria-hidden="true"
-                    className="size-4 bg-white transition-colors duration-200 group-hover:bg-accent"
+                    className="size-4 bg-cream transition-colors duration-200 group-hover:bg-accent"
                     style={maskStyle(social.icon)}
                   />
                 </a>

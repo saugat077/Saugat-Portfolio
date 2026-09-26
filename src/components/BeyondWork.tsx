@@ -33,7 +33,7 @@ export default async function BeyondWork() {
       <h2 className="text-title sheen">Beyond Work</h2>
 
       <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-[146px]">
-        <p className="text-lead text-muted lg:w-[308px] lg:shrink-0">
+        <p className="text-lead text-ash lg:w-[308px] lg:shrink-0">
           {settings?.beyondWork ?? FALLBACK_BLURB}
         </p>
 

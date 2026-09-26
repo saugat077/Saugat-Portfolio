@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { safeUrl } from '@/lib/url'
-import { ArrowUpRight } from './ArrowLink'
 
 /**
  * Takes a ready-made `screenshotUrl` rather than a Sanity image object on
@@ -34,11 +33,23 @@ function LinkOut({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${label} — ${href}`}
-      className="press-inline focusable inline-flex items-center gap-1.5 text-meta text-white hover:text-accent-soft"
+      className="press-inline focusable inline-flex items-center gap-1.5 text-body-sm font-medium text-ice hover:text-accent"
     >
       {children}
       {label}
-      <ArrowUpRight className="w-[9px] h-[9px]" />
+      {/* The cards trail a flat arrow, not the diagonal one the hero uses. */}
+      <svg
+        viewBox="0 0 10 10"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+        className="w-2.5 h-2.5 shrink-0"
+      >
+        <path d="M1 5h8M5.5 1.5 9 5 5.5 8.5" />
+      </svg>
     </a>
   )
 }
@@ -89,17 +100,17 @@ export default function ProjectCard({
 
       <div className="flex flex-col gap-2 flex-1">
         <Link href={projectHref} className="press focusable group self-start">
-          <Heading className="text-item text-white group-hover:text-accent-soft transition-colors">
+          <Heading className="text-copy font-medium text-cream group-hover:text-accent-soft transition-colors">
             {title}
           </Heading>
         </Link>
 
-        <p className="text-body-sm text-card">{shortDescription}</p>
+        <p className="text-body-sm text-ash">{shortDescription}</p>
 
         {hasFooter && (
           <div className="mt-auto flex flex-col gap-2">
             {tags && tags.length > 0 && (
-              <p className="text-body-sm text-card">{tags.join(' • ')}</p>
+              <p className="text-body-sm text-ash">{tags.join(' • ')}</p>
             )}
 
             {(safeLiveUrl || safeGithubUrl) && (

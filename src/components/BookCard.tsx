@@ -25,21 +25,21 @@ export default function BookCard({ title, author, coverUrl, slug }: BookCardProp
           />
         ) : (
           <div className="w-full h-full flex items-end p-3 border border-zinc-800 rounded-lg">
-            <span className="text-body-sm text-card line-clamp-3">{title}</span>
+            <span className="text-body-sm text-ash line-clamp-3">{title}</span>
           </div>
         )}
 
         {/* Hover overlay: fades in, anchored to bottom. Hidden on touch, where
             the caption below takes over instead. */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:hidden transition-opacity duration-300 ease-out flex flex-col justify-end p-3">
-          <p className="text-body-sm text-white line-clamp-3">{title}</p>
-          <p className="text-meta text-card mt-0.5 line-clamp-1">{author}</p>
+          <p className="text-body-sm text-cream line-clamp-3">{title}</p>
+          <p className="text-meta text-ash mt-0.5 line-clamp-1">{author}</p>
         </div>
       </div>
 
       <div className="hidden [@media(hover:none)]:flex flex-col gap-0.5 pt-2">
-        <p className="text-body-sm text-white line-clamp-2">{title}</p>
-        <p className="text-meta text-muted line-clamp-1">{author}</p>
+        <p className="text-body-sm text-cream line-clamp-2">{title}</p>
+        <p className="text-meta text-ash line-clamp-1">{author}</p>
       </div>
     </Link>
   )
