@@ -53,7 +53,7 @@ export default async function Blogs() {
 
       <p className="text-lead text-ash">
         You can{' '}
-        <Link href="/blogs" className="press-inline focusable underline text-ice hover:text-accent">
+        <Link href="/blogs" className="press-inline focusable underline hover:text-cream">
           read more articles here
         </Link>
       </p>
