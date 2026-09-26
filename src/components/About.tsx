@@ -36,7 +36,7 @@ export default async function About() {
   )
 
   return (
-    <section className="relative mx-auto w-full max-w-[1025px] min-h-[304px] lg:min-h-[395px] flex items-center justify-center">
+    <section className="relative mx-auto w-full max-w-[1025px] min-h-[480px] sm:min-h-[304px] lg:min-h-[395px] flex items-center justify-center">
       <OrbitIcons />
 
       {/* The gutter lives on the wrapper, not on the statement: with both on one

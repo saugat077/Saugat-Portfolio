@@ -237,11 +237,11 @@ html::-webkit-scrollbar-thumb {
   initial-value: 0px;
 }
 
-/* The vertical sheen the About statement, every section label and the
-   wordmark share: warm grey into cream into white. Painted through the glyphs,
-   so the text colour itself must be transparent. */
+/* The About statement's vertical sheen: a warm grey top edge settling into
+   cream by the middle and staying there, so the lines read cream, not white.
+   Painted through the glyphs, so the text colour itself must be transparent. */
 @utility sheen {
-  background-image: linear-gradient(to bottom, #c8c8b6 9.4%, var(--color-cream) 45%, #ffffff 96.5%);
+  background-image: linear-gradient(to bottom, #b3b39c 5%, var(--color-cream) 50%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

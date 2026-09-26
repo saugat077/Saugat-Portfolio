@@ -9,15 +9,18 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react'
  * instead of shrinking to specks alongside text that has its own floor.
  */
 // `flip` mirrors the icon horizontally — the design's Claude mark is flipped.
+// `mx`/`my` are the phone layout, in the same percentages: on a narrow screen
+// the statement fills the middle of the section, so the icons split into a
+// row above it and a row below it instead of crowding the text.
 const ORBIT = [
-  { src: '/icons/stack/al-extension.png', alt: 'AL', x: 31.6, y: 5.2, size: 33, rotate: -16 },
-  { src: '/icons/stack/claude-code.png', alt: 'Claude Code', x: 9.7, y: 15.2, size: 36, rotate: -10, flip: true },
-  { src: '/icons/stack/business-central.png', alt: 'Business Central', x: 74.3, y: 9.9, size: 46, rotate: 0 },
-  { src: '/icons/stack/figma.png', alt: 'Figma', x: 92.8, y: 28.3, size: 27, rotate: -18 },
-  { src: '/icons/stack/react.png', alt: 'React', x: 4.1, y: 59.1, size: 44, rotate: -12 },
-  { src: '/icons/stack/typescript.png', alt: 'TypeScript', x: 87.5, y: 76.9, size: 45, rotate: 16 },
-  { src: '/icons/stack/xls.png', alt: 'Excel', x: 65.1, y: 85, size: 37, rotate: -20 },
-  { src: '/icons/stack/postman.png', alt: 'Postman', x: 31.1, y: 87.7, size: 44, rotate: -11 },
+  { src: '/icons/stack/al-extension.png', alt: 'AL', mx: 36, my: 16, x: 31.6, y: 5.2, size: 33, rotate: -16 },
+  { src: '/icons/stack/claude-code.png', alt: 'Claude Code', mx: 10, my: 8, x: 9.7, y: 15.2, size: 36, rotate: -10, flip: true },
+  { src: '/icons/stack/business-central.png', alt: 'Business Central', mx: 64, my: 6, x: 74.3, y: 9.9, size: 46, rotate: 0 },
+  { src: '/icons/stack/figma.png', alt: 'Figma', mx: 90, my: 14, x: 92.8, y: 28.3, size: 27, rotate: -18 },
+  { src: '/icons/stack/react.png', alt: 'React', mx: 10, my: 86, x: 4.1, y: 59.1, size: 44, rotate: -12 },
+  { src: '/icons/stack/typescript.png', alt: 'TypeScript', mx: 90, my: 92, x: 87.5, y: 76.9, size: 45, rotate: 16 },
+  { src: '/icons/stack/xls.png', alt: 'Excel', mx: 64, my: 84, x: 65.1, y: 85, size: 37, rotate: -20 },
+  { src: '/icons/stack/postman.png', alt: 'Postman', mx: 36, my: 94, x: 31.1, y: 87.7, size: 44, rotate: -11 },
 ] as const
 
 const FRAME_WIDTH = 1025
@@ -103,13 +106,15 @@ export default function OrbitIcons() {
               src={icon.src}
               alt=""
               decoding="async"
-              className={`absolute -translate-x-1/2 -translate-y-1/2 select-none ${
+              className={`absolute left-(--mx) top-(--my) sm:left-(--x) sm:top-(--y) -translate-x-1/2 -translate-y-1/2 select-none ${
                 entered ? 'orbit-drift' : ''
               }`}
               style={
                 {
-                  left: `${left}%`,
-                  top: `${top}%`,
+                  '--x': `${left}%`,
+                  '--y': `${top}%`,
+                  '--mx': `${icon.mx}%`,
+                  '--my': `${icon.my}%`,
                   width: `clamp(${Math.round(icon.size * 0.73)}px, ${(
                     (icon.size / FRAME_WIDTH) *
                     100
