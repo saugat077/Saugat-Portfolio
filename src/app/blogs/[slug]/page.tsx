@@ -73,7 +73,7 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
     <>
       <Nav />
 
-      <main className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
+      <main className="max-w-[47.5rem] mx-auto px-6 xl:px-0 pt-[5.5rem] sm:pt-[7rem] pb-24">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 mb-6 text-label" aria-label="Breadcrumb">
           <Link href="/" className="press focusable tap text-zinc-400 hover:text-white">

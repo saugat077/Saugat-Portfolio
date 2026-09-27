@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <>
       <Nav />
-      <main className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[120px] sm:pt-[160px] pb-24 flex flex-col items-start gap-4">
+      <main className="max-w-[47.5rem] mx-auto px-6 xl:px-0 pt-[7.5rem] sm:pt-[10rem] pb-24 flex flex-col items-start gap-4">
         <h1 className="text-numeral text-white">404</h1>
         <p className="text-lead text-zinc-400">
           This page wandered off. Let&apos;s get you back home.

@@ -24,7 +24,7 @@ export default async function Books() {
   if (books.length === 0) return null
 
   return (
-    <section className="flex flex-col gap-[34px] lg:gap-[49px]">
+    <section className="flex flex-col gap-[2.125rem] lg:gap-[3.0625rem]">
       <h2 className="text-subhead text-cream">Books</h2>
 
       {/* The row overflows well before the desktop breakpoint, so it stays a

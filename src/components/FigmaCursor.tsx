@@ -125,7 +125,7 @@ export default function FigmaCursor({
     <div
       ref={ref}
       aria-hidden="true"
-      className="cursor-in absolute z-10 w-[91px] h-[38px] pointer-events-none select-none"
+      className="cursor-in absolute z-10 w-[5.6875rem] h-[2.375rem] pointer-events-none select-none"
       style={{ left: `${start.x * 100}%`, top: `${start.y * 100}%` }}
     >
       {children}

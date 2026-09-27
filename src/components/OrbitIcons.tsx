@@ -115,14 +115,14 @@ export default function OrbitIcons() {
                   '--y': `${top}%`,
                   '--mx': `${icon.mx}%`,
                   '--my': `${icon.my}%`,
-                  width: `clamp(${Math.round(icon.size * 0.73)}px, ${(
+                  width: `clamp(${(icon.size * 0.73) / 16}rem, ${(
                     (icon.size / FRAME_WIDTH) *
                     100
-                  ).toFixed(2)}%, ${icon.size}px)`,
+                  ).toFixed(2)}%, ${icon.size / 16}rem)`,
                   rotate: `${icon.rotate}deg`,
                   scale: 'flip' in icon ? '-1 1' : undefined,
-                  '--drift-x': `${drift.x}px`,
-                  '--drift-y': `${drift.y}px`,
+                  '--drift-x': `${drift.x / 16}rem`,
+                  '--drift-y': `${drift.y / 16}rem`,
                   '--drift-rotate': `${drift.rotate}deg`,
                   animationDuration: `${drift.seconds}s`,
                   animationDelay: `${FLY_MS + i * STAGGER_MS}ms`,

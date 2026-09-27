@@ -89,14 +89,14 @@ export default function Nav() {
         }`}
       >
         <div className="w-full px-gutter">
-          <div className="relative max-w-[951px] mx-auto h-14 sm:h-[61px] flex items-center">
+          <div className="relative max-w-[59.4375rem] mx-auto h-14 sm:h-[3.8125rem] flex items-center">
             <Link
               href="/"
               className="focusable flex items-center py-1 shrink-0 transition-transform duration-200 motion-safe:hover:scale-[1.2]"
               aria-label="Home"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/emblem.svg" alt="" className="h-[26px] w-auto" />
+              <img src="/images/emblem.svg" alt="" className="h-[1.625rem] w-auto" />
             </Link>
 
             {/* Centred on the full bar rather than in the leftover space, so the
@@ -121,7 +121,7 @@ export default function Nav() {
                 15px links, which read heavier than the icons at matched sizes.
                 The negative margin cancels the box's padding so the last glyph
                 still lands on the right rail. */}
-            <div className="hidden sm:flex items-center gap-[9px] ml-auto -mr-[10px]">
+            <div className="hidden sm:flex items-center gap-[0.5625rem] ml-auto -mr-[0.625rem]">
               {SOCIALS.map((social) => (
                 <a
                   key={social.label}
@@ -130,7 +130,7 @@ export default function Nav() {
                     ? {}
                     : { target: '_blank', rel: 'noopener noreferrer' })}
                   aria-label={social.label}
-                  className="focusable group flex items-center justify-center size-[35px] transition-transform duration-200 motion-safe:hover:scale-[1.2]"
+                  className="focusable group flex items-center justify-center size-[2.1875rem] transition-transform duration-200 motion-safe:hover:scale-[1.2]"
                 >
                   <span
                     aria-hidden="true"
@@ -146,24 +146,24 @@ export default function Nav() {
               id="mobile-menu-btn"
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="press focusable sm:hidden ml-auto flex flex-col items-center justify-center gap-[6px] w-11 h-11 shrink-0 -mr-1.5"
+              className="press focusable sm:hidden ml-auto flex flex-col items-center justify-center gap-[0.375rem] w-11 h-11 shrink-0 -mr-1.5"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls="mobile-menu"
             >
               <span
-                className={`block w-[25px] h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out origin-center ${
-                  open ? 'translate-y-[8px] rotate-45' : ''
+                className={`block w-[1.5625rem] h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out origin-center ${
+                  open ? 'translate-y-[0.5rem] rotate-45' : ''
                 }`}
               ></span>
               <span
-                className={`block w-[25px] h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out ${
+                className={`block w-[1.5625rem] h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out ${
                   open ? 'opacity-0 scale-x-0' : ''
                 }`}
               ></span>
               <span
-                className={`block w-[25px] h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out origin-center ${
-                  open ? '-translate-y-[8px] -rotate-45' : ''
+                className={`block w-[1.5625rem] h-[2px] bg-white rounded-full transition-[translate,rotate,scale,opacity] duration-200 ease-out origin-center ${
+                  open ? '-translate-y-[0.5rem] -rotate-45' : ''
                 }`}
               ></span>
             </button>

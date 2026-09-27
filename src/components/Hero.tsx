@@ -81,15 +81,15 @@ export default async function Hero() {
     // centred so tall screens split the spare room above and below, and the
     // negative margin trims page.tsx's 168px gap to 80px: min-h already keeps
     // the next section off-screen, so the full gap would just add dead space.
-    <section className="lg:min-h-[calc(100svh-151px)] lg:flex lg:flex-col lg:justify-center lg:-mb-[88px] lg:[--portrait:min(317px,calc((100svh-151px)*0.62))]">
-      <div className="relative flex flex-col items-center gap-8 text-center lg:grid lg:grid-cols-[318px_var(--portrait)_minmax(0,1fr)] lg:items-start lg:gap-0 lg:text-left">
-        <div className="flex flex-col items-center gap-[30px] lg:items-start lg:w-[304px] lg:pt-[35px]">
+    <section className="lg:min-h-[calc(100svh-9.4375rem)] lg:flex lg:flex-col lg:justify-center lg:-mb-[5.5rem] lg:[--portrait:min(19.8125rem,calc((100svh-9.4375rem)*0.62))]">
+      <div className="relative flex flex-col items-center gap-8 text-center lg:grid lg:grid-cols-[19.875rem_var(--portrait)_minmax(0,1fr)] lg:items-start lg:gap-0 lg:text-left">
+        <div className="flex flex-col items-center gap-[1.875rem] lg:items-start lg:w-[19rem] lg:pt-[2.1875rem]">
           <div className="flex flex-col items-center gap-3 lg:items-start">
             <h1 className="text-display text-cream max-w-[38ch]">
               {kicker && <span className="block text-kicker text-ash pb-2">{kicker}</span>}
               {main}
             </h1>
-            <p className="text-copy text-ash max-w-[313px]">{lead}</p>
+            <p className="text-copy text-ash max-w-[19.5625rem]">{lead}</p>
           </div>
           <ArrowLink href="#projects" variant="cta">
             Explore My Work
@@ -99,7 +99,7 @@ export default async function Hero() {
         {/* Outline and subject are baked into one asset, so the sketch can never
             drift out of register with the figure. The mask is the design's
             blurred panel over the knees, done as a fade instead. */}
-        <div className="w-[245px] lg:w-(--portrait) shrink-0">
+        <div className="w-[15.3125rem] lg:w-(--portrait) shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/saugat-cutout.webp"
@@ -126,9 +126,9 @@ export default async function Hero() {
             startDelay={pointer.startDelay}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={pointer.icon} alt="" width={19} height={22} className="absolute -left-0.5 -top-[3px]" />
+            <img src={pointer.icon} alt="" width={19} height={22} className="absolute -left-0.5 -top-[0.1875rem]" />
             <span
-              className="absolute left-[17px] top-[15px] flex items-center justify-center w-[74px] h-[23px] rounded-full text-label text-cream"
+              className="absolute left-[1.0625rem] top-[0.9375rem] flex items-center justify-center w-[4.625rem] h-[1.4375rem] rounded-full text-label text-cream"
               style={{ backgroundColor: pointer.fill }}
             >
               {pointer.label}
@@ -138,7 +138,7 @@ export default async function Hero() {
 
         {/* Pulled back over the portrait's faded tail on phones: the mask has
             already emptied that band. */}
-        <div className="-mt-9 flex flex-col items-center gap-[30px] lg:mt-0 lg:items-start lg:justify-self-end lg:w-[250px] lg:pt-[calc(var(--portrait)*0.81)]">
+        <div className="-mt-9 flex flex-col items-center gap-[1.875rem] lg:mt-0 lg:items-start lg:justify-self-end lg:w-[15.625rem] lg:pt-[calc(var(--portrait)*0.81)]">
           <div className="flex flex-col gap-3">
             <p className="text-display text-cream">{name}</p>
             <div className="text-copy text-ash">

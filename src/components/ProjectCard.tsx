@@ -118,7 +118,7 @@ export default function ProjectCard({
                 {safeLiveUrl && (
                   <LinkOut href={safeLiveUrl} label="Live">
                     <svg
-                      className="w-[11px] h-[11px]"
+                      className="w-[0.6875rem] h-[0.6875rem]"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -136,7 +136,7 @@ export default function ProjectCard({
                 {safeGithubUrl && (
                   <LinkOut href={safeGithubUrl} label="Github">
                     <svg
-                      className="w-[11px] h-[11px]"
+                      className="w-[0.6875rem] h-[0.6875rem]"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                       aria-hidden="true"

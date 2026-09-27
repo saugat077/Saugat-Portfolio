@@ -36,7 +36,7 @@ export default async function About() {
   )
 
   return (
-    <section className="relative mx-auto w-full max-w-[1025px] min-h-[480px] sm:min-h-[304px] lg:min-h-[395px] flex items-center justify-center">
+    <section className="relative mx-auto w-full max-w-[64.0625rem] min-h-[30rem] sm:min-h-[19rem] lg:min-h-[24.6875rem] flex items-center justify-center">
       <OrbitIcons />
 
       {/* The gutter lives on the wrapper, not on the statement: with both on one
@@ -44,7 +44,7 @@ export default async function About() {
           short of its cap and breaking it a line early. */}
       <div className="relative w-full px-gutter flex justify-center">
         <div
-          className="text-statement sheen text-center max-w-[509px] [&>p]:m-0"
+          className="text-statement sheen text-center max-w-[31.8125rem] [&>p]:m-0"
           dangerouslySetInnerHTML={{ __html: ptToHtml(settings?.bioQuote) }}
         />
       </div>

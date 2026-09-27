@@ -41,8 +41,8 @@ export default async function ProjectsPage() {
     <>
       <Nav />
 
-      <main className="max-w-[1440px] mx-auto">
-        <div className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
+      <main className="max-w-[90rem] mx-auto">
+        <div className="max-w-[47.5rem] mx-auto px-6 xl:px-0 pt-[5.5rem] sm:pt-[7rem] pb-24">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 mb-6 text-label" aria-label="Breadcrumb">
             <Link href="/" className="press focusable tap text-zinc-400 hover:text-white">
@@ -59,7 +59,7 @@ export default async function ProjectsPage() {
           {projects.length === 0 ? (
             <p className="text-body-sm text-quiet italic">No projects yet</p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-[74px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-[4.625rem]">
               {projects.map((project) => (
                 <ProjectCard
                   key={project._id}

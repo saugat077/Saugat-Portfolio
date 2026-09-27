@@ -40,8 +40,8 @@ export default async function BooksPage() {
     <>
       <Nav />
 
-      <main className="max-w-[1440px] mx-auto">
-        <div className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
+      <main className="max-w-[90rem] mx-auto">
+        <div className="max-w-[47.5rem] mx-auto px-6 xl:px-0 pt-[5.5rem] sm:pt-[7rem] pb-24">
           {/* Kept for the document outline and the screen-reader page title;
               the route is named in the header, so showing it again is noise. */}
           <h1 className="sr-only">Books</h1>

@@ -40,7 +40,7 @@ const personSchema = {
 function Column({ children }: { children: ReactNode }) {
   return (
     <div className="px-gutter">
-      <div className="max-w-[951px] mx-auto">{children}</div>
+      <div className="max-w-[59.4375rem] mx-auto">{children}</div>
     </div>
   )
 }
@@ -59,8 +59,8 @@ export default function Home() {
           that run past the reading column — the icon orbit and the
           footer blossoms — reach the viewport edge on wide displays instead of
           being cut off at a 1440px box. overflow-x-clip still contains them. */}
-      <main className="w-full overflow-x-clip pt-[144px] lg:pt-[151px]">
-        <div className="flex flex-col gap-[135px] lg:gap-[168px]">
+      <main className="w-full overflow-x-clip pt-[9rem] lg:pt-[9.4375rem]">
+        <div className="flex flex-col gap-[8.4375rem] lg:gap-[10.5rem]">
           <Column>
             <Hero />
           </Column>

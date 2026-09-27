@@ -33,7 +33,7 @@ export default function Footer() {
   return (
     <footer id="contact" className="relative overflow-hidden scroll-mt-24">
       <div className="relative px-gutter">
-        <div className="mx-auto flex max-w-[542px] flex-col items-center gap-8 text-center">
+        <div className="mx-auto flex max-w-[33.875rem] flex-col items-center gap-8 text-center">
           <div className="flex flex-col gap-4">
             <h2 className="text-display text-cream">Let&rsquo;s Keep in Touch</h2>
             <p className="text-lead font-normal text-ash">
@@ -42,7 +42,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-[26px] gap-y-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-[1.625rem] gap-y-3">
             {CONTACTS.map((contact) => (
               <ArrowLink key={contact.label} href={contact.href}>
                 {contact.label}
@@ -54,7 +54,7 @@ export default function Footer() {
 
       {/* The spacing sits on the outer div so the inner one measures exactly the
           wordmark, which is what the blossoms are positioned against. */}
-      <div className="pt-10 lg:pt-[46px]">
+      <div className="pt-10 lg:pt-[2.875rem]">
         <div className="relative">
           {BLOSSOMS.map((blossom) => (
             // eslint-disable-next-line @next/next/no-img-element
@@ -81,7 +81,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <p className="relative text-lead font-normal text-ash text-center pb-12 lg:pb-[50px]">
+      <p className="relative text-lead font-normal text-ash text-center pb-12 lg:pb-[3.125rem]">
         Copyright &copy; {new Date().getFullYear()} - Made by Saugat
       </p>
     </footer>

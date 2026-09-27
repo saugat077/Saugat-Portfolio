@@ -29,14 +29,14 @@ export default async function Blogs() {
   if (blogs.length === 0) return null
 
   return (
-    <section className="flex flex-col gap-[34px] lg:gap-[49px]">
+    <section className="flex flex-col gap-[2.125rem] lg:gap-[3.0625rem]">
       <h2 className="text-subhead text-cream">Blogs</h2>
 
       <ul className="flex flex-col gap-4">
         {blogs.map((blog) => (
           <li
             key={blog._id}
-            className="flex flex-col gap-1 lg:grid lg:grid-cols-[max-content_minmax(0,1fr)] lg:items-baseline lg:gap-x-[122px] lg:gap-y-0"
+            className="flex flex-col gap-1 lg:grid lg:grid-cols-[max-content_minmax(0,1fr)] lg:items-baseline lg:gap-x-[7.625rem] lg:gap-y-0"
           >
             <span className="text-lead text-ash whitespace-nowrap">
               {blog.publishedAt ? formatDate(blog.publishedAt) : '—'}

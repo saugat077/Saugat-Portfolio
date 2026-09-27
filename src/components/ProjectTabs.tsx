@@ -53,7 +53,7 @@ export default function ProjectTabs({
   }
 
   return (
-    <section id="projects" className="flex flex-col gap-12 scroll-mt-24 lg:mt-[33px]">
+    <section id="projects" className="flex flex-col gap-12 scroll-mt-24 lg:mt-[2.0625rem]">
       <div
         role="tablist"
         aria-label="Featured work"
@@ -77,7 +77,7 @@ export default function ProjectTabs({
             {tab}
             {/* The design's accent dot on Tech Stack. */}
             {tab === 'Tech Stack' && (
-              <span aria-hidden="true" className="size-[9px] rounded-full bg-accent" />
+              <span aria-hidden="true" className="size-[0.5625rem] rounded-full bg-accent" />
             )}
           </button>
         ))}
@@ -92,7 +92,7 @@ export default function ProjectTabs({
         {projects.length === 0 ? (
           <p className="text-body-sm text-ash">No projects published yet.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-12 lg:gap-y-[49px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-12 lg:gap-y-[3.0625rem]">
             {projects.map((project) => (
               <ProjectCard
                 key={project._id}

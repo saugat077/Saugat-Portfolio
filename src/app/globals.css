@@ -196,6 +196,12 @@
    Firefox + legacy IE/Edge use properties; Chrome/Safari/new Edge use the
    ::-webkit-scrollbar pseudo-element. */
 html {
+  /* Proportional scaling: every size is rem, so tying the root to the 1440px
+     Figma canvas (1440 / 90 = 16px) makes wider screens render the same layout,
+     just larger. Never below the browser's default size (100%, so user font
+     settings still win on laptops and phones); capped at 1.25× so big monitors
+     get a fuller page without feeling zoomed in. */
+  font-size: clamp(100%, 100vw / 90, 125%);
   color-scheme: dark;
   scrollbar-width: thin;
   scrollbar-color: rgb(176 138 224 / 0.35) transparent;
@@ -284,7 +290,7 @@ html::-webkit-scrollbar-thumb {
 @utility scroll-row {
   scroll-snap-type: x proximity;
   overscroll-behavior-x: contain;
-  scroll-padding-inline: 44px;
+  scroll-padding-inline: 2.75rem;
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0,
@@ -302,11 +308,11 @@ html::-webkit-scrollbar-thumb {
   transition: --fade-start 200ms linear, --fade-end 200ms linear;
 
   &[data-start='true'] {
-    --fade-start: 44px;
+    --fade-start: 2.75rem;
   }
 
   &[data-end='true'] {
-    --fade-end: 44px;
+    --fade-end: 2.75rem;
   }
 
   & > * {

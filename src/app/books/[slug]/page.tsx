@@ -65,7 +65,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
     <>
       <Nav />
 
-      <main className="max-w-[760px] mx-auto px-6 xl:px-0 pt-[88px] sm:pt-[112px] pb-24">
+      <main className="max-w-[47.5rem] mx-auto px-6 xl:px-0 pt-[5.5rem] sm:pt-[7rem] pb-24">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 mb-6 text-label" aria-label="Breadcrumb">
           <Link href="/" className="press focusable tap text-zinc-400 hover:text-white">
@@ -83,7 +83,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
         <div className="flex flex-col md:flex-row gap-8 mb-8">
           {/* Left: cover (25%)   portrait ratio */}
           {coverUrl && (
-            <div className="md:w-[25%] shrink-0 self-start rounded-[16px] overflow-hidden bg-zinc-900">
+            <div className="md:w-[25%] shrink-0 self-start rounded-[1rem] overflow-hidden bg-zinc-900">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={coverUrl}

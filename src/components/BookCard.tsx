@@ -11,9 +11,9 @@ export default function BookCard({ title, author, coverUrl, slug }: BookCardProp
   return (
     <Link
       href={`/books/${slug}`}
-      className="press focusable group block w-[118px] lg:w-[131px] shrink-0"
+      className="press focusable group block w-[7.375rem] lg:w-[8.1875rem] shrink-0"
     >
-      <div className="relative h-[189px] lg:h-[210px] overflow-hidden rounded-lg bg-zinc-900">
+      <div className="relative h-[11.8125rem] lg:h-[13.125rem] overflow-hidden rounded-lg bg-zinc-900">
         {coverUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img

@@ -116,7 +116,7 @@ export default function BooksFilter({ books }: { books: FilterBook[] }) {
       {books.length === 0 ? (
         <p className="text-body-sm text-quiet italic">No books yet</p>
       ) : (
-        <div className="flex flex-wrap gap-[10px] sm:gap-[14px]" id="books-grid">
+        <div className="flex flex-wrap gap-[0.625rem] sm:gap-[0.875rem]" id="books-grid">
           {books.map((book) => {
             const tags = book.tags ?? []
             const show = active === 'all' || tags.includes(active)

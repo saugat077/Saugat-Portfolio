@@ -29,16 +29,16 @@ export default async function BeyondWork() {
   ])
 
   return (
-    <section className="flex flex-col gap-[34px] lg:gap-[49px]">
+    <section className="flex flex-col gap-[2.125rem] lg:gap-[3.0625rem]">
       <h2 className="text-subhead text-cream">Beyond Work</h2>
 
-      <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-[146px]">
-        <p className="text-lead text-ash lg:w-[308px] lg:shrink-0">
+      <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-[9.125rem]">
+        <p className="text-lead text-ash lg:w-[19.25rem] lg:shrink-0">
           {settings?.beyondWork ?? FALLBACK_BLURB}
         </p>
 
         {affiliations.length > 0 && (
-          <ul className="grid grid-cols-3 items-center gap-x-8 gap-y-10 lg:w-[464px]">
+          <ul className="grid grid-cols-3 items-center gap-x-8 gap-y-10 lg:w-[29rem]">
             {affiliations.map((aff) => {
               const href = safeUrl(aff.websiteUrl)
               const logo = aff.logo?.asset ? (
@@ -46,7 +46,7 @@ export default async function BeyondWork() {
                 <img
                   src={urlFor(aff.logo).width(380).url()}
                   alt={aff.orgName}
-                  className={`max-h-[34px] lg:max-h-[47px] w-auto mx-auto object-contain transition-[filter,opacity] duration-300 group-hover:brightness-100 group-hover:invert-0 group-hover:opacity-100 ${SILVER}`}
+                  className={`max-h-[2.125rem] lg:max-h-[2.9375rem] w-auto mx-auto object-contain transition-[filter,opacity] duration-300 group-hover:brightness-100 group-hover:invert-0 group-hover:opacity-100 ${SILVER}`}
                   loading="lazy"
                   decoding="async"
                 />
