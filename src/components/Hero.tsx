@@ -86,7 +86,7 @@ export default async function Hero() {
       <div className="relative flex flex-col items-center gap-8 text-center lg:grid lg:grid-cols-[19.875rem_var(--portrait)_minmax(0,1fr)] lg:items-start lg:gap-0 lg:text-left">
         <div className="flex flex-col items-center gap-[1.875rem] lg:items-start lg:w-[19rem] lg:pt-[2.1875rem]">
           <div className="flex flex-col items-center gap-3 lg:items-start">
-            <h1 className="text-display text-cream max-w-[38ch]">
+            <h1 className="text-display text-cream max-w-[38ch] text-balance">
               {kicker && <span className="block text-kicker text-ash pb-2">{kicker}</span>}
               {main}
             </h1>
