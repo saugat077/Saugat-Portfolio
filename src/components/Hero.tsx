@@ -77,8 +77,11 @@ export default async function Hero() {
     // Desktop hero fills exactly one screen (minus main's 151px top padding), so
     // the next section never peeks in on tall monitors. --portrait shrinks the
     // portrait on short screens so its bottom isn't cropped; 0.62 keeps the
-    // portrait (1.5× taller than wide) inside the remaining height.
-    <section className="lg:min-h-[calc(100svh-151px)] lg:[--portrait:min(317px,calc((100svh-151px)*0.62))]">
+    // portrait (1.5× taller than wide) inside the remaining height. Content is
+    // centred so tall screens split the spare room above and below, and the
+    // negative margin trims page.tsx's 168px gap to 80px: min-h already keeps
+    // the next section off-screen, so the full gap would just add dead space.
+    <section className="lg:min-h-[calc(100svh-151px)] lg:flex lg:flex-col lg:justify-center lg:-mb-[88px] lg:[--portrait:min(317px,calc((100svh-151px)*0.62))]">
       <div className="relative flex flex-col items-center gap-8 text-center lg:grid lg:grid-cols-[318px_var(--portrait)_minmax(0,1fr)] lg:items-start lg:gap-0 lg:text-left">
         <div className="flex flex-col items-center gap-[30px] lg:items-start lg:w-[304px] lg:pt-[35px]">
           <div className="flex flex-col items-center gap-3 lg:items-start">
