@@ -74,8 +74,12 @@ export default async function Hero() {
   const lead = settings?.headlineLead ?? FALLBACK.headlineLead
 
   return (
-    <section>
-      <div className="relative flex flex-col items-center gap-8 text-center lg:grid lg:grid-cols-[318px_317px_minmax(0,1fr)] lg:items-start lg:gap-0 lg:text-left">
+    // Desktop hero fills exactly one screen (minus main's 151px top padding), so
+    // the next section never peeks in on tall monitors. --portrait shrinks the
+    // portrait on short screens so its bottom isn't cropped; 0.62 keeps the
+    // portrait (1.5× taller than wide) inside the remaining height.
+    <section className="lg:min-h-[calc(100svh-151px)] lg:[--portrait:min(317px,calc((100svh-151px)*0.62))]">
+      <div className="relative flex flex-col items-center gap-8 text-center lg:grid lg:grid-cols-[318px_var(--portrait)_minmax(0,1fr)] lg:items-start lg:gap-0 lg:text-left">
         <div className="flex flex-col items-center gap-[30px] lg:items-start lg:w-[304px] lg:pt-[35px]">
           <div className="flex flex-col items-center gap-3 lg:items-start">
             <h1 className="text-display text-cream max-w-[38ch]">
@@ -92,7 +96,7 @@ export default async function Hero() {
         {/* Outline and subject are baked into one asset, so the sketch can never
             drift out of register with the figure. The mask is the design's
             blurred panel over the knees, done as a fade instead. */}
-        <div className="w-[245px] lg:w-[317px] shrink-0">
+        <div className="w-[245px] lg:w-(--portrait) shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/saugat-cutout.webp"
@@ -131,7 +135,7 @@ export default async function Hero() {
 
         {/* Pulled back over the portrait's faded tail on phones: the mask has
             already emptied that band. */}
-        <div className="-mt-9 flex flex-col items-center gap-[30px] lg:mt-0 lg:items-start lg:justify-self-end lg:w-[250px] lg:pt-[257px]">
+        <div className="-mt-9 flex flex-col items-center gap-[30px] lg:mt-0 lg:items-start lg:justify-self-end lg:w-[250px] lg:pt-[calc(var(--portrait)*0.81)]">
           <div className="flex flex-col gap-3">
             <p className="text-display text-cream">{name}</p>
             <div className="text-copy text-ash">
