@@ -53,7 +53,7 @@ export default function ProjectTabs({
   }
 
   return (
-    <section id="projects" className="flex flex-col gap-6 scroll-mt-24 lg:mt-[33px]">
+    <section id="projects" className="flex flex-col gap-12 scroll-mt-24 lg:mt-[33px]">
       <div
         role="tablist"
         aria-label="Featured work"
