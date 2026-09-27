@@ -59,7 +59,7 @@ export default function Home() {
           that run past the reading column — the icon orbit and the
           footer blossoms — reach the viewport edge on wide displays instead of
           being cut off at a 1440px box. overflow-x-clip still contains them. */}
-      <main className="w-full overflow-x-clip pt-[9rem] lg:pt-[9.4375rem]">
+      <main className="w-full overflow-x-clip pt-[5rem] lg:pt-[5.4375rem]">
         <div className="flex flex-col gap-[8.4375rem] lg:gap-[10.5rem]">
           <Column>
             <Hero />

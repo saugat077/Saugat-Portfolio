@@ -74,7 +74,8 @@ export default async function Hero() {
   const lead = settings?.headlineLead ?? FALLBACK.headlineLead
 
   return (
-    // Desktop hero fills exactly one screen (minus main's 151px top padding), so
+    // Desktop hero fills one screen minus 9.4375rem (main's 5.4375rem top padding
+    // + 4rem, which lifts the centred content that much closer to the nav), so
     // the next section never peeks in on tall monitors. --portrait shrinks the
     // portrait on short screens so its bottom isn't cropped; 0.62 keeps the
     // portrait (1.5× taller than wide) inside the remaining height. Content is
