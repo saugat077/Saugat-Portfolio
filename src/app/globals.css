@@ -157,7 +157,7 @@
 
   /* ── Colour ────────────────────────────────────────────────────────────── */
   --color-base: #010006;
-  --color-bar: #0a0a0a;     /* header bar, sits at 85% over the page */
+  --color-bar: #010006;     /* header bar, same as base so it blends into the page */
   --color-accent: #8c52ff;
   --color-accent-soft: #e7d2f9;
   --color-accent-fill: #301c4d;
