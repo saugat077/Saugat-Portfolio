@@ -177,10 +177,10 @@
 
   --color-panel: #0f1317;
 
-  /* Horizontal page gutter. Locks to the design's 54px once the viewport is at
-     least as wide as the 412px mobile frame, and shrinks below that so the
-     smallest phones keep usable line lengths. */
-  --spacing-gutter: clamp(1.25rem, 13.1vw, 3.375rem);
+  /* Horizontal page gutter. 9.5vw gives phones ~34–41px of side room, growing
+     to the design's 54px by 568px wide, so tablets and desktop keep the full
+     gutter. */
+  --spacing-gutter: clamp(1.25rem, 9.5vw, 3.375rem);
 }
 
 /* The footer wordmark: the design's bottom-up fade, in cream — solid cream
